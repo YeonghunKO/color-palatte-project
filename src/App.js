@@ -1,11 +1,11 @@
 import './App.css';
 import Palette from './Palette';
 import seedPalatte from './seedPalatte';
-
+import { generatePalette } from './getScaleForColor';
 function App() {
   return (
     <div>
-      <Palette colors={seedPalatte[0].colors} />
+      <Palette palette={generatePalette(seedPalatte[4])} />{' '}
     </div>
   );
 }
