@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Palette from './Palette';
 import seedPalatte from './seedPalatte';
