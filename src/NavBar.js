@@ -1,8 +1,12 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import './NavBar.css';
+
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import './NavBar.css';
+
 import { FormControl, Select, MenuItem, Snackbar, Alert } from '@mui/material';
 
 function NavBar(props) {
@@ -24,7 +28,7 @@ function NavBar(props) {
   return (
     <header className="Navbar">
       <div className="logo">
-        <a href="#">reactcolorpicker</a>
+        <Link to="/">reactcolorpicker</Link>
       </div>
       <div className="slider">
         <Slider

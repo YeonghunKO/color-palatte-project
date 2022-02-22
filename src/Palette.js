@@ -1,7 +1,17 @@
 import React, { Component } from 'react';
+
 import ColorBox from './ColorBox';
 import NavBar from './NavBar';
+import withParams from './withParams';
+
+import { generatePalette } from './getScaleForColor';
+import seedPalatte from './seedPalatte';
+
 import './Palette.css';
+
+function findPalette(currentPaletteId) {
+  return seedPalatte.find(paletteObj => paletteObj.id === currentPaletteId);
+}
 
 class Palette extends Component {
   constructor(props) {
@@ -19,8 +29,10 @@ class Palette extends Component {
     this.setState({ format });
   }
   render() {
+    const { param } = this.props;
     const { level, format } = this.state;
-    const { colors, paletteName, emoji } = this.props.palette;
+    const { colors, paletteName, emoji } = generatePalette(findPalette(param));
+
     const ColorBoxes = colors[level].map(color => (
       <ColorBox key={color.name} background={color[format]} name={color.name} />
     ));
@@ -42,4 +54,4 @@ class Palette extends Component {
   }
 }
 
-export default Palette;
+export default withParams(Palette);
