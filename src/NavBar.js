@@ -3,14 +3,23 @@ import './NavBar.css';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import './NavBar.css';
-import { FormControl, Select, MenuItem } from '@mui/material';
+import { FormControl, Select, MenuItem, Snackbar, Alert } from '@mui/material';
 
 function NavBar(props) {
   const { level, format, changeLevel, changeFormat } = props;
+  const [open, setOpen] = useState(false);
   const [formatState, setFormat] = useState(format);
   const onSelectFormat = e => {
     setFormat(e.target.value);
     changeFormat(e.target.value);
+    setOpen(true);
+  };
+
+  const onClose = (evt, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
   };
   return (
     <header className="Navbar">
@@ -40,6 +49,16 @@ function NavBar(props) {
           <MenuItem value={'rgba'}>RGBA - rgba(255,255,255, 1.0)</MenuItem>
         </Select>
       </FormControl>
+      <Snackbar
+        open={open}
+        autoHideDuration={1000}
+        onClose={onClose}
+        sx={{ width: '110%', height: '2%' }}
+      >
+        <Alert onClose={onClose} severity="success">
+          Format Changed To {format.toUpperCase()}
+        </Alert>
+      </Snackbar>
     </header>
   );
 }

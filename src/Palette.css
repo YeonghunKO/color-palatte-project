@@ -1,7 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Murecho:wght@300&family=Redressed&display=swap');
+
 .Palette {
   height: 100vh;
 }
 
 .Palette-colors {
   height: 90%;
+}
+
+.Palette-footer {
+  font-family: 'Murecho', sans-serif;
+  font-family: 'Redressed', cursive;
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 4vh;
 }
