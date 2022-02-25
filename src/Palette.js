@@ -35,7 +35,6 @@ class Palette extends Component {
     const { colors, paletteName, emoji } = generatePalette(
       findPalette(PaleltteIdParam)
     );
-    console.log(colors);
     let renderResult;
     if (colorIdParam) {
       const colorsByBrightness = [];
