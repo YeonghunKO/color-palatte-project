@@ -7,7 +7,7 @@ import withParams from './withParams';
 import { generatePalette } from './getScaleForColor';
 import seedPalatte from './seedPalatte';
 
-import './Palette.css';
+import './assets/css/Palette.css';
 import { Outlet } from 'react-router';
 
 function findPalette(currentPaletteId) {

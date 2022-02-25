@@ -112,13 +112,3 @@
   font-size: 2rem;
   font-weight: 100;
 }
-
-.Color-box .light-text,
-.Single-color-box .light-text {
-  color: rgb(255, 255, 255);
-}
-
-.Color-box .dark-text,
-.Single-color-box .dark-text {
-  color: rgb(29, 27, 27);
-}

@@ -1,38 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import chroma from 'chroma-js';
+
+import styles from './assets/styles/ColorBoxStyles';
+import './assets/css/ColorBox.css';
 
 import { withStyles } from '@mui/styles';
 
-import './ColorBox.css';
-
-const styles = {
-  copyText: props => ({
-    color:
-      chroma(props.background).luminance() >= 0.58
-        ? 'rgb(29, 27, 27)'
-        : 'rgb(255, 255, 255)',
-  }),
-  colorName: props => ({
-    color:
-      chroma(props.background).luminance() >= 0.58
-        ? 'rgb(29, 27, 27)'
-        : 'rgb(255, 255, 255)',
-  }),
-  copyButton: props => ({
-    color:
-      chroma(props.background).luminance() >= 0.58
-        ? 'rgb(29, 27, 27)'
-        : 'rgb(255, 255, 255)',
-  }),
-  moreButton: props => ({
-    color:
-      chroma(props.background).luminance() >= 0.58
-        ? 'rgb(29, 27, 27)'
-        : 'rgb(255, 255, 255)',
-  }),
-};
+import chroma from 'chroma-js';
 
 class ColorBox extends Component {
   constructor(props) {

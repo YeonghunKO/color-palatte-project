@@ -51,5 +51,4 @@ onClick으로 이벤트객체를 받아오려 했으니 CopyClipBoard 컴포넌�
 
 # 해야할 일
 
-1. ColorBox isSingleColor에 따라서 리턴 다시 되도록 해라(클래스, copy-msg등등)
-1. SingleColorBox에 go back버튼에 navigation(-1) 기능 추가
+1. withStyles function에 대해서 TIL쓰기.

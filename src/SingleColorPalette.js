@@ -1,6 +1,6 @@
 import { useOutletContext, useNavigate } from 'react-router-dom';
 import ColorBox from './ColorBox';
-import './SingleColorBox.css';
+import './assets/css/SingleColorBox.css';
 import uuid from 'react-uuid';
 
 function SingleColorBox(props) {
