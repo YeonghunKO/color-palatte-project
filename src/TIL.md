@@ -13,7 +13,9 @@
 
 1. ` display: inline-block;` 이라고 하면 wrap이랑 똑같은 효과가 나타난다. 왜냐면 span처럼 inline처리가 되기 때문이다.
 
-2. copy-overlay에서 show 클래스 전에 width,height 다 100% 정해놓고 .show일때 position을 absolute로 바꿈으로써 다른 color-box를 변경시키지 않고 전 화면을 깔끔하게 다 덮게 할 수 있는것이다.
+2. `.copy-overlay` 에서 width,height 다 100% 정해놓고 `.copy-overlay.show` 일때 position을 absolute로 바꿈으로써 다른 color-box를 변경시키지 않고 전 화면을 깔끔하게 다 덮게 할 수 있는것이다.
+
+3. border-radius에 의해서 코너가 삐죽 튀어나왔을때 `overflow:hidden` 이라고 해주면 깔끔하게 정리된다. nth-child로 코너에 있는 dom만 선별해서 border-radius를 일일이 설정해주지 않아도 된다.
 
 # 팁
 
@@ -34,3 +36,8 @@
 5. 핵심은 내가 직접 생각해서 나만의 방식대로 말해보는거다.
 
    - 내가 직접 코드를 짤때 그 느낌과 시행착오를 체험해봐야한다.
+
+# 해야할 일
+
+1. ColorBox isSingleColor에 따라서 리턴 다시 되도록 해라(클래스, copy-msg등등)
+1. SingleColorBox에 go back버튼에 navigation(-1) 기능 추가

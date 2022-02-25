@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Murecho:wght@300&family=Redressed&display=swap');
+
+.Single-color-box {
+  width: 20%;
+  height: 50%;
+  margin: 0 auto;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  margin-bottom: -4px;
+}
+
+.Single-color-footer {
+  font-family: 'Murecho', sans-serif;
+  font-family: 'Redressed', cursive;
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 4vh;
+  margin-right: 5px;
+  padding-bottom: 12px;
+}
+
+.Single-color-box:hover .copy-button {
+  opacity: 1;
+  transition: 0.5s;
+}
+
+.go-back-button {
+  cursor: pointer;
+  width: 100px;
+  height: 30px;
+  position: absolute;
+  display: inline-block;
+  top: 40%;
+  left: 50%;
+  margin-left: -50px;
+  text-align: center;
+  outline: none;
+  background: rgba(255, 255, 255, 0.3);
+  font-size: 1rem;
+  line-height: 30px;
+  color: white;
+  border: none;
+  opacity: 1;
+}

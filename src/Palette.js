@@ -8,6 +8,7 @@ import { generatePalette } from './getScaleForColor';
 import seedPalatte from './seedPalatte';
 
 import './Palette.css';
+import { Outlet } from 'react-router';
 
 function findPalette(currentPaletteId) {
   return seedPalatte.find(paletteObj => paletteObj.id === currentPaletteId);
@@ -29,28 +30,72 @@ class Palette extends Component {
     this.setState({ format });
   }
   render() {
-    const { param } = this.props;
+    const { PaleltteIdParam, colorIdParam } = this.props;
     const { level, format } = this.state;
-    const { colors, paletteName, emoji } = generatePalette(findPalette(param));
-
-    const ColorBoxes = colors[level].map(color => (
-      <ColorBox key={color.name} background={color[format]} name={color.name} />
-    ));
-    return (
-      <div className="Palette">
-        <NavBar
-          changeFormat={this.changeFormat}
-          format={format}
-          level={level}
-          changeLevel={this.changeLevel}
-        />
-
-        <div className="Palette-colors">{ColorBoxes}</div>
-        <footer className="Palette-footer">
-          {paletteName} {emoji}
-        </footer>
-      </div>
+    const { colors, paletteName, emoji } = generatePalette(
+      findPalette(PaleltteIdParam)
     );
+    console.log(colors);
+    let renderResult;
+    if (colorIdParam) {
+      const colorsByBrightness = [];
+      for (const colorLevel in colors) {
+        if (colorLevel === '50') {
+          continue;
+        }
+        for (const colorObj of colors[colorLevel]) {
+          if (colorObj.id === colorIdParam) {
+            colorsByBrightness.push({
+              name: colorObj.name,
+              [format]: colorObj[format],
+            });
+            break;
+          }
+        }
+      }
+
+      renderResult = (
+        <>
+          <NavBar
+            changeFormat={this.changeFormat}
+            format={format}
+            level={level}
+            changeLevel={this.changeLevel}
+            isSingleColor={true}
+          />
+          <Outlet context={[colorsByBrightness, format]} />
+          <footer className="Single-color-footer">
+            {colorIdParam} {emoji}
+          </footer>
+        </>
+      );
+    } else {
+      const ColorBoxes = colors[level].map(color => (
+        <ColorBox
+          moreUrl={`${color.id}`}
+          key={color.name}
+          background={color[format]}
+          name={color.name}
+        />
+      ));
+      renderResult = (
+        <>
+          <NavBar
+            changeFormat={this.changeFormat}
+            format={format}
+            level={level}
+            changeLevel={this.changeLevel}
+          />
+
+          <div className="Palette-colors">{ColorBoxes}</div>
+          <footer className="Palette-footer">
+            {paletteName} {emoji}
+          </footer>
+        </>
+      );
+    }
+
+    return <div className="Palette">{renderResult}</div>;
   }
 }
 

@@ -10,7 +10,7 @@ import './NavBar.css';
 import { FormControl, Select, MenuItem, Snackbar, Alert } from '@mui/material';
 
 function NavBar(props) {
-  const { level, format, changeLevel, changeFormat } = props;
+  const { level, format, changeLevel, changeFormat, isSingleColor } = props;
   const [open, setOpen] = useState(false);
   const [formatState, setFormat] = useState(format);
   const onSelectFormat = e => {
@@ -30,15 +30,17 @@ function NavBar(props) {
       <div className="logo">
         <Link to="/">reactcolorpicker</Link>
       </div>
-      <div className="slider">
-        <Slider
-          defaultValue={level}
-          min={100}
-          step={100}
-          max={900}
-          onAfterChange={changeLevel}
-        />
-      </div>
+      {!isSingleColor && (
+        <div className="slider">
+          <Slider
+            defaultValue={level}
+            min={100}
+            step={100}
+            max={900}
+            onAfterChange={changeLevel}
+          />
+        </div>
+      )}
       <FormControl variant="standard" sx={{ ml: 'auto', minWidth: 120 }}>
         {/* <InputLabel id="demo-simple-select-filled-label">Age</InputLabel> */}
         <Select
