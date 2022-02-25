@@ -1,13 +1,12 @@
-import { useParams, useOutletContext } from 'react-router-dom';
+import { useOutletContext, useNavigate } from 'react-router-dom';
 import ColorBox from './ColorBox';
 import './SingleColorBox.css';
 import uuid from 'react-uuid';
 
 function SingleColorBox(props) {
-  const { colorId } = useParams();
+  const navigate = useNavigate();
   const [colorsByBrightness, format] = useOutletContext();
-  console.log(colorsByBrightness);
-  //   console.log(colorId);
+
   const ColorBoxes = colorsByBrightness.map(colorsObj => (
     <ColorBox
       key={uuid()}
@@ -21,7 +20,14 @@ function SingleColorBox(props) {
       <div className="Palette-colors">
         {ColorBoxes}
         <div style={{ background: 'black' }} className="Single-color-box">
-          <button className="go-back-button">Go Back</button>
+          <button
+            onClick={() => {
+              navigate(-1);
+            }}
+            className="go-back-button"
+          >
+            Go Back
+          </button>
         </div>
       </div>
     </div>
