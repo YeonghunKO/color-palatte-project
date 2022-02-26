@@ -52,3 +52,4 @@ onClick으로 이벤트객체를 받아오려 했으니 CopyClipBoard 컴포넌�
 # 해야할 일
 
 1. withStyles function에 대해서 TIL쓰기.
+   - 인자를 따로 정해놓을 수 있음. 근데 인자를 따로 패스하지 않으면 withStyles가 적용된 함수에 패스된 props가 자동적으로 pass됨

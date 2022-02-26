@@ -7,8 +7,6 @@ import './assets/css/ColorBox.css';
 
 import { withStyles } from '@mui/styles';
 
-import chroma from 'chroma-js';
-
 class ColorBox extends Component {
   constructor(props) {
     super(props);
@@ -26,7 +24,6 @@ class ColorBox extends Component {
     const { name, background, moreUrl, isSingleColor, classes } = this.props;
     const { copyText, colorName, copyButton, moreButton } = classes;
     const { copied } = this.state;
-    const isLight = chroma(background).luminance() >= 0.58;
     return (
       <CopyToClipboard text={background} onCopy={this.changeCopyState}>
         <div
