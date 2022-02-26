@@ -4,6 +4,7 @@ const rootStyle = color => ({
   display: 'flex',
   alignItems: 'flex-start',
   justifyContent: 'center',
+  overflowY: 'scroll',
 });
 
 export default {
