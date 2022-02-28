@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/css": "^11.7.1",
     "@emotion/react": "^11.8.1",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.4.2",
@@ -14,6 +15,7 @@
     "chroma-js": "^2.4.2",
     "rc-slider": "^9.7.5",
     "react": "^17.0.2",
+    "react-color": "^2.19.3",
     "react-copy-to-clipboard": "^5.0.4",
     "react-dom": "^17.0.2",
     "react-router": "^6.2.1",
