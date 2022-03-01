@@ -15,14 +15,17 @@ import { Button } from '@mui/material';
 
 import { ChromePicker } from 'react-color';
 
-import { DrawerInnerDiv } from './assets/styles/DrawerInnerDiv.style';
+import {
+  DrawerInnerDiv,
+  ButtonContainer,
+} from '../assets/styles/CreateNewPaletteEmotion.style';
 
 import {
   Main,
   AppBar,
   DrawerHeader,
   drawerWidth,
-} from './assets/styles/CreateNewPalette.style';
+} from '../assets/styles/CreateNewPalette.style';
 
 import chroma from 'chroma-js';
 
@@ -44,7 +47,6 @@ function CreateNewPalette(props) {
 
   const addColor = newColor => {
     setColors([...colors, newColor]);
-    console.log(colors);
   };
 
   const handleDrawerOpen = () => {
@@ -95,12 +97,12 @@ function CreateNewPalette(props) {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <DrawerInnerDiv info={open}>
+        <DrawerInnerDiv open={open}>
           <Typography variant="h5">Create Your Own Palette</Typography>
-          <div>
+          <ButtonContainer>
             <Button variant="contained">Clear Palette</Button>
             <Button variant="contained">Random Color</Button>
-          </div>
+          </ButtonContainer>
           <ChromePicker
             color={currentColor}
             onChangeComplete={updateCurrentColor}
@@ -110,6 +112,9 @@ function CreateNewPalette(props) {
             style={{
               background: currentColor,
               color: getColorByLuminance(currentColor),
+              width: '70%',
+              margin: '1rem',
+              padding: '1rem',
             }}
             onClick={() => addColor(currentColor)}
           >

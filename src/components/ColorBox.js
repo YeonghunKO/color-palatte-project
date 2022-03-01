@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import styles from './assets/styles/ColorBoxStyles';
-import './assets/css/ColorBox.css';
+import styles from '../assets/styles/ColorBoxStyles';
+import '../assets/css/ColorBox.css';
 
 import { withStyles } from '@mui/styles';
 

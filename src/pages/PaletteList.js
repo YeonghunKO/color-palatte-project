@@ -4,8 +4,8 @@ import { withStyles } from '@mui/styles';
 
 import uuid from 'react-uuid';
 
-import MiniPalette from './MiniPalette';
-import styles from './assets/styles/PaletteListStyles';
+import MiniPalette from '../components/MiniPalette';
+import styles from '../assets/styles/PaletteListStyles';
 
 class PaletteList extends Component {
   constructor(props) {

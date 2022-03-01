@@ -1,11 +1,11 @@
 import { Routes, Route } from 'react-router-dom';
 
-import Palette from './Palette';
-import seedPalatte from './seedPalatte';
+import Palette from './pages/Palette';
+import seedPalatte from './DATA/seedPalatte';
 
-import PaletteList from './PaletteList';
-import SingleColorPalette from './SingleColorPalette';
-import CreateNewPalette from './CreateNewPalette';
+import PaletteList from './pages/PaletteList';
+import SingleColorPalette from './pages/SingleColorPalette';
+import CreateNewPalette from './pages/CreateNewPalette';
 
 function App() {
   return (

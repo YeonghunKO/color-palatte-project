@@ -1,5 +1,5 @@
 import { withStyles } from '@mui/styles';
-import styles from './assets/styles/MiniPlatteStyles';
+import styles from '../assets/styles/MiniPlatteStyles';
 
 function MiniPalette(props) {
   const { classes, colors, emoji, paletteName } = props;

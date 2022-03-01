@@ -19,7 +19,7 @@ const bounce = keyframes`
   }
 `;
 
-export const DrawerInnerDiv = styled.div`
+const DrawerInnerDiv = styled.div`
   height: 100%;
   padding: 1rem;
   display: flex;
@@ -37,7 +37,7 @@ export const DrawerInnerDiv = styled.div`
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: ${props => {
-      if (props.info) {
+      if (props.open) {
         return css`
           ${bounce} 1s 1
         `;
@@ -45,3 +45,12 @@ export const DrawerInnerDiv = styled.div`
     }};
   }
 `;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem;
+  width: 83%;
+`;
+
+export { DrawerInnerDiv, ButtonContainer };

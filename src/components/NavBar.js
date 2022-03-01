@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import './assets/css/NavBar.css';
+import '../assets/css/NavBar.css';
 
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';

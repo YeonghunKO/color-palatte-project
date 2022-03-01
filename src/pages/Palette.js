@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-import ColorBox from './ColorBox';
-import NavBar from './NavBar';
-import withParams from './withParams';
+import ColorBox from '../components/ColorBox';
+import NavBar from '../components/NavBar';
+import withParams from '../utils/withParams';
 
-import { generatePalette } from './getScaleForColor';
-import seedPalatte from './seedPalatte';
+import { generatePalette } from '../utils/getScaleForColor';
+import seedPalatte from '../DATA/seedPalatte';
 
-import './assets/css/Palette.css';
+import '../assets/css/Palette.css';
 import { Outlet } from 'react-router';
 
 function findPalette(currentPaletteId) {
