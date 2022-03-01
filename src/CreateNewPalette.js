@@ -24,9 +24,29 @@ import {
   drawerWidth,
 } from './assets/styles/CreateNewPalette.style';
 
+import chroma from 'chroma-js';
+
+const getColorByLuminance = currentColor => {
+  return chroma(currentColor).luminance() >= 0.58
+    ? 'rgb(29, 27, 27)'
+    : 'rgb(255, 255, 255)';
+};
+
 function CreateNewPalette(props) {
-  const theme = useTheme();
+  // const theme = useTheme();
   const [open, setOpen] = useState(false);
+  const [currentColor, setCurrentColor] = useState('purple');
+  const [colors, setColors] = useState(['teal', 'red']);
+
+  const updateCurrentColor = newColor => {
+    setCurrentColor(newColor.hex);
+  };
+
+  const addColor = newColor => {
+    setColors([...colors, newColor]);
+    console.log(colors);
+  };
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -82,13 +102,30 @@ function CreateNewPalette(props) {
             <Button variant="contained">Random Color</Button>
           </div>
           <ChromePicker
-            color="purple"
-            onChangeComplete={newColor => console.log(newColor)}
+            color={currentColor}
+            onChangeComplete={updateCurrentColor}
           />
+          <Button
+            variants="contained"
+            style={{
+              background: currentColor,
+              color: getColorByLuminance(currentColor),
+            }}
+            onClick={() => addColor(currentColor)}
+          >
+            Add Color
+          </Button>
         </DrawerInnerDiv>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
+        <ul>
+          {colors.map(color => (
+            <li key={color} style={{ background: color }}>
+              {color}
+            </li>
+          ))}
+        </ul>
       </Main>
     </Box>
   );
