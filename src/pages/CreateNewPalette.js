@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import uuid from 'react-uuid';
+
+import { useState, useMemo, useEffect } from 'react';
 
 import { useTheme } from '@mui/material/styles';
+
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,6 +15,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 import { Button } from '@mui/material';
+
+import chroma from 'chroma-js';
 
 import { ChromePicker } from 'react-color';
 
@@ -27,7 +32,7 @@ import {
   drawerWidth,
 } from '../assets/styles/CreateNewPalette.style';
 
-import chroma from 'chroma-js';
+import DraggableColorBox from '../components/DraggableColorBox';
 
 const getColorByLuminance = currentColor => {
   return chroma(currentColor).luminance() >= 0.58
@@ -124,13 +129,9 @@ function CreateNewPalette(props) {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <ul>
-          {colors.map(color => (
-            <li key={color} style={{ background: color }}>
-              {color}
-            </li>
-          ))}
-        </ul>
+        {colors.map(color => (
+          <DraggableColorBox key={uuid()} color={color} />
+        ))}
       </Main>
     </Box>
   );

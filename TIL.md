@@ -51,60 +51,9 @@ onClick으로 이벤트객체를 받아오려 했으니 CopyClipBoard 컴포넌�
 
 # 해야할 일
 
-2. styled 함수에 대해서 TIL쓰기
+1. draggable 함수 최소한만 랜더링 되도록 최적화 하기
 
-   - 공식문서에 의하면 custom MUI 컴포넌트를 만들기 위해 필요한 도구이다. 즉, 다시말해 모든 MUI 컴포넌트는 default로 styled 컴포넌트에 기반하여 만들어졌다.
-   - styled컴포넌트와 sx prop을 함께 쓰면 완전 독립적인 커스텀 MUI 컴포넌트를 만들 수 있다. 아래와 같이 말이다.
-
-   ```javascript
-   import * as React from 'react';
-   import { styled } from '@mui/system';
-
-   const MyComponent = styled('div')({
-     color: 'darkslategray',
-     backgroundColor: 'aliceblue',
-     padding: 8,
-     borderRadius: 4,
-   });
-
-   export default function BasicUsage() {
-     return <MyComponent>Styled div</MyComponent>;
-   }
-   ```
-
-   또는 MUI에서 제공하는 theme이라는 객체를 사용할 수 있다. [theme 공식문서](https://mui.com/customization/default-theme/#main-content)
-
-   아니면, theme을 override해서 custom theme을 만들어 styled component와 연계해서 사용할 수 도 있다. (이경우는 themeProvider를 이용해서 custom theme을 적용시켜줘야한다.)
-
-   ```javascript
-   import * as React from 'react';
-   import { styled, createTheme, ThemeProvider } from '@mui/system';
-
-   const customTheme = createTheme({
-     palette: {
-       primary: {
-         main: '#1976d2',
-         contrastText: 'white',
-       },
-     },
-   });
-
-   const MyThemeComponent = styled('div')(({ theme }) => ({
-     color: theme.palette.primary.contrastText,
-     backgroundColor: theme.palette.primary.main,
-     padding: theme.spacing(1),
-     borderRadius: theme.shape.borderRadius,
-   }));
-
-   export default function ThemeUsage() {
-     return (
-       <ThemeProvider theme={customTheme}>
-         <MyThemeComponent>Styled div with theme</MyThemeComponent>
-       </ThemeProvider>
-     );
-   }
-   ```
-
-   styled 컴포넌트에 객체가 아닌 함수를 pass하면 default theme 객체를 사용할 수 있다.
-
-- https://youtu.be/Ix1LZGBSp-E 또는 https://youtu.be/-FZzPHSLauc 또는 https://youtu.be/mu8-u7V7Z8s
+2. createNewPalette컴포넌트안에 있는 기능들이 분리되어야 한다.
+   - 왜냐면 current color가 바뀌는 순간마다 draggablecolorbox 가 새로 랜더링 되기 때문
+   - 이는 createNewPalette컴포넌트 안에 ChromePicker랑 Main이 같이 있기 때문이고 state들도 같이 존재하기 때문이다.
+   - colors를 reducer와 context로 따로 구현해서 리팩토링하고 분리시켜서 최대한 독립적으로 랜더링 되도록 해보자
