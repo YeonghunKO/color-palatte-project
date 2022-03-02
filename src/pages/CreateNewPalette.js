@@ -2,8 +2,6 @@ import uuid from 'react-uuid';
 
 import { useState, useMemo, useEffect } from 'react';
 
-import { useTheme } from '@mui/material/styles';
-
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,6 +11,8 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 import { Button } from '@mui/material';
 
@@ -45,6 +45,7 @@ function CreateNewPalette(props) {
   const [open, setOpen] = useState(false);
   const [currentColor, setCurrentColor] = useState('purple');
   const [colors, setColors] = useState(['teal', 'red']);
+  const [name, setName] = useState('');
 
   const updateCurrentColor = newColor => {
     setCurrentColor(newColor.hex);
@@ -52,6 +53,10 @@ function CreateNewPalette(props) {
 
   const addColor = newColor => {
     setColors([...colors, newColor]);
+  };
+
+  const handleForm = evt => {
+    setName(evt.target.value);
   };
 
   const handleDrawerOpen = () => {
@@ -112,19 +117,22 @@ function CreateNewPalette(props) {
             color={currentColor}
             onChangeComplete={updateCurrentColor}
           />
-          <Button
-            variants="contained"
-            style={{
-              background: currentColor,
-              color: getColorByLuminance(currentColor),
-              width: '70%',
-              margin: '1rem',
-              padding: '1rem',
-            }}
-            onClick={() => addColor(currentColor)}
-          >
-            Add Color
-          </Button>
+          <ValidatorForm>
+            <TextValidator onChange={handleForm} />
+            <Button
+              variants="contained"
+              style={{
+                background: currentColor,
+                color: getColorByLuminance(currentColor),
+                width: '70%',
+                margin: '1rem',
+                padding: '1rem',
+              }}
+              onClick={() => addColor(currentColor)}
+            >
+              Add Color
+            </Button>
+          </ValidatorForm>
         </DrawerInnerDiv>
       </Drawer>
       <Main open={open}>

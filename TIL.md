@@ -53,7 +53,14 @@ onClick으로 이벤트객체를 받아오려 했으니 CopyClipBoard 컴포넌�
 
 1. draggable 함수 최소한만 랜더링 되도록 최적화 하기
 
-2. createNewPalette컴포넌트안에 있는 기능들이 분리되어야 한다.
+2. createNewPalette컴포넌트안에 있는 기능들이 분리되어야 한다.(drawer랑 main으로)
+
    - 왜냐면 current color가 바뀌는 순간마다 draggablecolorbox 가 새로 랜더링 되기 때문
-   - 이는 createNewPalette컴포넌트 안에 ChromePicker랑 Main이 같이 있기 때문이고 state들도 같이 존재하기 때문이다.
+   - 이는 createNewPalette컴포넌트 안에 drawer랑 Main이 같이 있기 때문이고 state들도 같이 존재하기 때문이다.
    - colors를 reducer와 context로 따로 구현해서 리팩토링하고 분리시켜서 최대한 독립적으로 랜더링 되도록 해보자
+
+     - 그런데 drawer하고 main모두 createNewPalette에서 open state에 의존하고 있다. 결국 open을 클릭할떄 setOpen이 실행되면서 box안에 있는 drawer하고 main이 리랜더링된다.
+
+     - 투두앱처럼 todos / dispatch 로 완전히 구분할 수 가 없는것인가. 투두앱같은경우 부모 컴포넌트에 어떤 state도 없었기 때문에 각각 따로 랜더링이 가능했었다. 요번 경우는 부모 state를 공유하고 있으니... 이를 어쩔꼬.
+
+     - 음... 일단 퍼포먼스 신경쓰기 말고 구현이 되도록 신경쓰자.
