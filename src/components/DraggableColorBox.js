@@ -8,12 +8,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 function DraggableColorBox(props) {
   // console.log('draggable');
-  const { color, name } = props;
+  const { color, name, remove } = props;
   return (
     <DraggableColorDiv color={color}>
       <BoxContent>
         <span>{name}</span>
-        <DeleteIcon />
+        <DeleteIcon onClick={remove} />
       </BoxContent>
     </DraggableColorDiv>
   );

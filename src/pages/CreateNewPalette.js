@@ -101,6 +101,11 @@ function CreateNewPalette(props) {
     setOpen(false);
   };
 
+  const removeColorBox = name => {
+    const removedColors = colors.filter(color => color.name !== name);
+    setColors(removedColors);
+  };
+
   const savePalette = () => {
     const newPaletteObj = {
       paletteName: newPaletteName,
@@ -209,6 +214,9 @@ function CreateNewPalette(props) {
             key={uuid()}
             color={color.color}
             name={color.name}
+            remove={() => {
+              removeColorBox(color.name);
+            }}
           />
         ))}
       </Main>

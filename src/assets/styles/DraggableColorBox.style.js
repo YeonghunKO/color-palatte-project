@@ -1,4 +1,7 @@
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
+
+import chroma from 'chroma-js';
 
 const DraggableColorDiv = styled.div`
   width: 20%;
@@ -9,6 +12,10 @@ const DraggableColorDiv = styled.div`
   cursor: pointer;
   margin-bottom: -3.5px;
   background-color: ${props => props.color};
+  color: ${props =>
+    chroma(props.color).luminance() >= 0.58
+      ? css`rgb(29, 27, 27)`
+      : css`rgb(255, 255, 255)`};
 `;
 
 const BoxContent = styled.div`
@@ -22,7 +29,7 @@ const BoxContent = styled.div`
   letter-spacing: 1px;
   font-size: 12px;
   text-transform: uppercase;
-  color: rgba(0, 0, 0, 0.5);
+
   svg {
     transition: all 0.3s ease-in-out;
   }

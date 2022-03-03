@@ -1,4 +1,4 @@
-import { keyframes, css } from '@emotion/react';
+import { keyframes } from '@emotion/react';
 
 import { styled } from '@mui/material/styles';
 
