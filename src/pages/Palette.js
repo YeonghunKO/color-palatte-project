@@ -5,13 +5,12 @@ import NavBar from '../components/NavBar';
 import withParams from '../utils/withParams';
 
 import { generatePalette } from '../utils/getScaleForColor';
-import seedPalatte from '../DATA/seedPalatte';
 
 import '../assets/css/Palette.css';
 import { Outlet } from 'react-router';
 
-function findPalette(currentPaletteId) {
-  return seedPalatte.find(paletteObj => paletteObj.id === currentPaletteId);
+function findPalette(palette, currentPaletteId) {
+  return palette.find(paletteObj => paletteObj.id === currentPaletteId);
 }
 
 class Palette extends Component {
@@ -33,7 +32,7 @@ class Palette extends Component {
     const { PaleltteIdParam, colorIdParam } = this.props;
     const { level, format } = this.state;
     const { colors, paletteName, emoji } = generatePalette(
-      findPalette(PaleltteIdParam)
+      findPalette(this.props.paletteList, PaleltteIdParam)
     );
     let renderResult;
     if (colorIdParam) {
