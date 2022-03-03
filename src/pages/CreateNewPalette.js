@@ -128,7 +128,7 @@ function CreateNewPalette(props) {
           <Typography variant="h6" noWrap component="div">
             Persistent drawer
           </Typography>
-          <ValidatorForm onSubmit={savePalette}>
+          <ValidatorForm style={{ display: 'flex' }} onSubmit={savePalette}>
             <TextValidator
               value={newPaletteName}
               onChange={updateNewPaletteName}

@@ -1,10 +1,22 @@
-import { DraggableColorDiv } from '../assets/styles/DraggableColorBox.style';
+import {
+  DraggableColorDiv,
+  BoxContent,
+} from '../assets/styles/DraggableColorBox.style';
 import { memo } from 'react';
+
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function DraggableColorBox(props) {
   // console.log('draggable');
   const { color, name } = props;
-  return <DraggableColorDiv color={color}>{name}</DraggableColorDiv>;
+  return (
+    <DraggableColorDiv color={color}>
+      <BoxContent>
+        <span>{name}</span>
+        <DeleteIcon />
+      </BoxContent>
+    </DraggableColorDiv>
+  );
 }
 
-export default memo(DraggableColorBox);
+export default DraggableColorBox;

@@ -51,9 +51,11 @@ onClick으로 이벤트객체를 받아오려 했으니 CopyClipBoard 컴포넌�
 
 # 해야할 일
 
+1. draggablecolor 스타일 완성하기
+<!--
 1. draggable 함수 최소한만 랜더링 되도록 최적화 하기
 
-2. createNewPalette컴포넌트안에 있는 기능들이 분리되어야 한다.(drawer랑 main으로)
+1. createNewPalette컴포넌트안에 있는 기능들이 분리되어야 한다.(drawer랑 main으로)
 
    - 왜냐면 current color가 바뀌는 순간마다 draggablecolorbox 가 새로 랜더링 되기 때문
    - 이는 createNewPalette컴포넌트 안에 drawer랑 Main이 같이 있기 때문이고 state들도 같이 존재하기 때문이다.
@@ -63,4 +65,4 @@ onClick으로 이벤트객체를 받아오려 했으니 CopyClipBoard 컴포넌�
 
      - 투두앱처럼 todos / dispatch 로 완전히 구분할 수 가 없는것인가. 투두앱같은경우 부모 컴포넌트에 어떤 state도 없었기 때문에 각각 따로 랜더링이 가능했었다. 요번 경우는 부모 state를 공유하고 있으니... 이를 어쩔꼬.
 
-     - 음... 일단 퍼포먼스 신경쓰기 말고 구현이 되도록 신경쓰자.
+     - 음... 일단 퍼포먼스 신경쓰기 말고 구현이 되도록 신경쓰자. -->

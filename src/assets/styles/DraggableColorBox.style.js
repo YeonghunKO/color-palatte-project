@@ -11,4 +11,25 @@ const DraggableColorDiv = styled.div`
   background-color: ${props => props.color};
 `;
 
-export { DraggableColorDiv };
+const BoxContent = styled.div`
+  width: 100%;
+  position: absolute;
+  padding: 10px;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  letter-spacing: 1px;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.5);
+  svg {
+    transition: all 0.3s ease-in-out;
+  }
+  svg:hover {
+    color: red;
+    transform: scale(1.5);
+  }
+`;
+
+export { DraggableColorDiv, BoxContent };
