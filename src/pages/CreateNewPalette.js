@@ -6,12 +6,9 @@ import { useNavigate } from 'react-router';
 
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
@@ -29,13 +26,12 @@ import {
 
 import {
   Main,
-  AppBar,
   DrawerHeader,
   drawerWidth,
 } from '../assets/styles/CreateNewPalette.style';
 
-// import DraggableColorBox from '../components/DraggableColorBox';
 import DraggableColorList from '../components/DraggableColorList';
+import CreateColorNav from '../components/createColorNav';
 
 import { arrayMove } from 'react-sortable-hoc';
 
@@ -49,11 +45,12 @@ function CreateNewPalette(props) {
   const { maxCardNum, paletteList, addPalette } = props;
   const navigation = useNavigate();
   const allColors = paletteList.map(palette => palette.colors).flat();
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const [currentColor, setCurrentColor] = useState('#800080');
   const [colors, setColors] = useState([{ name: 'wowsers', color: 'blue' }]);
   const [newColorName, setNewColorName] = useState('');
-  const [newPaletteName, setPaletteName] = useState('');
+  const [open, setOpen] = useState(false);
+  // const [newPaletteName, setPaletteName] = useState('');
 
   useEffect(() => {
     ValidatorForm.addValidationRule('isNameUnique', value => {
@@ -69,20 +66,18 @@ function CreateNewPalette(props) {
         return currentColor !== color;
       });
     });
+  }, [newColorName, currentColor]);
 
-    ValidatorForm.addValidationRule('isPlatteNameUnique', value => {
-      return paletteList.every(({ paletteName }) => {
-        return paletteName.toLowerCase() !== newPaletteName.toLowerCase();
-      });
-    });
-  }, [newColorName, currentColor, newPaletteName]);
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   const updateCurrentColor = newColor => {
     setCurrentColor(newColor.hex);
-  };
-
-  const updateNewPaletteName = e => {
-    setPaletteName(e.target.value);
   };
 
   const addColor = () => {
@@ -98,20 +93,12 @@ function CreateNewPalette(props) {
     setNewColorName(evt.target.value);
   };
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
   const removeColorBox = name => {
     const removedColors = colors.filter(color => color.name !== name);
     setColors(removedColors);
   };
 
-  const savePalette = () => {
+  const savePalette = newPaletteName => {
     const newPaletteObj = {
       paletteName: newPaletteName,
       id: newPaletteName.toLocaleLowerCase().replace(/ /g, '-'),
@@ -132,7 +119,6 @@ function CreateNewPalette(props) {
     do {
       randomColor = allColors[Math.floor(Math.random() * allColors.length)];
     } while (colors.some(color => color.color === randomColor.color));
-    console.log(randomColor);
     setColors([...colors, randomColor]);
   };
 
@@ -141,40 +127,15 @@ function CreateNewPalette(props) {
   };
 
   const isPaletteFull = colors.length >= maxCardNum;
-
+  console.log('createNewPalette');
   return (
     <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar color="default" position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Persistent drawer
-          </Typography>
-          <ValidatorForm style={{ display: 'flex' }} onSubmit={savePalette}>
-            <TextValidator
-              value={newPaletteName}
-              onChange={updateNewPaletteName}
-              validators={['required', 'isPlatteNameUnique']}
-              errorMessages={[
-                'Enter Palette Name',
-                'Palette Name already exists',
-              ]}
-            />
-            <Button type="submit" variants="contained" color="secondary">
-              Save Palette
-            </Button>
-          </ValidatorForm>
-        </Toolbar>
-      </AppBar>
+      <CreateColorNav
+        open={open}
+        handleDrawerOpen={handleDrawerOpen}
+        savePalette={savePalette}
+        paletteList={paletteList}
+      />
       <Drawer
         sx={{
           width: drawerWidth,

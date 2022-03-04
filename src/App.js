@@ -8,7 +8,6 @@ import seedPalatte from './DATA/seedPalatte';
 import PaletteList from './pages/PaletteList';
 import SingleColorPalette from './pages/SingleColorPalette';
 import CreateNewPalette from './pages/CreateNewPalette';
-import createPalette from '@mui/material/styles/createPalette';
 
 function App() {
   const [palette, setPalette] = useState(seedPalatte);

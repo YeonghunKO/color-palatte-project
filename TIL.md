@@ -70,6 +70,8 @@ onClick으로 이벤트객체를 받아오려 했으니 CopyClipBoard 컴포넌�
 
 1. draggablecolor 스타일 완성하기
 <!--
+1. PaletteList는 여러곳에서 자주 쓰이므로 context로 만들어서 바로 보낼 수도록 해보기
+
 1. draggable 함수 최소한만 랜더링 되도록 최적화 하기
 
 1. createNewPalette컴포넌트안에 있는 기능들이 분리되어야 한다.(drawer랑 main으로)

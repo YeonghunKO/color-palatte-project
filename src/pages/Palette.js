@@ -29,10 +29,10 @@ class Palette extends Component {
     this.setState({ format });
   }
   render() {
-    const { PaleltteIdParam, colorIdParam } = this.props;
+    const { PaleltteIdParam, colorIdParam, paletteList } = this.props;
     const { level, format } = this.state;
     const { colors, paletteName, emoji } = generatePalette(
-      findPalette(this.props.paletteList, PaleltteIdParam)
+      findPalette(paletteList, PaleltteIdParam)
     );
     let renderResult;
     if (colorIdParam) {
