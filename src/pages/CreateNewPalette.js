@@ -34,7 +34,10 @@ import {
   drawerWidth,
 } from '../assets/styles/CreateNewPalette.style';
 
-import DraggableColorBox from '../components/DraggableColorBox';
+// import DraggableColorBox from '../components/DraggableColorBox';
+import DraggableColorList from '../components/DraggableColorList';
+
+import { arrayMove } from 'react-sortable-hoc';
 
 const getColorByLuminance = currentColor => {
   return chroma(currentColor).luminance() >= 0.58
@@ -103,6 +106,7 @@ function CreateNewPalette(props) {
 
   const removeColorBox = name => {
     const removedColors = colors.filter(color => color.name !== name);
+    console.log(name, removedColors);
     setColors(removedColors);
   };
 
@@ -114,6 +118,14 @@ function CreateNewPalette(props) {
     };
     props.addPalette(newPaletteObj);
     navigation('/');
+  };
+
+  const sortEnd = ({ oldIndex, newIndex }) => {
+    setColors((oldColors, props) => {
+      console.log(oldColors, props);
+      return arrayMove(oldColors, oldIndex, newIndex);
+    });
+    // console.log(colors);
   };
 
   return (
@@ -209,16 +221,13 @@ function CreateNewPalette(props) {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        {colors.map(color => (
-          <DraggableColorBox
-            key={uuid()}
-            color={color.color}
-            name={color.name}
-            remove={() => {
-              removeColorBox(color.name);
-            }}
-          />
-        ))}
+        <DraggableColorList
+          distance={1}
+          onSortEnd={sortEnd}
+          axis="xy"
+          colors={colors}
+          remove={removeColorBox}
+        />
       </Main>
     </Box>
   );
