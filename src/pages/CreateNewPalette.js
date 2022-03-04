@@ -46,7 +46,9 @@ const getColorByLuminance = currentColor => {
 };
 
 function CreateNewPalette(props) {
+  const { maxCardNum, paletteList, addPalette } = props;
   const navigation = useNavigate();
+  const allColors = paletteList.map(palette => palette.colors).flat();
   const [open, setOpen] = useState(false);
   const [currentColor, setCurrentColor] = useState('#800080');
   const [colors, setColors] = useState([{ name: 'wowsers', color: 'blue' }]);
@@ -69,7 +71,7 @@ function CreateNewPalette(props) {
     });
 
     ValidatorForm.addValidationRule('isPlatteNameUnique', value => {
-      return props.paletteList.every(({ paletteName }) => {
+      return paletteList.every(({ paletteName }) => {
         return paletteName.toLowerCase() !== newPaletteName.toLowerCase();
       });
     });
@@ -106,7 +108,6 @@ function CreateNewPalette(props) {
 
   const removeColorBox = name => {
     const removedColors = colors.filter(color => color.name !== name);
-    console.log(name, removedColors);
     setColors(removedColors);
   };
 
@@ -116,17 +117,30 @@ function CreateNewPalette(props) {
       id: newPaletteName.toLocaleLowerCase().replace(/ /g, '-'),
       colors,
     };
-    props.addPalette(newPaletteObj);
+    addPalette(newPaletteObj);
     navigation('/');
   };
 
   const sortEnd = ({ oldIndex, newIndex }) => {
-    setColors((oldColors, props) => {
-      console.log(oldColors, props);
+    setColors(oldColors => {
       return arrayMove(oldColors, oldIndex, newIndex);
     });
-    // console.log(colors);
   };
+
+  const addRandomColor = () => {
+    let randomColor;
+    do {
+      randomColor = allColors[Math.floor(Math.random() * allColors.length)];
+    } while (colors.some(color => color.color === randomColor.color));
+    console.log(randomColor);
+    setColors([...colors, randomColor]);
+  };
+
+  const clearColors = () => {
+    setColors([]);
+  };
+
+  const isPaletteFull = colors.length >= maxCardNum;
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -185,8 +199,20 @@ function CreateNewPalette(props) {
         <DrawerInnerDiv open={open}>
           <Typography variant="h5">Create Your Own Palette</Typography>
           <ButtonContainer>
-            <Button variant="contained">Clear Palette</Button>
-            <Button variant="contained">Random Color</Button>
+            <Button variant="contained" onClick={clearColors}>
+              Clear Palette
+            </Button>
+            <Button
+              variant="contained"
+              onClick={addRandomColor}
+              style={{
+                background: `${isPaletteFull ? 'grey' : '#c11780'}`,
+                color: `${isPaletteFull && 'white'}`,
+              }}
+              disabled={isPaletteFull}
+            >
+              {isPaletteFull ? 'Palette Full' : 'Random Color'}
+            </Button>
           </ButtonContainer>
           <ChromePicker
             color={currentColor}
@@ -207,14 +233,15 @@ function CreateNewPalette(props) {
               type="submit"
               variants="contained"
               style={{
-                background: currentColor,
+                background: `${isPaletteFull ? 'grey' : currentColor}`,
                 color: getColorByLuminance(currentColor),
                 width: '70%',
                 margin: '1rem',
                 padding: '1rem',
               }}
+              disabled={isPaletteFull}
             >
-              Add Color
+              {isPaletteFull ? 'Palette Full' : 'Add Color'}
             </Button>
           </ValidatorForm>
         </DrawerInnerDiv>
