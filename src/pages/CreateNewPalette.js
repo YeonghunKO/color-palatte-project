@@ -11,13 +11,9 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-
 import { Button } from '@mui/material';
 
 import chroma from 'chroma-js';
-
-import { ChromePicker } from 'react-color';
 
 import {
   DrawerInnerDiv,
@@ -31,9 +27,10 @@ import {
 } from '../assets/styles/CreateNewPalette.style';
 
 import DraggableColorList from '../components/DraggableColorList';
-import CreateColorNav from '../components/createColorNav';
+import CreateColorNav from '../components/CreateColorNav';
 
 import { arrayMove } from 'react-sortable-hoc';
+import CreateColorPicker from '../components/CreateColorPicker';
 
 const getColorByLuminance = currentColor => {
   return chroma(currentColor).luminance() >= 0.58
@@ -46,27 +43,9 @@ function CreateNewPalette(props) {
   const navigation = useNavigate();
   const allColors = paletteList.map(palette => palette.colors).flat();
   // const [open, setOpen] = useState(false);
-  const [currentColor, setCurrentColor] = useState('#800080');
   const [colors, setColors] = useState([{ name: 'wowsers', color: 'blue' }]);
-  const [newColorName, setNewColorName] = useState('');
   const [open, setOpen] = useState(false);
   // const [newPaletteName, setPaletteName] = useState('');
-
-  useEffect(() => {
-    ValidatorForm.addValidationRule('isNameUnique', value => {
-      // 각각 대조해보고 다르면 true가 나옴.
-      // 한개라도 같은게 있으면 false가 나오면서 isColorUnique가 발동됨
-      return colors.every(
-        ({ name }) => name.toLowerCase() !== value.toLowerCase()
-      );
-    });
-
-    ValidatorForm.addValidationRule('isColorUnique', value => {
-      return colors.every(({ color }) => {
-        return currentColor !== color;
-      });
-    });
-  }, [newColorName, currentColor]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -76,21 +55,8 @@ function CreateNewPalette(props) {
     setOpen(false);
   };
 
-  const updateCurrentColor = newColor => {
-    setCurrentColor(newColor.hex);
-  };
-
-  const addColor = () => {
-    const newColor = {
-      name: newColorName,
-      color: currentColor,
-    };
-    setColors([...colors, newColor]);
-    setNewColorName('');
-  };
-
-  const handleForm = evt => {
-    setNewColorName(evt.target.value);
+  const addColor = newColorObj => {
+    setColors([...colors, newColorObj]);
   };
 
   const removeColorBox = name => {
@@ -175,36 +141,12 @@ function CreateNewPalette(props) {
               {isPaletteFull ? 'Palette Full' : 'Random Color'}
             </Button>
           </ButtonContainer>
-          <ChromePicker
-            color={currentColor}
-            onChangeComplete={updateCurrentColor}
+          <CreateColorPicker
+            addColor={addColor}
+            isPaletteFull={isPaletteFull}
+            colors={colors}
+            getColorByLuminance={getColorByLuminance}
           />
-          <ValidatorForm onSubmit={addColor}>
-            <TextValidator
-              validators={['required', 'isNameUnique', 'isColorUnique']}
-              errorMessages={[
-                'Enter Color Name',
-                'Name has already been taken',
-                'Color has already been taken',
-              ]}
-              value={newColorName}
-              onChange={handleForm}
-            />
-            <Button
-              type="submit"
-              variants="contained"
-              style={{
-                background: `${isPaletteFull ? 'grey' : currentColor}`,
-                color: getColorByLuminance(currentColor),
-                width: '70%',
-                margin: '1rem',
-                padding: '1rem',
-              }}
-              disabled={isPaletteFull}
-            >
-              {isPaletteFull ? 'Palette Full' : 'Add Color'}
-            </Button>
-          </ValidatorForm>
         </DrawerInnerDiv>
       </Drawer>
       <Main open={open}>
