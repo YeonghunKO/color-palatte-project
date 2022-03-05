@@ -68,13 +68,14 @@ onClick으로 이벤트객체를 받아오려 했으니 CopyClipBoard 컴포넌�
 
 # 해야할 일
 
-1. draggablecolor 스타일 완성하기
+1. makeStyles에 대해서 TIL쓰기
+2. makeStyles를 이용해서 colorPicker style 완성하기
 <!--
-1. PaletteList는 여러곳에서 자주 쓰이므로 context로 만들어서 바로 보낼 수도록 해보기
+3. PaletteList는 여러곳에서 자주 쓰이므로 context로 만들어서 바로 보낼 수도록 해보기
 
-1. draggable 함수 최소한만 랜더링 되도록 최적화 하기
+4. draggable 함수 최소한만 랜더링 되도록 최적화 하기
 
-1. createNewPalette컴포넌트안에 있는 기능들이 분리되어야 한다.(drawer랑 main으로)
+5. createNewPalette컴포넌트안에 있는 기능들이 분리되어야 한다.(drawer랑 main으로)
 
    - 왜냐면 current color가 바뀌는 순간마다 draggablecolorbox 가 새로 랜더링 되기 때문
    - 이는 createNewPalette컴포넌트 안에 drawer랑 Main이 같이 있기 때문이고 state들도 같이 존재하기 때문이다.

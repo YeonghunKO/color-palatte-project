@@ -5,9 +5,16 @@ export default {
     borderRadius: '5px',
     padding: '0.5rem',
     position: 'relative',
-    // overflow: 'hidden',
+    transition: 'transform .15s linear',
     '&:hover': {
-      cursor: 'pointer',
+      wbkitTransform: 'scale(1.1)',
+      wmoztransform: 'scale(1.1)',
+      wotransform: 'scale(1.1)',
+      transform: 'scale(1.1)',
+      transition: 'transform .15s linear',
+      woTransition: 'transform .15s',
+      wmozTransition: 'transform .15s',
+      webkitTransition: 'transform .15s',
     },
   },
   colorsClass: {
