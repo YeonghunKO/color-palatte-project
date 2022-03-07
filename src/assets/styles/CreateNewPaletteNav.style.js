@@ -28,13 +28,13 @@ const AppBar = styled(MuiAppBar, {
 const useStyles = makeStyles(() => {
   return createStyles({
     title: {
-      marginRight: 'auto',
+      marginRight: 'auto !important',
     },
     goBackButton: {
-      margin: '1rem 1rem',
+      margin: '1rem 1rem !important',
     },
     saveButton: {
-      margin: '1rem 0',
+      margin: '1rem 0 !important',
     },
   });
 });

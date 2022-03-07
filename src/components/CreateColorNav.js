@@ -14,6 +14,8 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 import { useStyles } from '../assets/styles/CreateNewPaletteNav.style';
 
+import NewPaletteMetaForm from '../components/NewPaletteMetaForm';
+
 function CreateColorNav(props) {
   const { open, handleDrawerOpen, savePalette, paletteList } = props;
 
@@ -52,32 +54,19 @@ function CreateColorNav(props) {
           <Typography className={title} variant="h6" noWrap component="div">
             Persistent drawer
           </Typography>
-          <ValidatorForm
-            style={{ display: 'flex' }}
-            onSubmit={() => savePalette(newPaletteName)}
+
+          <Button
+            className={goBackButton}
+            color="secondary"
+            onClick={() => navigation('/')}
+            variant="contained"
           >
-            <TextValidator
-              value={newPaletteName}
-              onChange={updateNewPaletteName}
-              validators={['required', 'isPlatteNameUnique']}
-              errorMessages={[
-                'Enter Palette Name',
-                'Palette Name already exists',
-              ]}
-            />
-            <div></div>
-            <Button
-              className={goBackButton}
-              color="secondary"
-              onClick={() => navigation('/')}
-              variant="contained"
-            >
-              Go Back
-            </Button>
-            <Button className={saveButton} type="submit" variant="contained">
-              Save Palette
-            </Button>
-          </ValidatorForm>
+            Go Back
+          </Button>
+          <NewPaletteMetaForm
+            paletteList={paletteList}
+            savePalette={savePalette}
+          />
         </Toolbar>
       </AppBar>
     </>
