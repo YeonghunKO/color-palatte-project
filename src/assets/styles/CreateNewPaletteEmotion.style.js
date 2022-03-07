@@ -21,14 +21,14 @@ const bounce = keyframes`
 
 const DrawerInnerDiv = styled.div`
   height: 100%;
-  padding: 1rem;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  h5 {
+  h6 {
     font-weight: bold;
-    font-size: 2rem;
+    /* font-size: 1rem; */
     background: -webkit-linear-gradient(
       25deg,
       rgba(34, 193, 195, 1) 0%,
@@ -49,8 +49,12 @@ const DrawerInnerDiv = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 1rem;
+  margin: 0.5rem;
   width: 83%;
+
+  button {
+    font-size: 0.7rem;
+  }
 `;
 
 export { DrawerInnerDiv, ButtonContainer };

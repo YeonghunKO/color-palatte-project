@@ -81,8 +81,8 @@ function CreateColorPicker(props) {
           style={{
             background: `${isPaletteFull ? 'grey' : currentColor}`,
             color: getColorByLuminance(currentColor),
-            width: '70%',
-            padding: '1rem',
+            width: '40%',
+            padding: '.5rem',
           }}
           disabled={isPaletteFull}
         >

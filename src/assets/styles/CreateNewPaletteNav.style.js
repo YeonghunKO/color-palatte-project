@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles';
 
 import { createStyles, makeStyles } from '@mui/styles';
 
-const drawerWidth = 400;
+const drawerWidth = 350;
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: prop => prop !== 'open',
@@ -29,12 +29,13 @@ const useStyles = makeStyles(() => {
   return createStyles({
     title: {
       marginRight: 'auto !important',
+      fontWeight: 'bold',
+      fontStyle: 'italic',
+      // background:
+      //   'linear-gradient(227deg, rgba(148,170,233,1) 0%, rgba(144,152,193,1) 30%, rgba(169,137,182,1) 74%, rgba(238,174,202,1) 100%)',
     },
     goBackButton: {
       margin: '1rem 1rem !important',
-    },
-    saveButton: {
-      margin: '1rem 0 !important',
     },
   });
 });

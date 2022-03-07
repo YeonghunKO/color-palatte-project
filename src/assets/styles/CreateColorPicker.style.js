@@ -3,7 +3,7 @@ import { createStyles, makeStyles } from '@mui/styles';
 const useStyles = makeStyles(() => {
   return createStyles({
     chromePickerClassName: {
-      width: '80% !important',
+      width: '70% !important',
     },
     TextValidatorFormClassName: {
       display: 'flex',
@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => {
     },
     TextValidatorClassName: {
       margin: '1rem 0',
-      width: '20rem',
+      width: '15rem',
     },
   });
 });

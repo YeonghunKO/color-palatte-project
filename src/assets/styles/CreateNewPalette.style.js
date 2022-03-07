@@ -2,7 +2,7 @@ import { keyframes } from '@emotion/react';
 
 import { styled } from '@mui/material/styles';
 
-const drawerWidth = 400;
+const drawerWidth = 350;
 
 const bounce = keyframes`
   from, 20%, 53%, 80%, to {
