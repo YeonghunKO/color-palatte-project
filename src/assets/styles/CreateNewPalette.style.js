@@ -2,10 +2,6 @@ import { keyframes } from '@emotion/react';
 
 import { styled } from '@mui/material/styles';
 
-import MuiAppBar from '@mui/material/AppBar';
-
-import { createStyles, makeStyles } from '@mui/styles';
-
 const drawerWidth = 400;
 
 const bounce = keyframes`
@@ -46,25 +42,6 @@ const Main = styled('main', { shouldForwardProp: prop => prop !== 'open' })(
   })
 );
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: prop => prop !== 'open',
-})(({ theme, open }) => {
-  return {
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    ...(open && {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: `${drawerWidth}px`,
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    }),
-  };
-});
-
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -74,4 +51,4 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export { Main, AppBar, DrawerHeader, drawerWidth };
+export { Main, DrawerHeader, drawerWidth };

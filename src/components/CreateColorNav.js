@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
@@ -7,14 +8,20 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import { Button } from '@mui/material';
 
-import { AppBar } from '../assets/styles/CreateNewPalette.style';
+import { AppBar } from '../assets/styles/CreateNewPaletteNav.style';
 
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+
+import { useStyles } from '../assets/styles/CreateNewPaletteNav.style';
 
 function CreateColorNav(props) {
   const { open, handleDrawerOpen, savePalette, paletteList } = props;
 
   const [newPaletteName, setPaletteName] = useState('');
+
+  const navigation = useNavigate();
+
+  const { title, goBackButton, saveButton } = useStyles(props);
 
   const updateNewPaletteName = e => {
     setPaletteName(e.target.value);
@@ -42,7 +49,7 @@ function CreateColorNav(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
+          <Typography className={title} variant="h6" noWrap component="div">
             Persistent drawer
           </Typography>
           <ValidatorForm
@@ -58,7 +65,16 @@ function CreateColorNav(props) {
                 'Palette Name already exists',
               ]}
             />
-            <Button type="submit" variants="contained" color="secondary">
+            <div></div>
+            <Button
+              className={goBackButton}
+              color="secondary"
+              onClick={() => navigation('/')}
+              variant="contained"
+            >
+              Go Back
+            </Button>
+            <Button className={saveButton} type="submit" variant="contained">
               Save Palette
             </Button>
           </ValidatorForm>

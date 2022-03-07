@@ -6,14 +6,18 @@ import { Button } from '@mui/material';
 
 import { ChromePicker } from 'react-color';
 
-import useStyles from '../assets/styles/createColorPicker.style';
+import useStyles from '../assets/styles/CreateColorPicker.style';
 
 function CreateColorPicker(props) {
   const { addColor, isPaletteFull, colors, getColorByLuminance } = props;
   const [currentColor, setCurrentColor] = useState('#800080');
 
   const [newColorName, setNewColorName] = useState('');
-  const { chromePicker } = useStyles(props);
+  const {
+    chromePickerClassName,
+    TextValidatorFormClassName,
+    TextValidatorClassName,
+  } = useStyles(props);
   const updateCurrentColor = newColor => {
     setCurrentColor(newColor.hex);
   };
@@ -45,16 +49,19 @@ function CreateColorPicker(props) {
         return currentColor !== color;
       });
     });
-  }, [newColorName, currentColor]);
+  }, [newColorName, currentColor, colors]);
   console.log('colorPicker');
   return (
     <>
       <ChromePicker
         color={currentColor}
         onChangeComplete={updateCurrentColor}
-        className={chromePicker}
+        className={chromePickerClassName}
       />
-      <ValidatorForm onSubmit={handleSubmit}>
+      <ValidatorForm
+        onSubmit={handleSubmit}
+        className={TextValidatorFormClassName}
+      >
         <TextValidator
           validators={['required', 'isNameUnique', 'isColorUnique']}
           errorMessages={[
@@ -64,6 +71,9 @@ function CreateColorPicker(props) {
           ]}
           value={newColorName}
           onChange={handleForm}
+          className={TextValidatorClassName}
+          variant="filled"
+          placeholder="Color Name"
         />
         <Button
           type="submit"

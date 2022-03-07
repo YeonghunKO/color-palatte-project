@@ -1,5 +1,3 @@
-import uuid from 'react-uuid';
-
 import { useState, useMemo, useEffect } from 'react';
 
 import { useNavigate } from 'react-router';
@@ -135,6 +133,7 @@ function CreateNewPalette(props) {
               style={{
                 background: `${isPaletteFull ? 'grey' : '#c11780'}`,
                 color: `${isPaletteFull && 'white'}`,
+                minWidth: '47%',
               }}
               disabled={isPaletteFull}
             >
