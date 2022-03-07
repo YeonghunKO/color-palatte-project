@@ -122,7 +122,7 @@ function CreateNewPalette(props) {
         </DrawerHeader>
         <Divider />
         <DrawerInnerDiv open={open}>
-          <Typography variant="h5">Create Your Own Palette</Typography>
+          <Typography variant="h6">Create Your Own Palette</Typography>
           <ButtonContainer>
             <Button variant="contained" onClick={clearColors}>
               Clear Palette

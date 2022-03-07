@@ -10,7 +10,7 @@ import { Button } from '@mui/material';
 
 import { AppBar } from '../assets/styles/CreateNewPaletteNav.style';
 
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { ValidatorForm } from 'react-material-ui-form-validator';
 
 import { useStyles } from '../assets/styles/CreateNewPaletteNav.style';
 
@@ -23,7 +23,7 @@ function CreateColorNav(props) {
 
   const navigation = useNavigate();
 
-  const { title, goBackButton, saveButton } = useStyles(props);
+  const { title, goBackButton } = useStyles(props);
 
   const updateNewPaletteName = e => {
     setPaletteName(e.target.value);
@@ -51,8 +51,8 @@ function CreateColorNav(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={title} variant="h6" noWrap component="div">
-            Persistent drawer
+          <Typography className={title} variant="h7" noWrap component="div">
+            Let's Custom Your Own Palette ~
           </Typography>
 
           <Button
