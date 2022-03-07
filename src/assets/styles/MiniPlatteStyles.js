@@ -24,6 +24,12 @@ export default {
     flexWrap: 'wrap',
     overflow: 'hidden',
     borderRadius: '5px',
+    '@media (min-width: 1300px)': {
+      height: '10rem',
+    },
+    '@media (max-width: 600px)': {
+      height: '5rem',
+    },
   },
   title: {
     display: 'flex',
@@ -34,13 +40,15 @@ export default {
     paddingTop: '0.5rem',
     fontSize: '.8rem',
     position: 'relative',
+    '@media (max-width: 600px)': {
+      fontSize: '.3rem',
+    },
   },
   emojiClass: {
     marginLeft: '0.5rem',
   },
 
   miniColor: {
-    height: '25%',
     width: '20%',
     display: 'inline-block',
     // margin: '0 auto',

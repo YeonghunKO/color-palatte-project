@@ -39,6 +39,6 @@ export default {
     width: '100%',
     display: 'grid',
     gridTemplateColumns: 'repeat(3,1fr)',
-    gap: '8% 2%',
+    gap: '4% 2%',
   },
 };
