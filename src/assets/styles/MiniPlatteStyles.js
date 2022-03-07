@@ -19,7 +19,7 @@ export default {
   },
   colorsClass: {
     backgroundColor: 'grey',
-    height: '150px',
+    height: '6rem',
     display: 'flex',
     flexWrap: 'wrap',
     overflow: 'hidden',
@@ -32,12 +32,11 @@ export default {
     margin: '0',
     color: 'black',
     paddingTop: '0.5rem',
-    fontSize: '1rem',
+    fontSize: '.8rem',
     position: 'relative',
   },
   emojiClass: {
     marginLeft: '0.5rem',
-    fontSize: '1.5rem',
   },
 
   miniColor: {
