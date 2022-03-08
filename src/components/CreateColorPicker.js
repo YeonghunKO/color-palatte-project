@@ -32,7 +32,7 @@ function CreateColorPicker(props) {
       color: currentColor,
     };
     addColor(newColorObj);
-    // setNewColorName('');
+    setNewColorName('');
   };
 
   useEffect(() => {

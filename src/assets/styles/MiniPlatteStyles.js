@@ -6,6 +6,7 @@ export default {
     padding: '0.5rem',
     position: 'relative',
     transition: 'transform .15s linear',
+    transition: 'opacity .15s linear',
     '&:hover': {
       wbkitTransform: 'scale(1.1)',
       wmoztransform: 'scale(1.1)',
@@ -15,6 +16,11 @@ export default {
       woTransition: 'transform .15s',
       wmozTransition: 'transform .15s',
       webkitTransition: 'transform .15s',
+    },
+    '&:hover svg': {
+      opacity: '1',
+      transition: 'all .3s ease-in-out',
+      color: 'red',
     },
   },
   colorsClass: {
@@ -51,8 +57,15 @@ export default {
   miniColor: {
     width: '20%',
     display: 'inline-block',
-    // margin: '0 auto',
     position: 'relative',
     marginBottom: '-3.5px',
+  },
+  deleteIcon: {
+    color: 'black',
+    position: 'absolute',
+    top: '2px',
+    right: '0',
+    zIndex: '10',
+    opacity: '0',
   },
 };
