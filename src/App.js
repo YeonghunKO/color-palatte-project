@@ -8,9 +8,10 @@ import seedPalatte from './DATA/seedPalatte';
 import PaletteList from './pages/PaletteList';
 import SingleColorPalette from './pages/SingleColorPalette';
 import CreateNewPalette from './pages/CreateNewPalette';
+import useLocalStorageState from './utils/useLocalStorageState';
 
 function App() {
-  const [palette, setPalette] = useState(seedPalatte);
+  const [palette, setPalette] = useLocalStorageState(seedPalatte);
 
   const addPalette = newPalette => {
     setPalette([...palette, newPalette]);
