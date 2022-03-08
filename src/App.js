@@ -16,7 +16,7 @@ function App() {
     setPalette([...palette, newPalette]);
   };
   return (
-    <div>
+    <>
       <Routes>
         <Route path="/" element={<PaletteList paletteList={palette} />} />
         <Route
@@ -30,7 +30,7 @@ function App() {
         </Route>
         <Route path="*" element={<PaletteList paletteList={palette} />} />
       </Routes>
-    </div>
+    </>
   );
 }
 

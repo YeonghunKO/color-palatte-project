@@ -12,9 +12,10 @@ export default {
   container: {
     width: '50%',
     display: 'flex',
-    alignItems: 'flex-start',
-    flexDirection: 'column',
     flexWrap: 'wrap',
+    '& a': {
+      height: '120%',
+    },
   },
   nav: {
     display: 'flex',
@@ -35,6 +36,7 @@ export default {
     },
   },
   palettesClass: {
+    // height: '100vh',
     boxSizing: 'border-box',
     width: '100%',
     display: 'grid',
