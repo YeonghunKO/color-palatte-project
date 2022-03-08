@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,8 +10,6 @@ import { Button } from '@mui/material';
 
 import { AppBar } from '../assets/styles/CreateNewPaletteNav.style';
 
-import { ValidatorForm } from 'react-material-ui-form-validator';
-
 import { useStyles } from '../assets/styles/CreateNewPaletteNav.style';
 
 import NewPaletteMetaForm from '../components/NewPaletteMetaForm';
@@ -19,23 +17,19 @@ import NewPaletteMetaForm from '../components/NewPaletteMetaForm';
 function CreateColorNav(props) {
   const { open, handleDrawerOpen, savePalette, paletteList } = props;
 
-  const [newPaletteName, setPaletteName] = useState('');
-
   const navigation = useNavigate();
+
+  const [paletteNameSave, setPaletteNameSave] = useState(false);
 
   const { title, goBackButton } = useStyles(props);
 
-  const updateNewPaletteName = e => {
-    setPaletteName(e.target.value);
+  const handlePaletteNameFormOpen = () => {
+    setPaletteNameSave(true);
   };
 
-  useEffect(() => {
-    ValidatorForm.addValidationRule('isPlatteNameUnique', value => {
-      return paletteList.every(({ paletteName }) => {
-        return paletteName.toLowerCase() !== newPaletteName.toLowerCase();
-      });
-    });
-  }, [newPaletteName]);
+  const handlePaletteNameFormClose = () => {
+    setPaletteNameSave(false);
+  };
 
   return (
     <>
@@ -63,10 +57,16 @@ function CreateColorNav(props) {
           >
             Go Back
           </Button>
-          <NewPaletteMetaForm
-            paletteList={paletteList}
-            savePalette={savePalette}
-          />
+          <Button variant="contained" onClick={handlePaletteNameFormOpen}>
+            Save Palette
+          </Button>
+          {paletteNameSave && (
+            <NewPaletteMetaForm
+              paletteList={paletteList}
+              savePalette={savePalette}
+              formClose={handlePaletteNameFormClose}
+            />
+          )}
         </Toolbar>
       </AppBar>
     </>

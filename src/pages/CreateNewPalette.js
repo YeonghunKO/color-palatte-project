@@ -62,11 +62,12 @@ function CreateNewPalette(props) {
     setColors(removedColors);
   };
 
-  const savePalette = newPaletteName => {
+  const savePalette = ({ newPaletteName, emoji }) => {
     const newPaletteObj = {
       paletteName: newPaletteName,
       id: newPaletteName.toLocaleLowerCase().replace(/ /g, '-'),
       colors,
+      emoji,
     };
     addPalette(newPaletteObj);
     navigation('/');

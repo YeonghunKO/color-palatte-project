@@ -71,7 +71,7 @@ onClick으로 이벤트객체를 받아오려 했으니 CopyClipBoard 컴포넌�
 1. makeStyles에 대해서 TIL쓰기
 2. makeStyles를 이용해서 colorPicker style 완성하기
 <!--
-3. PaletteList는 여러곳에서 자주 쓰이므로 context로 만들어서 바로 보낼 수도록 해보기
+3. PaletteList,colors(createNewPalette안에)는 여러곳에서 자주 쓰이므로 context로 만들어서 바로 보낼 수도록 해보기
 
 4. draggable 함수 최소한만 랜더링 되도록 최적화 하기
 

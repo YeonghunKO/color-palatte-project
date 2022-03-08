@@ -13,7 +13,7 @@ const useStyles = makeStyles(() => {
       width: '100%',
     },
     TextValidatorClassName: {
-      margin: '1rem 0',
+      margin: '1rem 0 !important',
       width: '15rem',
     },
   });

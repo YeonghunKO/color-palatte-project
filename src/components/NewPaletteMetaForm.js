@@ -10,9 +10,13 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 import { useStyles } from '../assets/styles/CreateMetaNav.style';
 
+import 'emoji-mart/css/emoji-mart.css';
+import { Picker } from 'emoji-mart';
+
 function NewPaletteMetaForm(props) {
-  const [open, setOpen] = useState(false);
-  const { paletteList, savePalette } = props;
+  const [dialogType, setDialogType] = useState('form');
+
+  const { paletteList, savePalette, formClose } = props;
 
   const [newPaletteName, setPaletteName] = useState('');
 
@@ -30,25 +34,23 @@ function NewPaletteMetaForm(props) {
     });
   }, [newPaletteName]);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleDialog = type => {
+    setDialogType(type);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleSelectEmoji = emoji => {
+    savePalette({ newPaletteName, emoji: emoji.native });
   };
 
   return (
     <div>
-      <Button variant="contained" onClick={handleClickOpen}>
-        Save Palette
-      </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={dialogType === 'emoji'}>
+        <DialogTitle>Choose Palette Emoji</DialogTitle>
+        <Picker title="Choose Platte Emoji" onSelect={handleSelectEmoji} />
+      </Dialog>
+      <Dialog open={dialogType === 'form'} onClose={formClose}>
         <DialogTitle>Choose Palette Name</DialogTitle>
-        <ValidatorForm
-          className={form}
-          onSubmit={() => savePalette(newPaletteName)}
-        >
+        <ValidatorForm className={form} onSubmit={() => handleDialog('emoji')}>
           <DialogContent>
             <DialogContentText>
               Please Write down New Palette Name. And Make sure it's Unique!
@@ -68,7 +70,7 @@ function NewPaletteMetaForm(props) {
             />
           </DialogContent>
           <DialogActions>
-            <Button variant="contained" color="error" onClick={handleClose}>
+            <Button variant="contained" color="error" onClick={formClose}>
               Cancel
             </Button>
             <Button type="submit" variant="contained">
