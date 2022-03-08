@@ -16,10 +16,22 @@ function App() {
   const addPalette = newPalette => {
     setPalette([...palette, newPalette]);
   };
+
+  const removePalette = paletteId => {
+    const deletedPalette = palette.filter(palette => palette.id !== paletteId);
+    console.log(deletedPalette, paletteId);
+    setPalette(deletedPalette);
+  };
+
   return (
     <>
       <Routes>
-        <Route path="/" element={<PaletteList paletteList={palette} />} />
+        <Route
+          path="/"
+          element={
+            <PaletteList removePalette={removePalette} paletteList={palette} />
+          }
+        />
         <Route
           path="/palette/new"
           element={

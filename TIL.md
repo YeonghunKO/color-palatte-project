@@ -21,6 +21,24 @@ onClick으로 이벤트객체를 받아오려 했으니 CopyClipBoard 컴포넌�
 
 음 일단, 근데 여기서 처럼 stopPropagation을 사용할 수 밖에 없는 경우가 있으니 드림코딩의 논리는 설득력이 떨어진다.
 
+```javascript
+// ColorBox.js
+<CopyToClipboard text={background} onCopy={this.changeCopyState}>
+  {!isSingleColor && (
+   <Link to={`${moreUrl}`} onClick={e => e.stopPropagation()}>
+      <span className={`see-more ${moreButton}`}>MORE</span>
+   </Link>
+   )}
+<CopyToClipboard/>
+```
+
+이렇게 하면 CopyToClipboard에 걸려있는 onCopy이벤트가 작동되지 않는다. 이벤트가 더이상 bubbling하지 않기 때문
+
+3. MiniPalette에서 삭제버튼 구현시 부모 anchor에 걸린 default 이벤트까지 실행되는 이슈
+   - 2번처럼 stopPropagation을 해보았으나 a태그가 이미 실행이 되고 난 뒤에 작동하는 거 같다.
+   - preventDefault를 해주니 깔끔하게 해결이 되었다!
+   - 음... 삭제버튼은 svg인데 그게 버블링 되어서 anchor까지 도달한다. 즉, 삭제에서의 `e.preventDefault`는 부모 anchor에 까지 도달하여 적용되는 것인가?
+
 # CSS
 
 1. ` display: inline-block;` 이라고 하면 wrap이랑 똑같은 효과가 나타난다. 왜냐면 span처럼 inline처리가 되기 때문이다.

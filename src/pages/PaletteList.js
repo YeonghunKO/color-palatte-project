@@ -14,11 +14,12 @@ class PaletteList extends Component {
   }
 
   render() {
-    const { paletteList, classes } = this.props;
+    console.log('link rendering');
+    const { paletteList, classes, removePalette } = this.props;
     const { root, container, nav, palettesClass } = classes;
     const palettes = paletteList.map(palette => (
       <Link key={uuid()} to={`palette/${palette.id}`}>
-        <MiniPalette key={uuid()} {...palette} />
+        <MiniPalette removePalette={removePalette} key={uuid()} {...palette} />
       </Link>
     ));
 
