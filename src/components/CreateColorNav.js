@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
-import MenuIcon from '@mui/icons-material/Menu';
+// import MenuIcon from '@mui/icons-material/Menu';
+import { AddToPhotos } from '@mui/icons-material';
+
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import { Button } from '@mui/material';
@@ -43,7 +45,7 @@ function CreateColorNav(props) {
             edge="start"
             sx={{ mr: 2, ...(open && { display: 'none' }) }}
           >
-            <MenuIcon />
+            <AddToPhotos />
           </IconButton>
           <Typography className={title} variant="h7" noWrap component="div">
             Let's Custom Your Own Palette ~

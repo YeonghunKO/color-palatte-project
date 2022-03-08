@@ -70,6 +70,38 @@ onClick으로 이벤트객체를 받아오려 했으니 CopyClipBoard 컴포넌�
 
 1. makeStyles에 대해서 TIL쓰기
 2. makeStyles를 이용해서 colorPicker style 완성하기
+3. 조금 생소한 문법을 발견했다.
+   그럼 일단 코드부터 보자
+
+```javascript
+// createNewPaltte.style.js
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: prop => prop !== 'open',
+})(({ theme, open }) => {
+  return {
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    // 아래의 코드는 무엇을 의미할까??
+    ...(open && {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: `${drawerWidth}px`,
+      transition: theme.transitions.create(['margin', 'width'], {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    }),
+  };
+});
+```
+
+AppBar의 모습이다.
+
+근데 open뒤에 코드가 조금 생소해보인다.
+
+무슨뜻이냐면, createNewPalette에서 open state를 받아와서 true일 경우 open뒤에 있는 {...}를 모두 풀어서 펼치라는 뜻이다.
+
 <!--
 3. PaletteList,colors(createNewPalette안에)는 여러곳에서 자주 쓰이므로 context로 만들어서 바로 보낼 수도록 해보기
 

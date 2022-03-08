@@ -10,7 +10,7 @@ const DraggableColorDiv = styled.div`
   display: inline-block;
   position: relative;
   cursor: pointer;
-  margin-bottom: -3.5px;
+  margin-bottom: -7px;
   background-color: ${props => props.color};
   color: ${props =>
     chroma(props.color).luminance() >= 0.58
