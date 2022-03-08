@@ -5,17 +5,16 @@ export default {
     borderRadius: '5px',
     padding: '0.5rem',
     position: 'relative',
-    transition: 'transform .15s linear',
-    transition: 'opacity .15s linear',
+    transition: 'all .15s linear',
     '&:hover': {
       wbkitTransform: 'scale(1.1)',
       wmoztransform: 'scale(1.1)',
       wotransform: 'scale(1.1)',
       transform: 'scale(1.1)',
-      transition: 'transform .15s linear',
-      woTransition: 'transform .15s',
-      wmozTransition: 'transform .15s',
-      webkitTransition: 'transform .15s',
+      transition: 'all .15s linear',
+      woTransition: 'all .15s linear',
+      wmozTransition: 'all .15s linear',
+      webkitTransition: 'all .15s linear',
     },
     '&:hover svg': {
       opacity: '1',
@@ -67,5 +66,8 @@ export default {
     right: '0',
     zIndex: '10',
     opacity: '0',
+    '& *': {
+      PointerEvent: 'none',
+    },
   },
 };
