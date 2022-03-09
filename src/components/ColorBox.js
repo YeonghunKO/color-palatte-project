@@ -22,13 +22,15 @@ class ColorBox extends Component {
 
   render() {
     const { name, background, moreUrl, isSingleColor, classes } = this.props;
-    const { copyText, colorName, copyButton, moreButton } = classes;
+    const { copyText, colorName, copyButton, moreButton, colorBox } = classes;
     const { copied } = this.state;
     return (
       <CopyToClipboard text={background} onCopy={this.changeCopyState}>
         <div
           style={{ background }}
-          className={`${isSingleColor ? 'Single-color-box' : 'Color-box'}`}
+          className={`${
+            isSingleColor ? 'Single-color-box' : 'Color-box'
+          } ${colorBox}`}
         >
           <div
             style={{ background }}

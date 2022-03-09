@@ -2,6 +2,7 @@
 
 .Palette {
   height: 100vh;
+  overflow-y: scroll;
 }
 
 .Palette-colors {
@@ -17,4 +18,9 @@
   align-items: center;
   height: 4vh;
   margin-right: 5px;
+}
+
+@media (max-width: 570px) {
+  /* .Palette-footer {
+  } */
 }

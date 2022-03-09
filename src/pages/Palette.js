@@ -52,6 +52,12 @@ class Palette extends Component {
         }
       }
 
+      const footer = (
+        <footer className="Single-color-footer">
+          {colorIdParam} {emoji}
+        </footer>
+      );
+
       renderResult = (
         <>
           <NavBar
@@ -61,10 +67,8 @@ class Palette extends Component {
             changeLevel={this.changeLevel}
             isSingleColor={true}
           />
-          <Outlet context={[colorsByBrightness, format]} />
-          <footer className="Single-color-footer">
-            {colorIdParam} {emoji}
-          </footer>
+
+          <Outlet context={[colorsByBrightness, format, footer]} />
         </>
       );
     } else {
@@ -85,10 +89,12 @@ class Palette extends Component {
             changeLevel={this.changeLevel}
           />
 
-          <div className="Palette-colors">{ColorBoxes}</div>
-          <footer className="Palette-footer">
-            {paletteName} {emoji}
-          </footer>
+          <div className="Palette-colors">
+            {ColorBoxes}
+            <footer className="Palette-footer">
+              {paletteName} {emoji}
+            </footer>
+          </div>
         </>
       );
     }

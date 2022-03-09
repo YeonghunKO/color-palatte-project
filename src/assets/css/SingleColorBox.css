@@ -2,7 +2,7 @@
 
 .Single-color-box {
   width: 20%;
-  height: 50%;
+  height: 40%;
   margin: 0 auto;
   display: inline-block;
   position: relative;
@@ -19,6 +19,7 @@
   align-items: center;
   height: 4vh;
   margin-right: 5px;
+  /* margin-top: 5px; */
   padding-bottom: 12px;
 }
 
@@ -44,4 +45,47 @@
   color: white;
   border: none;
   opacity: 1;
+}
+/* 
+(min-width **px)은 최소 **px 이상이면 발동한다는 뜻.
+(mix-width **px)은 최대 **px 까지는 유효하다는 뜻.
+그리고 css 코드도 JS와 마찬가지로 위의 코드는 아래코드에 덮어씌여진다.
+따라서 max-width일 경우 큰것부터 작은것 순으로 적어야 창 사이즈 크기에 따라 순차적으로 적용이 된다.
+만약, max-width일 경우에 작은것을 먼저적은면 창의 크기를 늘려도 작은사이즈가 계속 적용될 수 밖에 없다.
+*/
+@media (min-width: 1199.98px) {
+  .Single-color-footer {
+    margin-top: 1rem;
+    position: absolute;
+    right: 1rem;
+    bottom: 0;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .go-back-box {
+    width: 25%;
+    height: 45%;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .go-back-box {
+    width: 50%;
+    height: 35%;
+  }
+}
+
+@media (max-width: 767.98px) {
+  /* .go-back-box {
+    width: 100%;
+    height: 20%;
+  } */
+}
+
+@media (max-width: 575.98px) {
+  .go-back-box {
+    width: 100%;
+    height: 20%;
+  }
 }
