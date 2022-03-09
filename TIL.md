@@ -35,15 +35,68 @@ onClick으로 이벤트객체를 받아오려 했으니 CopyClipBoard 컴포넌�
 이렇게 하면 CopyToClipboard에 걸려있는 onCopy이벤트가 작동되지 않는다. 이벤트가 더이상 bubbling하지 않기 때문
 
 3. MiniPalette에서 삭제버튼 구현시 부모 anchor에 걸린 default 이벤트까지 실행되는 이슈
+
    - 2번처럼 stopPropagation을 해보았으나 a태그가 이미 실행이 되고 난 뒤에 작동하는 거 같다.
-   - preventDefault를 해주니 깔끔하게 해결이 되었다!
+
+   - `pointer-events:none`도 시도해보았으나 실패다. 왜냐면 이건 클릭 target본인이나 자식 요소만 적용가능하기 때문.
+
+   - 근데, preventDefault를 해주니 깔끔하게 해결이 되었다!
+
    - 음... 삭제버튼은 svg인데 그게 버블링 되어서 anchor까지 도달한다. 즉, 삭제에서의 `e.preventDefault`는 부모 anchor에 까지 도달하여 적용되는 것인가?
+
+코드를 보자.
+
+```javascript
+// PaletteList.js
+const palettes = paletteList.map(palette => (
+  <Link key={uuid()} to={`palette/${palette.id}`}>
+    <MiniPalette removePalette={removePalette} key={uuid()} {...palette} />
+  </Link>
+));
+
+// MiniPalette.js
+
+const handleDelete = evt => {
+  evt.preventDefault();
+  removePalette(id);
+};
+
+return (
+  <div className={root}>
+    <Delete className={deleteIcon} onClick={handleDelete} />
+    <div className={colorsClass}>{miniColorBoxes}</div>
+    <h5 className={title}>
+      {paletteName} <span className={emojiClass}>{emoji}</span>
+    </h5>
+  </div>
+);
+```
+
+아래의 사진을 보면 좀 더 자세하게 알 수 있을 것이다.
 
 # CSS
 
 1. ` display: inline-block;` 이라고 하면 wrap이랑 똑같은 효과가 나타난다. 왜냐면 span처럼 inline처리가 되기 때문이다.
 
 2. `.copy-overlay` 에서 width,height 다 100% 정해놓고 `.copy-overlay.show` 일때 position을 absolute로 바꿈으로써 다른 color-box를 변경시키지 않고 전 화면을 깔끔하게 다 덮게 할 수 있는것이다.
+
+```css
+.copy-overlay {
+  opacity: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s ease-in-out;
+  transform: scale(0.1);
+}
+
+.copy-overlay.show {
+  opacity: 1;
+  transform: scale(50);
+  z-index: 10;
+  position: absolute;
+}
+```
 
 3. border-radius에 의해서 코너가 삐죽 튀어나왔을때 `overflow:hidden` 이라고 해주면 깔끔하게 정리된다. nth-child로 코너에 있는 dom만 선별해서 border-radius를 일일이 설정해주지 않아도 된다.
 
@@ -86,8 +139,6 @@ onClick으로 이벤트객체를 받아오려 했으니 CopyClipBoard 컴포넌�
 
 # 해야할 일
 
-1. makeStyles에 대해서 TIL쓰기
-2. makeStyles를 이용해서 colorPicker style 완성하기
 3. 조금 생소한 문법을 발견했다.
    그럼 일단 코드부터 보자
 

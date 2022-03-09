@@ -30,7 +30,6 @@ class Palette extends Component {
   }
   render() {
     const { PaleltteIdParam, colorIdParam, paletteList } = this.props;
-    console.log(PaleltteIdParam);
     const { level, format } = this.state;
     const { colors, paletteName, emoji } = generatePalette(
       findPalette(paletteList, PaleltteIdParam)

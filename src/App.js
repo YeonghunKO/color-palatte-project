@@ -19,7 +19,6 @@ function App() {
 
   const removePalette = paletteId => {
     const deletedPalette = palette.filter(palette => palette.id !== paletteId);
-    console.log(deletedPalette, paletteId);
     setPalette(deletedPalette);
   };
 

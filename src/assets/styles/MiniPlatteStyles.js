@@ -19,7 +19,7 @@ export default {
     '&:hover svg': {
       opacity: '1',
       transition: 'all .3s ease-in-out',
-      color: 'red',
+      color: 'white',
     },
   },
   colorsClass: {
@@ -62,7 +62,10 @@ export default {
   deleteIcon: {
     color: 'black',
     position: 'absolute',
-    top: '2px',
+    backgroundColor: 'red',
+    padding: '2px',
+    borderRadius: '2px',
+    top: '-1px',
     right: '0',
     zIndex: '10',
     opacity: '0',

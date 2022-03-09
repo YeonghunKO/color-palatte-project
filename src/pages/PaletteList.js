@@ -14,7 +14,6 @@ class PaletteList extends Component {
   }
 
   render() {
-    console.log('link rendering');
     const { paletteList, classes, removePalette } = this.props;
     const { root, container, nav, palettesClass } = classes;
     const palettes = paletteList.map(palette => (
