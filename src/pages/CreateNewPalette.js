@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import { useNavigate } from 'react-router';
 
@@ -10,6 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 import { Button } from '@mui/material';
+import { withStyles } from '@mui/styles';
 
 import chroma from 'chroma-js';
 
@@ -22,6 +23,7 @@ import {
   Main,
   DrawerHeader,
   drawerWidth,
+  styles,
 } from '../assets/styles/CreateNewPalette.style';
 
 import DraggableColorList from '../components/DraggableColorList';
@@ -30,6 +32,8 @@ import CreateColorNav from '../components/CreateColorNav';
 import { arrayMove } from 'react-sortable-hoc';
 import CreateColorPicker from '../components/CreateColorPicker';
 
+import PropTypes from 'prop-types';
+
 const getColorByLuminance = currentColor => {
   return chroma(currentColor).luminance() >= 0.58
     ? 'rgb(29, 27, 27)'
@@ -37,13 +41,15 @@ const getColorByLuminance = currentColor => {
 };
 
 function CreateNewPalette(props) {
-  const { maxCardNum, paletteList, addPalette } = props;
+  const { maxCardNum, paletteList, addPalette, classes } = props;
+  const { drawer } = classes;
+
   const navigation = useNavigate();
+
   const allColors = paletteList.map(palette => palette.colors).flat();
-  // const [open, setOpen] = useState(false);
+
   const [colors, setColors] = useState([{ name: 'wowsers', color: 'blue' }]);
   const [open, setOpen] = useState(false);
-  // const [newPaletteName, setPaletteName] = useState('');
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -101,21 +107,7 @@ function CreateNewPalette(props) {
         savePalette={savePalette}
         paletteList={paletteList}
       />
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          display: 'flex',
-          flexDirection: 'column',
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={open}
-      >
+      <Drawer className={drawer} variant="persistent" anchor="left" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             <ChevronLeftIcon />
@@ -163,4 +155,8 @@ function CreateNewPalette(props) {
   );
 }
 
-export default CreateNewPalette;
+CreateNewPalette.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(CreateNewPalette);

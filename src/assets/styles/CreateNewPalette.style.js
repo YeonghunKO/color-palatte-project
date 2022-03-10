@@ -2,6 +2,8 @@ import { keyframes } from '@emotion/react';
 
 import { styled } from '@mui/material/styles';
 
+import sizes from './sizes.style';
+
 const drawerWidth = 350;
 
 const bounce = keyframes`
@@ -25,13 +27,16 @@ const bounce = keyframes`
 const Main = styled('main', { shouldForwardProp: prop => prop !== 'open' })(
   ({ theme, open }) => ({
     flexGrow: 1,
-    height: 'calc( 100vh - 64px )',
+    height: '100vh',
     padding: 0,
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: `-${drawerWidth}px`,
+    [sizes.down('xs')]: {
+      marginLeft: `-${window.innerWidth}px`,
+    },
     ...(open && {
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
@@ -49,6 +54,29 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end',
+  minHeight: '70px !important',
+  [sizes.down('xs')]: {
+    minHeight: '58px !important',
+  },
 }));
 
-export { Main, DrawerHeader, drawerWidth };
+const styles = {
+  drawer: {
+    width: drawerWidth,
+    display: 'flex',
+    flexDirection: 'column',
+    flexShrink: 0,
+    [sizes.down('xs')]: {
+      width: `${window.innerWidth}px`,
+    },
+    '& .MuiDrawer-paper': {
+      width: drawerWidth,
+      boxSizing: 'border-box',
+      [sizes.down('xs')]: {
+        width: `${window.innerWidth}px`,
+      },
+    },
+  },
+};
+
+export { Main, DrawerHeader, drawerWidth, styles };

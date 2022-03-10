@@ -23,7 +23,7 @@ function CreateColorNav(props) {
 
   const [paletteNameSave, setPaletteNameSave] = useState(false);
 
-  const { title, goBackButton } = useStyles(props);
+  const { title, goBackButton, saveButton } = useStyles(props);
 
   const handlePaletteNameFormOpen = () => {
     setPaletteNameSave(true);
@@ -43,7 +43,7 @@ function CreateColorNav(props) {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
+            sx={{ mr: 0, ...(open && { display: 'none' }) }}
           >
             <AddToPhotos />
           </IconButton>
@@ -59,8 +59,12 @@ function CreateColorNav(props) {
           >
             Go Back
           </Button>
-          <Button variant="contained" onClick={handlePaletteNameFormOpen}>
-            Save Palette
+          <Button
+            className={saveButton}
+            variant="contained"
+            onClick={handlePaletteNameFormOpen}
+          >
+            Save
           </Button>
           {paletteNameSave && (
             <NewPaletteMetaForm

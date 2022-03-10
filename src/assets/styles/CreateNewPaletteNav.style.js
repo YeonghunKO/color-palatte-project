@@ -4,6 +4,8 @@ import { styled } from '@mui/material/styles';
 
 import { createStyles, makeStyles } from '@mui/styles';
 
+import sizes from './sizes.style';
+
 const drawerWidth = 350;
 
 const AppBar = styled(MuiAppBar, {
@@ -31,11 +33,23 @@ const useStyles = makeStyles(() => {
       marginRight: 'auto !important',
       fontWeight: 'bold',
       fontStyle: 'italic',
-      // background:
-      //   'linear-gradient(227deg, rgba(148,170,233,1) 0%, rgba(144,152,193,1) 30%, rgba(169,137,182,1) 74%, rgba(238,174,202,1) 100%)',
+
+      [sizes.down('xs')]: {
+        fontSize: '10px',
+      },
     },
     goBackButton: {
       margin: '1rem 1rem !important',
+      [sizes.down('xs')]: {
+        padding: '4px 1px !important',
+        fontSize: '.2rem !important',
+      },
+    },
+    saveButton: {
+      [sizes.down('xs')]: {
+        padding: '4px 1px !important',
+        fontSize: '.2rem !important',
+      },
     },
   });
 });

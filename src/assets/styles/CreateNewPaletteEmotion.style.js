@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { keyframes, css } from '@emotion/react';
+import sizes from '../styles/sizes.style';
 
 const bounce = keyframes`
   from, 20%, 53%, 80%, to {
@@ -21,11 +22,15 @@ const bounce = keyframes`
 
 const DrawerInnerDiv = styled.div`
   height: 100%;
+  color: blue;
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  ${sizes.down('xs')} {
+    gap: 1rem;
+  }
   h6 {
     font-weight: bold;
     /* font-size: 1rem; */

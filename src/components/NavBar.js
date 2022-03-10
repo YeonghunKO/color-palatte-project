@@ -49,9 +49,9 @@ function NavBar(props) {
           onChange={onSelectFormat}
           defaultValue={formatState}
         >
-          <MenuItem value={'hex'}>HEX - #ffffff</MenuItem>
-          <MenuItem value={'rgb'}>RGB - rgb(255,255,255)</MenuItem>
-          <MenuItem value={'rgba'}>RGBA - rgba(255,255,255, 1.0)</MenuItem>
+          <MenuItem value={'hex'}>HEX - #fff</MenuItem>
+          <MenuItem value={'rgb'}>RGB - rgb</MenuItem>
+          <MenuItem value={'rgba'}>RGBA - rgba</MenuItem>
         </Select>
       </FormControl>
       <Snackbar
