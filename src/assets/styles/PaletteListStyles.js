@@ -1,7 +1,9 @@
 import sizes from './sizes.style';
+import doodlesImg from './img/confetti-doodles.svg';
+// import flatMountainImg from './img/flat-mountains.svg';
 
-const rootStyle = color => ({
-  backgroundColor: color,
+const rootStyle = bg => ({
+  backgroundImage: bg,
   height: '100vh',
   display: 'flex',
   alignItems: 'flex-start',
@@ -20,9 +22,8 @@ const rootStyle = color => ({
     display: 'none',
   },
 });
-
 export default {
-  root: rootStyle('blue'),
+  root: rootStyle(`url(${doodlesImg})`),
   container: {
     width: '50%',
     display: 'flex',
@@ -66,6 +67,9 @@ export default {
     width: '100%',
     display: 'grid',
     gridTemplateColumns: 'repeat(3,1fr)',
+    [sizes.down('sm')]: {
+      gridTemplateColumns: 'repeat(2,1fr)',
+    },
     [sizes.down('xs')]: {
       gridTemplateColumns: '1fr',
     },
