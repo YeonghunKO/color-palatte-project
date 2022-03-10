@@ -31,7 +31,7 @@ export default {
       height: '120%',
     },
     [sizes.down('xs')]: {
-      width: '80%',
+      width: '55%',
     },
   },
   nav: {
@@ -66,6 +66,9 @@ export default {
     width: '100%',
     display: 'grid',
     gridTemplateColumns: 'repeat(3,1fr)',
+    [sizes.down('xs')]: {
+      gridTemplateColumns: '1fr',
+    },
     gap: '4% 2%',
   },
 };
