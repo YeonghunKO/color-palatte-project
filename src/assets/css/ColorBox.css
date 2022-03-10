@@ -112,3 +112,37 @@
   font-size: 2rem;
   font-weight: 100;
 }
+/* 
+@media (max-width: 1199.98px) {
+} */
+
+@media (max-width: 991.98px) {
+  .copy-msg.show h1 {
+    font-size: 4rem;
+  }
+  .copy-msg.show p {
+    font-size: 1.6rem;
+  }
+}
+/* 
+@media (max-width: 767.98px) {
+} */
+
+@media (max-width: 575.98px) {
+  .copy-button {
+    top: 20%;
+    font-size: 15px;
+  }
+
+  .see-more {
+    font-size: 14px;
+  }
+
+  .copy-msg.show h1 {
+    font-size: 2.5rem;
+  }
+
+  .copy-msg.show p {
+    font-size: 1.3rem;
+  }
+}

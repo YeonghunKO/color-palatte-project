@@ -1,3 +1,5 @@
+import sizes from './sizes.style';
+
 export default {
   root: {
     backgroundColor: 'white',
@@ -29,11 +31,14 @@ export default {
     flexWrap: 'wrap',
     overflow: 'hidden',
     borderRadius: '5px',
-    '@media (min-width: 1300px)': {
-      height: '10rem',
+    [sizes.down('lg')]: {
+      height: '8rem',
     },
-    '@media (max-width: 600px)': {
+    [sizes.down('sm')]: {
       height: '5rem',
+    },
+    [sizes.up('lg')]: {
+      height: '9rem',
     },
   },
   title: {
@@ -45,7 +50,7 @@ export default {
     paddingTop: '0.5rem',
     fontSize: '.8rem',
     position: 'relative',
-    '@media (max-width: 600px)': {
+    [sizes.down('sm')]: {
       fontSize: '.3rem',
     },
   },
