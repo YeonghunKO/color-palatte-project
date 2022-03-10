@@ -52,3 +52,16 @@
   display: flex !important;
   justify-content: center;
 }
+
+@media (max-width: 575.98px) {
+  .Navbar .logo {
+    padding: 0 6px;
+    font-size: 12px;
+  }
+  .Navbar .MuiFormControl-root {
+    min-width: 90px;
+  }
+  .Navbar .MuiInput-root {
+    font-size: 12px;
+  }
+}
