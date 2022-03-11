@@ -23,6 +23,16 @@ const rootStyle = bg => ({
   },
 });
 export default {
+  '@global': {
+    '.PaletteItem-exit': {
+      opacity: 1,
+    },
+    '.PaletteItem-exit-active': {
+      opacity: 0,
+      transition: 'opacity 500ms ease-in',
+    },
+  },
+
   root: rootStyle(`url(${doodlesImg})`),
   container: {
     width: '50%',

@@ -7,6 +7,8 @@ import uuid from 'react-uuid';
 import MiniPalette from '../components/MiniPalette';
 import styles from '../assets/styles/PaletteListStyles';
 
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+
 class PaletteList extends Component {
   constructor(props) {
     super(props);
@@ -17,9 +19,15 @@ class PaletteList extends Component {
     const { paletteList, classes, removePalette } = this.props;
     const { root, container, nav, palettesClass } = classes;
     const palettes = paletteList.map(palette => (
-      <Link key={uuid()} to={`palette/${palette.id}`}>
-        <MiniPalette removePalette={removePalette} key={uuid()} {...palette} />
-      </Link>
+      <CSSTransition key={palette.id} timeout={500} classNames="PaletteItem">
+        <Link key={uuid()} to={`palette/${palette.id}`}>
+          <MiniPalette
+            removePalette={removePalette}
+            key={uuid()}
+            {...palette}
+          />
+        </Link>
+      </CSSTransition>
     ));
 
     return (
@@ -29,7 +37,9 @@ class PaletteList extends Component {
             <h1>React Colors</h1>
             <Link to="/palette/new">Create New Palette</Link>
           </nav>
-          <div className={palettesClass}>{palettes}</div>
+          <TransitionGroup className={palettesClass}>
+            {palettes}
+          </TransitionGroup>
         </div>
       </div>
     );
