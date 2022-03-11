@@ -3,7 +3,7 @@ import styles from '../assets/styles/MiniPlatteStyles';
 import Delete from '@mui/icons-material/Delete';
 
 function MiniPalette(props) {
-  const { classes, colors, emoji, paletteName, id, removePalette } = props;
+  const { classes, colors, emoji, paletteName, id, openDeleteDialog } = props;
   const { root, colorsClass, title, emojiClass, miniColor, deleteIcon } =
     classes;
   const miniColorBoxes = colors.map(color => (
@@ -16,7 +16,7 @@ function MiniPalette(props) {
 
   const handleDelete = evt => {
     evt.preventDefault();
-    removePalette(id);
+    openDeleteDialog(id, paletteName);
   };
 
   return (
