@@ -78,6 +78,7 @@ class Palette extends Component {
           key={color.name}
           background={color[format]}
           name={color.name}
+          key={color.id}
         />
       ));
       renderResult = (

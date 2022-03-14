@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
@@ -7,7 +7,7 @@ import '../assets/css/ColorBox.css';
 
 import { withStyles } from '@mui/styles';
 
-class ColorBox extends Component {
+class ColorBox extends PureComponent {
   constructor(props) {
     super(props);
     this.state = { copied: false };
@@ -24,6 +24,7 @@ class ColorBox extends Component {
     const { name, background, moreUrl, isSingleColor, classes } = this.props;
     const { copyText, colorName, copyButton, moreButton, colorBox } = classes;
     const { copied } = this.state;
+    console.log('colorBox Rendering');
     return (
       <CopyToClipboard text={background} onCopy={this.changeCopyState}>
         <div

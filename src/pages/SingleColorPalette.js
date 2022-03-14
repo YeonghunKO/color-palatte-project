@@ -1,11 +1,6 @@
 import { useOutletContext, useNavigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import ColorBox from '../components/ColorBox';
 import '../assets/css/SingleColorBox.css';
-import uuid from 'react-uuid';
-
-import styles from '../assets/styles/ColorBoxStyles';
-import { withStyles } from '@mui/styles';
 
 function SingleColorPalette(props) {
   const navigate = useNavigate();
@@ -14,7 +9,7 @@ function SingleColorPalette(props) {
   // console.log(props);
   const ColorBoxes = colorsByBrightness.map(colorsObj => (
     <ColorBox
-      key={uuid()}
+      key={colorsObj.id}
       isSingleColor={true}
       name={colorsObj.name}
       background={colorsObj[format]}

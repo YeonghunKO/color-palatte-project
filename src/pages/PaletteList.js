@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@mui/styles';
 
-import uuid from 'react-uuid';
-
 import MiniPalette from '../components/MiniPalette';
 import styles from '../assets/styles/PaletteListStyles';
 
@@ -56,14 +54,13 @@ class PaletteList extends Component {
     const palettes = paletteList.map(palette => (
       <CSSTransition key={palette.id} timeout={500} classNames="PaletteItem">
         <Link
-          key={uuid()}
           to={{
             pathname: `palette/${palette.id}`,
             // state: { prevPath: location.pathname },
           }}
         >
           <MiniPalette
-            key={uuid()}
+            key={palette.id}
             {...palette}
             openDeleteDialog={this.handleDialogOpen}
           />
