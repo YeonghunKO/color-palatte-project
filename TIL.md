@@ -108,6 +108,15 @@ AppBar의 모습이다.
 
 무슨뜻이냐면, createNewPalette에서 open state를 받아와서 true일 경우 open뒤에 있는 {...}를 모두 풀어서 펼치라는 뜻이다.
 
+4. transitionGroup, CSStransition을 router에 적용하는 과정에서 발생한 버그
+
+- CSStransition에 `classNames` 라고 잘 입력해주자! 그리고 거기에 해당하는 클래스이름도 오타없이 잘 적어주고
+- 원래라면 이전 route location로 인해 랜더링된 컴포넌트와 새로운 location으로 인해 새롭게 랜더링된 컴포넌트가 나와야한다.
+- 이전 컴포넌트에 적용된 classs는 `exit` 이 붙고 새로운 컴포넌트에는 `enter`가 붙는다.
+- 근데 이전 exit, enter 둘다 새로운 컴포넌트이다.
+- 이전 컴포넌트는 어디로 갔나?
+- 그건 location을 지정해주어야 한다. [이것을 참고하거라](https://www.youtube.com/watch?v=jMl0qOgcf6Y&t=116s)
+
 # CSS
 
 1. ` display: inline-block;` 이라고 하면 wrap이랑 똑같은 효과가 나타난다. 왜냐면 span처럼 inline처리가 되기 때문이다.

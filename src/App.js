@@ -1,6 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 
-import { useState } from 'react';
+// import { useState, useEffect } from 'react';
+
+import { useLocation } from 'react-router-dom';
 
 import Palette from './pages/Palette';
 import seedPalatte from './DATA/seedPalatte';
@@ -10,7 +12,14 @@ import SingleColorPalette from './pages/SingleColorPalette';
 import CreateNewPalette from './pages/CreateNewPalette';
 import useLocalStorageState from './utils/useLocalStorageState';
 
+import Page from './components/Page';
+
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+
+import uuid from 'react-uuid';
+
 function App() {
+  const location = useLocation();
   const [palette, setPalette] = useLocalStorageState(seedPalatte);
 
   const addPalette = newPalette => {
@@ -21,28 +30,58 @@ function App() {
     const deletedPalette = palette.filter(palette => palette.id !== paletteId);
     setPalette(deletedPalette);
   };
-
   return (
-    <>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <PaletteList removePalette={removePalette} paletteList={palette} />
-          }
-        />
-        <Route
-          path="/palette/new"
-          element={
-            <CreateNewPalette addPalette={addPalette} paletteList={palette} />
-          }
-        />
-        <Route path="/palette/:id" element={<Palette paletteList={palette} />}>
-          <Route path=":colorId" element={<SingleColorPalette />} />
-        </Route>
-        <Route path="*" element={<PaletteList paletteList={palette} />} />
-      </Routes>
-    </>
+    <TransitionGroup style={{ position: 'relative' }}>
+      <CSSTransition
+        key={uuid()}
+        classNames="Page"
+        timeout={500}
+        key={location.key}
+      >
+        {/* 리액트 dev툴에 들어가서 이전과 이후의 컴포넌트의 location을 잘 살펴봐라 */}
+        <Routes location={location}>
+          <Route
+            path="/"
+            element={
+              <Page>
+                <PaletteList
+                  removePalette={removePalette}
+                  paletteList={palette}
+                />
+              </Page>
+            }
+          />
+          <Route
+            path="/palette/new"
+            element={
+              <Page>
+                <CreateNewPalette
+                  addPalette={addPalette}
+                  paletteList={palette}
+                />
+              </Page>
+            }
+          />
+          <Route
+            path="/palette/:id"
+            element={
+              <Page>
+                <Palette paletteList={palette} />
+              </Page>
+            }
+          >
+            <Route path=":colorId" element={<SingleColorPalette />} />
+          </Route>
+          <Route
+            path="*"
+            element={d => {
+              console.log(d);
+              return <div>Not Found</div>;
+            }}
+          />
+        </Routes>
+      </CSSTransition>
+    </TransitionGroup>
   );
 }
 
