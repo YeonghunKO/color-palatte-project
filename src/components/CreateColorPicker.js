@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { memo, useState, useEffect } from 'react';
 
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
@@ -8,8 +8,10 @@ import { ChromePicker } from 'react-color';
 
 import useStyles from '../assets/styles/CreateColorPicker.style';
 
+import chroma from 'chroma-js';
+
 function CreateColorPicker(props) {
-  const { addColor, isPaletteFull, colors, getColorByLuminance } = props;
+  const { addColor, isPaletteFull, colors } = props;
   const [currentColor, setCurrentColor] = useState('#800080');
 
   const [newColorName, setNewColorName] = useState('');
@@ -18,7 +20,16 @@ function CreateColorPicker(props) {
     TextValidatorFormClassName,
     TextValidatorClassName,
   } = useStyles(props);
+
+  const getColorByLuminance = currentColor => {
+    console.log('getColorByLuminance');
+    return chroma(currentColor).luminance() >= 0.58
+      ? 'rgb(29, 27, 27)'
+      : 'rgb(255, 255, 255)';
+  };
+
   const updateCurrentColor = newColor => {
+    console.log(newColor);
     setCurrentColor(newColor.hex);
   };
 
@@ -46,11 +57,12 @@ function CreateColorPicker(props) {
 
     ValidatorForm.addValidationRule('isColorUnique', value => {
       return colors.every(({ color }) => {
+        console.log(color, currentColor);
         return currentColor !== color;
       });
     });
   }, [newColorName, currentColor, colors]);
-  console.log('colorPicker');
+  console.log('color picker');
   return (
     <>
       <ChromePicker
@@ -93,4 +105,4 @@ function CreateColorPicker(props) {
   );
 }
 
-export default CreateColorPicker;
+export default memo(CreateColorPicker);

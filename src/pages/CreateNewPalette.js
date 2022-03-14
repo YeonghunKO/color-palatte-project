@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 
 import { useNavigate } from 'react-router';
 
@@ -12,8 +12,6 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { Button } from '@mui/material';
 import { withStyles } from '@mui/styles';
 
-import chroma from 'chroma-js';
-
 import {
   DrawerInnerDiv,
   ButtonContainer,
@@ -22,7 +20,6 @@ import {
 import {
   Main,
   DrawerHeader,
-  drawerWidth,
   styles,
 } from '../assets/styles/CreateNewPalette.style';
 
@@ -34,12 +31,6 @@ import CreateColorPicker from '../components/CreateColorPicker';
 
 import PropTypes from 'prop-types';
 
-const getColorByLuminance = currentColor => {
-  return chroma(currentColor).luminance() >= 0.58
-    ? 'rgb(29, 27, 27)'
-    : 'rgb(255, 255, 255)';
-};
-
 function CreateNewPalette(props) {
   const { maxCardNum, paletteList, addPalette, classes } = props;
   const { drawer } = classes;
@@ -50,55 +41,72 @@ function CreateNewPalette(props) {
 
   const [colors, setColors] = useState([{ name: 'wowsers', color: 'blue' }]);
   const [open, setOpen] = useState(false);
+  const [isRemoveBoxStart, setRemoveBoxStart] = useState(false);
 
-  const handleDrawerOpen = () => {
+  console.log(colors);
+
+  const handleDrawerOpen = useCallback(() => {
     setOpen(true);
-  };
+  }, []);
 
-  const handleDrawerClose = () => {
+  const handleDrawerClose = useCallback(() => {
     setOpen(false);
-  };
+  }, []);
 
-  const addColor = newColorObj => {
-    setColors([...colors, newColorObj]);
-  };
+  const addColor = useCallback(
+    newColorObj => {
+      setColors([...colors, newColorObj]);
+    },
+    [colors]
+  );
 
-  const removeColorBox = name => {
-    const removedColors = colors.filter(color => color.name !== name);
-    setColors(removedColors);
-  };
+  const removeColorBox = useCallback(
+    name => {
+      const removedColors = colors.filter(color => color.name !== name);
+      setColors(removedColors);
+    },
+    [isRemoveBoxStart]
+  );
 
-  const savePalette = ({ newPaletteName, emoji }) => {
-    const newPaletteObj = {
-      paletteName: newPaletteName,
-      id: newPaletteName.toLocaleLowerCase().replace(/ /g, '-'),
-      colors,
-      emoji,
-    };
-    addPalette(newPaletteObj);
-    navigation('/');
-  };
+  const savePalette = useCallback(
+    ({ newPaletteName, emoji }) => {
+      const newPaletteObj = {
+        paletteName: newPaletteName,
+        id: newPaletteName.toLocaleLowerCase().replace(/ /g, '-'),
+        colors,
+        emoji,
+      };
+      addPalette(newPaletteObj);
+      navigation('/');
+    },
+    [colors]
+  );
 
-  const sortEnd = ({ oldIndex, newIndex }) => {
-    setColors(oldColors => {
-      return arrayMove(oldColors, oldIndex, newIndex);
-    });
-  };
+  const sortEnd = useCallback(
+    ({ oldIndex, newIndex }) => {
+      if (oldIndex !== newIndex) {
+        setColors(oldColors => {
+          return arrayMove(oldColors, oldIndex, newIndex);
+        });
+      }
+    },
+    [colors]
+  );
+  // const = useCallback(()=>{})
 
-  const addRandomColor = () => {
+  const addRandomColor = useCallback(() => {
     let randomColor;
     do {
       randomColor = allColors[Math.floor(Math.random() * allColors.length)];
     } while (colors.some(color => color.color === randomColor.color));
     setColors([...colors, randomColor]);
-  };
+  }, [colors]);
 
-  const clearColors = () => {
+  const clearColors = useCallback(() => {
     setColors([]);
-  };
+  }, []);
 
   const isPaletteFull = colors.length >= maxCardNum;
-  console.log('createNewPalette');
   return (
     <Box sx={{ display: 'flex' }}>
       <CreateColorNav
@@ -137,7 +145,6 @@ function CreateNewPalette(props) {
             addColor={addColor}
             isPaletteFull={isPaletteFull}
             colors={colors}
-            getColorByLuminance={getColorByLuminance}
           />
         </DrawerInnerDiv>
       </Drawer>
@@ -149,6 +156,7 @@ function CreateNewPalette(props) {
           axis="xy"
           colors={colors}
           remove={removeColorBox}
+          setRemoveBoxStart={setRemoveBoxStart}
         />
       </Main>
     </Box>

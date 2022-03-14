@@ -24,7 +24,6 @@ class ColorBox extends PureComponent {
     const { name, background, moreUrl, isSingleColor, classes } = this.props;
     const { copyText, colorName, copyButton, moreButton, colorBox } = classes;
     const { copied } = this.state;
-    console.log('colorBox Rendering');
     return (
       <CopyToClipboard text={background} onCopy={this.changeCopyState}>
         <div

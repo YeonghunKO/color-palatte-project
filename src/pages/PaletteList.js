@@ -36,6 +36,7 @@ class PaletteList extends Component {
 
   handleDialogClose() {
     this.setState({ isDialogOpen: false });
+    console.log('Palette List Class handleDialog');
   }
 
   handleDialogOpen(deletePaletteId, deletePaletteName) {

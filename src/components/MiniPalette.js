@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import { withStyles } from '@mui/styles';
 import styles from '../assets/styles/MiniPlatteStyles';
 import Delete from '@mui/icons-material/Delete';
@@ -19,7 +19,6 @@ function MiniPalette(props) {
     evt.preventDefault();
     openDeleteDialog(id, paletteName);
   };
-  console.log('Mini Color Palette Rendering', paletteName);
   return (
     <div className={root}>
       <Delete className={deleteIcon} onClick={handleDelete} />
@@ -31,4 +30,4 @@ function MiniPalette(props) {
   );
 }
 
-export default withStyles(styles)(React.memo(MiniPalette));
+export default withStyles(styles)(memo(MiniPalette));

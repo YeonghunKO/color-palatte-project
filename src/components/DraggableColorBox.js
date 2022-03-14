@@ -7,11 +7,18 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import { SortableElement } from 'react-sortable-hoc';
 
-// import { memo } from 'react';
+import { memo, useCallback } from 'react';
 
 const DraggableColorBox = SortableElement(props => {
   // console.log(props);
-  const { color, name, handleClick } = props;
+  const { color, name, remove, setRemoveBoxStart } = props;
+  console.log('Sortable color box', name);
+
+  const handleClick = useCallback(() => {
+    setRemoveBoxStart(true);
+    remove(name);
+  }, [color]);
+
   return (
     <DraggableColorDiv color={color}>
       <BoxContent>
@@ -22,4 +29,4 @@ const DraggableColorBox = SortableElement(props => {
   );
 });
 
-export default DraggableColorBox;
+export default memo(DraggableColorBox);
