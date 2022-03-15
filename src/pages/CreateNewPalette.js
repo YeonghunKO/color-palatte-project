@@ -1,6 +1,5 @@
-import { useState, useCallback, useMemo } from 'react';
-
-import { useNavigate } from 'react-router';
+import { Component } from 'react';
+import withNavigate from '../utils/withNagivate';
 
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -26,145 +25,153 @@ import {
 import DraggableColorList from '../components/DraggableColorList';
 import CreateColorNav from '../components/CreateColorNav';
 
-import { arrayMove } from 'react-sortable-hoc';
+import { arrayMoveImmutable } from 'array-move';
 import CreateColorPicker from '../components/CreateColorPicker';
 
-import PropTypes from 'prop-types';
+class CreateNewPalette extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      colors: [{ name: 'wowsers', color: 'blue' }],
+      open: false,
+    };
+    this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
+    this.handleDrawerClose = this.handleDrawerClose.bind(this);
+    this.addColor = this.addColor.bind(this);
+    this.removeColorBox = this.removeColorBox.bind(this);
+    this.savePalette = this.savePalette.bind(this);
+    this.sortEnd = this.sortEnd.bind(this);
+    this.addRandomColor = this.addRandomColor.bind(this);
+    this.clearColors = this.clearColors.bind(this);
+    this.allColors = this.props.paletteList
+      .map(palette => palette.colors)
+      .flat();
+  }
 
-function CreateNewPalette(props) {
-  const { maxCardNum, paletteList, addPalette, classes } = props;
-  const { drawer } = classes;
+  handleDrawerOpen() {
+    this.setState({ open: true });
+  }
 
-  const navigation = useNavigate();
+  handleDrawerClose() {
+    this.setState({ open: false });
+  }
 
-  const allColors = paletteList.map(palette => palette.colors).flat();
+  addColor(newColorObj) {
+    this.setState(prevSt => {
+      return { colors: [...prevSt.colors, newColorObj] };
+    });
+  }
 
-  const [colors, setColors] = useState([{ name: 'wowsers', color: 'blue' }]);
-  const [open, setOpen] = useState(false);
-  const [isRemoveBoxStart, setRemoveBoxStart] = useState(false);
+  removeColorBox(name) {
+    const removedColors = this.state.colors.filter(
+      color => color.name !== name
+    );
+    this.setState({ colors: removedColors });
+  }
 
-  console.log(colors);
+  savePalette({ newPaletteName, emoji }) {
+    const newPaletteObj = {
+      paletteName: newPaletteName,
+      id: newPaletteName.toLocaleLowerCase().replace(/ /g, '-'),
+      colors: this.state.colors,
+      emoji,
+    };
+    this.props.addPalette(newPaletteObj);
+    this.props.navigation('/');
+  }
 
-  const handleDrawerOpen = useCallback(() => {
-    setOpen(true);
-  }, []);
+  sortEnd({ oldIndex, newIndex }) {
+    if (oldIndex !== newIndex) {
+      this.setState(prevSt => {
+        return {
+          colors: arrayMoveImmutable(prevSt.colors, oldIndex, newIndex),
+        };
+      });
+    }
+  }
 
-  const handleDrawerClose = useCallback(() => {
-    setOpen(false);
-  }, []);
-
-  const addColor = useCallback(
-    newColorObj => {
-      setColors([...colors, newColorObj]);
-    },
-    [colors]
-  );
-
-  const removeColorBox = useCallback(
-    name => {
-      const removedColors = colors.filter(color => color.name !== name);
-      setColors(removedColors);
-    },
-    [isRemoveBoxStart]
-  );
-
-  const savePalette = useCallback(
-    ({ newPaletteName, emoji }) => {
-      const newPaletteObj = {
-        paletteName: newPaletteName,
-        id: newPaletteName.toLocaleLowerCase().replace(/ /g, '-'),
-        colors,
-        emoji,
-      };
-      addPalette(newPaletteObj);
-      navigation('/');
-    },
-    [colors]
-  );
-
-  const sortEnd = useCallback(
-    ({ oldIndex, newIndex }) => {
-      if (oldIndex !== newIndex) {
-        setColors(oldColors => {
-          return arrayMove(oldColors, oldIndex, newIndex);
-        });
-      }
-    },
-    [colors]
-  );
-  // const = useCallback(()=>{})
-
-  const addRandomColor = useCallback(() => {
+  addRandomColor() {
     let randomColor;
     do {
-      randomColor = allColors[Math.floor(Math.random() * allColors.length)];
-    } while (colors.some(color => color.color === randomColor.color));
-    setColors([...colors, randomColor]);
-  }, [colors]);
+      randomColor =
+        this.allColors[Math.floor(Math.random() * this.allColors.length)];
+    } while (
+      this.state.colors.some(color => color.color === randomColor.color)
+    );
+    this.setState(prevSt => ({ colors: [...prevSt.colors, randomColor] }));
+  }
 
-  const clearColors = useCallback(() => {
-    setColors([]);
-  }, []);
+  clearColors() {
+    this.setState({ colors: [] });
+  }
 
-  const isPaletteFull = colors.length >= maxCardNum;
-  return (
-    <Box sx={{ display: 'flex' }}>
-      <CreateColorNav
-        open={open}
-        handleDrawerOpen={handleDrawerOpen}
-        savePalette={savePalette}
-        paletteList={paletteList}
-      />
-      <Drawer className={drawer} variant="persistent" anchor="left" open={open}>
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <DrawerInnerDiv open={open}>
-          <Typography variant="h6">Create Your Own Palette</Typography>
-          <ButtonContainer>
-            <Button variant="contained" onClick={clearColors}>
-              Clear Palette
-            </Button>
-            <Button
-              variant="contained"
-              onClick={addRandomColor}
-              style={{
-                background: `${isPaletteFull ? 'grey' : '#c11780'}`,
-                color: `${isPaletteFull && 'white'}`,
-                minWidth: '47%',
-              }}
-              disabled={isPaletteFull}
-            >
-              {isPaletteFull ? 'Palette Full' : 'Random Color'}
-            </Button>
-          </ButtonContainer>
-          <CreateColorPicker
-            addColor={addColor}
-            isPaletteFull={isPaletteFull}
-            colors={colors}
-          />
-        </DrawerInnerDiv>
-      </Drawer>
-      <Main open={open}>
-        <DrawerHeader />
-        <DraggableColorList
-          distance={1}
-          onSortEnd={sortEnd}
-          axis="xy"
-          colors={colors}
-          remove={removeColorBox}
-          setRemoveBoxStart={setRemoveBoxStart}
+  render() {
+    const { maxCardNum, paletteList, classes } = this.props;
+    const { drawer } = classes;
+
+    const { open, colors } = this.state;
+
+    const isPaletteFull = this.state.colors.length >= maxCardNum;
+
+    return (
+      <Box sx={{ display: 'flex' }}>
+        <CreateColorNav
+          open={open}
+          handleDrawerOpen={this.handleDrawerOpen}
+          savePalette={this.savePalette}
+          paletteList={paletteList}
         />
-      </Main>
-    </Box>
-  );
+        <Drawer
+          className={drawer}
+          variant="persistent"
+          anchor="left"
+          open={open}
+        >
+          <DrawerHeader>
+            <IconButton onClick={this.handleDrawerClose}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <DrawerInnerDiv open={open}>
+            <Typography variant="h6">Create Your Own Palette</Typography>
+            <ButtonContainer>
+              <Button variant="contained" onClick={this.clearColors}>
+                Clear Palette
+              </Button>
+              <Button
+                variant="contained"
+                onClick={this.addRandomColor}
+                style={{
+                  background: `${isPaletteFull ? 'grey' : '#c11780'}`,
+                  color: `${isPaletteFull && 'white'}`,
+                  minWidth: '47%',
+                }}
+                disabled={isPaletteFull}
+              >
+                {isPaletteFull ? 'Palette Full' : 'Random Color'}
+              </Button>
+            </ButtonContainer>
+            <CreateColorPicker
+              addColor={this.addColor}
+              isPaletteFull={isPaletteFull}
+              colors={colors}
+            />
+          </DrawerInnerDiv>
+        </Drawer>
+        <Main open={open}>
+          <DrawerHeader />
+          <DraggableColorList
+            distance={1}
+            onSortEnd={this.sortEnd}
+            axis="xy"
+            colors={colors}
+            remove={this.removeColorBox}
+          />
+        </Main>
+      </Box>
+    );
+  }
 }
 
-CreateNewPalette.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(CreateNewPalette);
+export default withStyles(styles)(withNavigate(CreateNewPalette));
