@@ -121,6 +121,45 @@ AppBar의 모습이다.
 5. 부모 컴포넌트는 되도록 class 컴포넌트로!
 
 - 왜냐면 자식으로 메소드 넘겨줄때 함수형 컴포넌트면 계속 reference가 다른 메소드를 넘겨주므로 리랜더링 방지가 어렵다.
+- addRandomColor랑 removeColor 함수를(참고로 두 함수는 모두 colors obj에 의존하고 있다.) useCallback 을 이용해서 reference를 같게 유지하여 draggableColorBox의 리랜더링을 최소화하려고 했다.
+
+근데 addRandomColor를 호출할 때 마다 colors가 바뀌므로 removeColor도 새롭게 호출되어 draggableColorBox에 전달된다.
+
+두 함수를 철저하게 분리시키는 방법은 dependency를 분리하는 방법인데 어쩔 수 없이 colors를 참조할 수 밖에 없으니... 그래서 결국 class 컴포넌트로 다 바꾸고 두 함수는 메소드와 시켜서 constructor에 bind시켜주었더니 removeColor의 reference를 그대로 유지할 수 있게 되었다. 고로, draggableColorBox를 삭제할 때 위치가 바뀌지 않은 colorbox는 리랜더링 되지 않는 것을 확인 할 수 있었다.
+
+6. 자식과 부모의 setState가 차례대로 실행될 경우 자식의 setState가 실행되지 않았다.
+   NavBar에서 Hook을 사용하여 snackBar와 Slider(color format을 선택할 수 있는 dropdown)를 구현하려고 했다.
+
+Slider에서 format을 선택하면 `onSelectFormat`가 실행된다. setFormat,setOpen이 실행되면서 slider의 value가 바뀌고 snackBar가 open된다. 그리고 부모 컴포넌트, 즉 Palette.js에서 format이 바뀌고 리랜더링 된다. 즉 3번 리랜더링 된다는 의미이다.
+
+```javascript
+// NavBar.js
+const { changeLevel, changeFormat, isSingleColor } = props;
+  const [open, setOpen] = useState(false);
+  const [formatState, setFormat] = useState('hex');
+
+  const onSelectFormat = e => {
+    setFormat(e.target.value); //
+    setOpen(true); //
+    changeFormat(e.target.value); // 부모로 부터 내려온 메소드
+  };
+
+//Palette.js
+  changeFormat(format) {
+    this.setState({ format });
+  }
+```
+
+근데, setFormat,setOpen이 실행되지 않는다... 혹시나 해서, changeFormat을 지워버리니 잘 작동한다. 역시 부모에서 리랜더링 될때 나머지 두개의 setState가 덮어씌어진 느낌이 든다. 아! 이거 이전 포스팅에서 설명한적이 있다.
+
+[여기 참고](https://velog.io/@yhko1992/setState-%EC%95%88%EC%A0%84%ED%95%98%EA%B2%8C)
+
+7. state가 어떤 부분에 국한되어있는지 살피자
+
+- 왜냐면 state를 고립시켜야할때도 있고, 확장시켜야 할 때도 있다.
+- 예를들어, Palette.js에서 level이나 format같은 state는 부모 컴포넌트 , 즉 Palette.js에서 관리하는게 맞다. 왜냐면 level이나 format은 그 밑에 컴포넌트까지 공유하는 state이기 때문. 그러나 Colorbox안에 있는 copied state는 Colorbox안에서 관리한다. ColorBox안에서만 통용되기 때문. 아니면 state의 사용 범위가 꽤나 넓을 것 같다고 판단되면 context를 쓰는 것도 괜찮은 방법이다.
+
+- state를 변형시키는 방법이 굉장히 다양하다고 한다면(todo App같은 경우) useReduce를 활용해도 괜찮다.
 
 # CSS
 
@@ -187,11 +226,15 @@ AppBar의 모습이다.
 
 # 해야할 일
 
-1. createColorNav에 boxes are draggble이라고 typhography 추가하기
-2. createNewPalette class 컴포넌트로 만들기
 3. creatColorPicker에서 두번째 슬라이드도 적용가능하게 만들기
+4. Palette에서 format바뀔때 setOpen이 안먹힘. changeFormat때문에 그렇다.
 
+- setOpen이 먹히기 전에 changeFormat가 랜더링해버려서그러나?
+- setState가 async라서 그렇다. useStateCallBack을 통해 changeForamat을 조금 뒤에 실행해보았다.
+- 그러니깐 setOpen에 의해서 open state가 true로 바뀌는걸 확인했는데 changeFormat이 워낙 빨리 실행되어서 snackBar가 순식간에 사라져 눈에 보이지도 않는다 ㅋㅋㅋ
+- 결국 setTimeOut으로 더 뒤에 changeFormat이 실행되도록 하니 snackBar가 나오더라!
 <!--
+
 3. PaletteList,colors(createNewPalette안에)는 여러곳에서 자주 쓰이므로 context로 만들어서 바로 보낼 수도록 해보기
 
 4. draggable 함수 최소한만 랜더링 되도록 최적화 하기

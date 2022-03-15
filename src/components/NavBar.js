@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import { Link } from 'react-router-dom';
 
 import '../assets/css/NavBar.css';
@@ -9,13 +10,16 @@ import 'rc-slider/assets/index.css';
 import { FormControl, Select, MenuItem, Snackbar, Alert } from '@mui/material';
 
 function NavBar(props) {
-  const { level, format, changeLevel, changeFormat, isSingleColor } = props;
+  const { changeLevel, changeFormat, isSingleColor, format, level } = props;
   const [open, setOpen] = useState(false);
   const [formatState, setFormat] = useState(format);
+
   const onSelectFormat = e => {
-    setFormat(e.target.value);
-    changeFormat(e.target.value);
     setOpen(true);
+    setFormat(e.target.value);
+    setTimeout(() => {
+      changeFormat(e.target.value);
+    }, 500);
   };
 
   const onClose = (evt, reason) => {
@@ -24,6 +28,7 @@ function NavBar(props) {
     }
     setOpen(false);
   };
+
   return (
     <header className="Navbar">
       <div className="logo">
@@ -41,7 +46,6 @@ function NavBar(props) {
         </div>
       )}
       <FormControl variant="standard" sx={{ ml: 'auto', minWidth: 120 }}>
-        {/* <InputLabel id="demo-simple-select-filled-label">Age</InputLabel> */}
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
@@ -56,12 +60,12 @@ function NavBar(props) {
       </FormControl>
       <Snackbar
         open={open}
-        autoHideDuration={1000}
+        autoHideDuration={500}
         onClose={onClose}
         sx={{ width: '110%', height: '2%' }}
       >
         <Alert onClose={onClose} severity="success">
-          Format Changed To {format.toUpperCase()}
+          Format Changed To {formatState.toUpperCase()}
         </Alert>
       </Snackbar>
     </header>

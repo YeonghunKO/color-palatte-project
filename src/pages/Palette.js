@@ -9,6 +9,8 @@ import { generatePalette } from '../utils/getScaleForColor';
 import '../assets/css/Palette.css';
 import { Outlet } from 'react-router';
 
+import uuid from 'react-uuid';
+
 function findPalette(palette, currentPaletteId) {
   return palette.find(paletteObj => paletteObj.id === currentPaletteId);
 }
@@ -53,7 +55,7 @@ class Palette extends Component {
       }
 
       const footer = (
-        <footer className="Single-color-footer">
+        <footer key={uuid()} className="Single-color-footer">
           {colorIdParam} {emoji}
         </footer>
       );
@@ -66,16 +68,16 @@ class Palette extends Component {
             level={level}
             changeLevel={this.changeLevel}
             isSingleColor={true}
+            key={uuid()}
           />
 
-          <Outlet context={[colorsByBrightness, format, footer]} />
+          <Outlet key={uuid()} context={[colorsByBrightness, format, footer]} />
         </>
       );
     } else {
       const ColorBoxes = colors[level].map(color => (
         <ColorBox
           moreUrl={`${color.id}`}
-          key={color.name}
           background={color[format]}
           name={color.name}
           key={color.id}
@@ -88,6 +90,7 @@ class Palette extends Component {
             format={format}
             level={level}
             changeLevel={this.changeLevel}
+            key={uuid()}
           />
 
           <div className="Palette-colors">
