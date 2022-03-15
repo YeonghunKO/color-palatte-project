@@ -55,6 +55,20 @@ const BoxContent = styled.div`
   }
 `;
 
+const DragTextBox = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40%;
+  color: ${props =>
+    chroma(props.color).luminance() >= 0.58
+      ? css`rgb(29, 27, 27)`
+      : css`rgb(255, 255, 255)`};
+  ${sizes.down('xs')} {
+    font-size: 10px;
+  }
+`;
+
 const useStyles = makeStyles({
   boxContainer: {
     height: '89vh',
@@ -64,4 +78,4 @@ const useStyles = makeStyles({
   },
 });
 
-export { DraggableColorDiv, BoxContent, useStyles };
+export { DraggableColorDiv, BoxContent, useStyles, DragTextBox };

@@ -115,7 +115,12 @@ AppBar의 모습이다.
 - 이전 컴포넌트에 적용된 classs는 `exit` 이 붙고 새로운 컴포넌트에는 `enter`가 붙는다.
 - 근데 이전 exit, enter 둘다 새로운 컴포넌트이다.
 - 이전 컴포넌트는 어디로 갔나?
-- 그건 location을 지정해주어야 한다. [이것을 참고하거라](https://www.youtube.com/watch?v=jMl0qOgcf6Y&t=116s)
+- routes에 location을 지정해주지 않아서 그렇다.
+- [이것을 참고하거라](https://www.youtube.com/watch?v=jMl0qOgcf6Y&t=116s)
+
+5. 부모 컴포넌트는 되도록 class 컴포넌트로!
+
+- 왜냐면 자식으로 메소드 넘겨줄때 함수형 컴포넌트면 계속 reference가 다른 메소드를 넘겨주므로 리랜더링 방지가 어렵다.
 
 # CSS
 
@@ -182,7 +187,9 @@ AppBar의 모습이다.
 
 # 해야할 일
 
-1. createPalette에서 drawer 반응형 구현!
+1. createColorNav에 boxes are draggble이라고 typhography 추가하기
+2. createNewPalette class 컴포넌트로 만들기
+3. creatColorPicker에서 두번째 슬라이드도 적용가능하게 만들기
 
 <!--
 3. PaletteList,colors(createNewPalette안에)는 여러곳에서 자주 쓰이므로 context로 만들어서 바로 보낼 수도록 해보기

@@ -16,8 +16,6 @@ import Page from './components/Page';
 
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-import uuid from 'react-uuid';
-
 function App() {
   const location = useLocation();
   const [palette, setPalette] = useLocalStorageState(seedPalatte);
@@ -32,12 +30,7 @@ function App() {
   };
   return (
     <TransitionGroup style={{ position: 'relative' }}>
-      <CSSTransition
-        key={uuid()}
-        classNames="Page"
-        timeout={500}
-        key={location.key}
-      >
+      <CSSTransition classNames="Page" timeout={500} key={location.key}>
         {/* 리액트 dev툴에 들어가서 이전과 이후의 컴포넌트의 location을 잘 살펴봐라 */}
         <Routes location={location}>
           <Route

@@ -38,6 +38,7 @@ const useStyles = makeStyles(() => {
         fontSize: '10px',
       },
     },
+
     goBackButton: {
       margin: '1rem 1rem !important',
       [sizes.down('xs')]: {
