@@ -11,9 +11,7 @@ import { SortableElement } from 'react-sortable-hoc';
 import { memo } from 'react';
 
 const DraggableColorBox = SortableElement(props => {
-  // console.log(props);
   const { color, name, remove } = props;
-  console.log('Sortable color box', name);
 
   const handleClick = () => {
     remove(name);

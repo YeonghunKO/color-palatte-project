@@ -8,6 +8,8 @@ import { ChromePicker } from 'react-color';
 
 import useStyles from '../assets/styles/CreateColorPicker.style';
 
+import { getColorByLuminance } from '../utils/getColorByLuminance';
+
 import chroma from 'chroma-js';
 
 function CreateColorPicker(props) {
@@ -21,15 +23,17 @@ function CreateColorPicker(props) {
     TextValidatorClassName,
   } = useStyles(props);
 
-  const getColorByLuminance = currentColor => {
-    console.log('getColorByLuminance');
-    return chroma(currentColor).luminance() >= 0.58
-      ? 'rgb(29, 27, 27)'
-      : 'rgb(255, 255, 255)';
-  };
-
   const updateCurrentColor = newColor => {
-    console.log(newColor);
+    // let stringifiedColorObj = 'rgba(';
+    // const colorObj = newColor.rgb;
+    // for (const color in colorObj) {
+    //   if (color === 'a') {
+    //     stringifiedColorObj += `${colorObj[color]})`;
+    //   } else {
+    //     stringifiedColorObj += `${colorObj[color]},`;
+    //   }
+    // }
+    // const hexedColor = chroma(stringifiedColorObj).hex('rgb');
     setCurrentColor(newColor.hex);
   };
 
@@ -57,18 +61,17 @@ function CreateColorPicker(props) {
 
     ValidatorForm.addValidationRule('isColorUnique', value => {
       return colors.every(({ color }) => {
-        console.log(color, currentColor);
         return currentColor !== color;
       });
     });
   }, [newColorName, currentColor, colors]);
-  console.log('color picker');
   return (
     <>
       <ChromePicker
         color={currentColor}
         onChangeComplete={updateCurrentColor}
         className={chromePickerClassName}
+        disableAlpha={true}
       />
       <ValidatorForm
         onSubmit={handleSubmit}
