@@ -247,7 +247,6 @@ const onSelectFormat = e => {
 
 # 해야할 일
 
-1.  폰에서 snackbox margin-bottom 늘리기.
 <!--
 
 

@@ -19,7 +19,7 @@ function NavBar(props) {
     setFormat(e.target.value);
     setTimeout(() => {
       changeFormat(e.target.value);
-    }, 500);
+    }, 800);
   };
 
   const onClose = (evt, reason) => {
@@ -60,9 +60,9 @@ function NavBar(props) {
       </FormControl>
       <Snackbar
         open={open}
-        autoHideDuration={500}
+        autoHideDuration={800}
         onClose={onClose}
-        sx={{ width: '110%', height: '2%' }}
+        sx={{ width: '110%', height: '2%', marginBottom: '1rem' }}
       >
         <Alert onClose={onClose} severity="success">
           Format Changed To {formatState.toUpperCase()}

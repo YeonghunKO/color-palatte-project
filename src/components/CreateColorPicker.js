@@ -24,16 +24,6 @@ function CreateColorPicker(props) {
   } = useStyles(props);
 
   const updateCurrentColor = newColor => {
-    // let stringifiedColorObj = 'rgba(';
-    // const colorObj = newColor.rgb;
-    // for (const color in colorObj) {
-    //   if (color === 'a') {
-    //     stringifiedColorObj += `${colorObj[color]})`;
-    //   } else {
-    //     stringifiedColorObj += `${colorObj[color]},`;
-    //   }
-    // }
-    // const hexedColor = chroma(stringifiedColorObj).hex('rgb');
     setCurrentColor(newColor.hex);
   };
 
