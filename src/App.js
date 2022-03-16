@@ -28,6 +28,7 @@ function App() {
     const deletedPalette = palette.filter(palette => palette.id !== paletteId);
     setPalette(deletedPalette);
   };
+
   return (
     <TransitionGroup style={{ position: 'relative' }}>
       <CSSTransition classNames="Page" timeout={500} key={location.key}>
@@ -67,10 +68,12 @@ function App() {
           </Route>
           <Route
             path="*"
-            element={d => {
-              console.log(d);
-              return <div>Not Found</div>;
-            }}
+            element={
+              <PaletteList
+                removePalette={removePalette}
+                paletteList={palette}
+              />
+            }
           />
         </Routes>
       </CSSTransition>
