@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { useNavigate } from 'react-router';
 
 import CssBaseline from '@mui/material/CssBaseline';
@@ -32,7 +32,6 @@ function CreateColorNav(props) {
   const handlePaletteNameFormClose = () => {
     setPaletteNameSave(false);
   };
-
   return (
     <>
       <CssBaseline />
@@ -79,4 +78,4 @@ function CreateColorNav(props) {
   );
 }
 
-export default CreateColorNav;
+export default memo(CreateColorNav);

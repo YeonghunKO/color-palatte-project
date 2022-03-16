@@ -53,7 +53,6 @@ class Palette extends Component {
           }
         }
       }
-
       const footer = (
         <footer key={uuid()} className="Single-color-footer">
           {colorIdParam} {emoji}

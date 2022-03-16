@@ -1,5 +1,7 @@
 # JS
 
+<!-- 각각의 번호에 맞는 커밋 링크 첨부하기 -->
+
 1. 위계
 
 - App
@@ -161,6 +163,25 @@ const { changeLevel, changeFormat, isSingleColor } = props;
 
 - state를 변형시키는 방법이 굉장히 다양하다고 한다면(todo App같은 경우) useReduce를 활용해도 괜찮다.
 
+8. Palette에서 format바뀔때 setOpen이 안먹힘.
+
+- changeFormat때문에 그렇다.
+- setOpen이 먹히기 전에 changeFormat가 랜더링해버려서그러나?
+- 앞서 배웠다시피, setState가 async라서 그렇다. useStateCallBack을 통해 changeForamat을 조금 뒤에 실행해보았다.
+- 그러니깐 setOpen에 의해서 open state가 true로 바뀌는걸 확인했는데 changeFormat이 워낙 빨리 실행되어서 snackBar가 순식간에 사라져 눈에 보이지도 않는다 ㅋㅋㅋ
+- 결국 setTimeOut으로 더 뒤에 changeFormat이 실행되도록 하니 snackBar가 나오더라!
+
+```javascript
+//NavBar.js
+const onSelectFormat = e => {
+  setOpen(true);
+  setFormat(e.target.value);
+  setTimeout(() => {
+    changeFormat(e.target.value);
+  }, 500);
+};
+```
+
 # CSS
 
 1. ` display: inline-block;` 이라고 하면 wrap이랑 똑같은 효과가 나타난다. 왜냐면 span처럼 inline처리가 되기 때문이다.
@@ -226,28 +247,23 @@ const { changeLevel, changeFormat, isSingleColor } = props;
 
 # 해야할 일
 
-3. creatColorPicker에서 두번째 슬라이드도 적용가능하게 만들기
-4. Palette에서 format바뀔때 setOpen이 안먹힘. changeFormat때문에 그렇다.
-
-- setOpen이 먹히기 전에 changeFormat가 랜더링해버려서그러나?
-- setState가 async라서 그렇다. useStateCallBack을 통해 changeForamat을 조금 뒤에 실행해보았다.
-- 그러니깐 setOpen에 의해서 open state가 true로 바뀌는걸 확인했는데 changeFormat이 워낙 빨리 실행되어서 snackBar가 순식간에 사라져 눈에 보이지도 않는다 ㅋㅋㅋ
-- 결국 setTimeOut으로 더 뒤에 changeFormat이 실행되도록 하니 snackBar가 나오더라!
+1.  폰에서 snackbox margin-bottom 늘리기.
 <!--
 
-3. PaletteList,colors(createNewPalette안에)는 여러곳에서 자주 쓰이므로 context로 만들어서 바로 보낼 수도록 해보기
 
-4. draggable 함수 최소한만 랜더링 되도록 최적화 하기
+2.  PaletteList,colors(createNewPalette안에)는 여러곳에서 자주 쓰이므로 context로 만들어서 바로 보낼 수도록 해보기
 
-5. createNewPalette컴포넌트안에 있는 기능들이 분리되어야 한다.(drawer랑 main으로)
+3.  draggable 함수 최소한만 랜더링 되도록 최적화 하기
 
-   - 왜냐면 current color가 바뀌는 순간마다 draggablecolorbox 가 새로 랜더링 되기 때문
-   - 이는 createNewPalette컴포넌트 안에 drawer랑 Main이 같이 있기 때문이고 state들도 같이 존재하기 때문이다.
-   - colors를 reducer와 context로 따로 구현해서 리팩토링하고 분리시켜서 최대한 독립적으로 랜더링 되도록 해보자
+4.  createNewPalette컴포넌트안에 있는 기능들이 분리되어야 한다.(drawer랑 main으로)
 
-     - 그런데 drawer하고 main모두 createNewPalette에서 open state에 의존하고 있다. 결국 open을 클릭할떄 setOpen이 실행되면서 box안에 있는 drawer하고 main이 리랜더링된다.
+    - 왜냐면 current color가 바뀌는 순간마다 draggablecolorbox 가 새로 랜더링 되기 때문
+    - 이는 createNewPalette컴포넌트 안에 drawer랑 Main이 같이 있기 때문이고 state들도 같이 존재하기 때문이다.
+    - colors를 reducer와 context로 따로 구현해서 리팩토링하고 분리시켜서 최대한 독립적으로 랜더링 되도록 해보자
 
-     - 투두앱처럼 todos / dispatch 로 완전히 구분할 수 가 없는것인가. 투두앱같은경우 부모 컴포넌트에 어떤 state도 없었기 때문에 각각 따로 랜더링이 가능했었다. 요번 경우는 부모 state를 공유하고 있으니... 이를 어쩔꼬.
+      - 그런데 drawer하고 main모두 createNewPalette에서 open state에 의존하고 있다. 결국 open을 클릭할떄 setOpen이 실행되면서 box안에 있는 drawer하고 main이 리랜더링된다.
 
-     - 아니다. state만 분리시키면 된다. 즉 customHook을 만들면 될지도 모르겠다. 그리고 state를 각각 다르게 manipulate하는 메소드가 많으니깐(handleForm,handleDrawerOpen,handleDrawerClose,removeColorBox...) Reducer를 사용해서 customHook을 만들어보자.
-     - 음... 일단 퍼포먼스 신경쓰기 말고 구현이 되도록 신경쓰자. -->
+      - 투두앱처럼 todos / dispatch 로 완전히 구분할 수 가 없는것인가. 투두앱같은경우 부모 컴포넌트에 어떤 state도 없었기 때문에 각각 따로 랜더링이 가능했었다. 요번 경우는 부모 state를 공유하고 있으니... 이를 어쩔꼬.
+
+      - 아니다. state만 분리시키면 된다. 즉 customHook을 만들면 될지도 모르겠다. 그리고 state를 각각 다르게 manipulate하는 메소드가 많으니깐(handleForm,handleDrawerOpen,handleDrawerClose,removeColorBox...) Reducer를 사용해서 customHook을 만들어보자.
+      - 음... 일단 퍼포먼스 신경쓰기 말고 구현이 되도록 신경쓰자. -->

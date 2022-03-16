@@ -6,7 +6,6 @@ function SingleColorPalette(props) {
   const navigate = useNavigate();
   const [colorsByBrightness, format, footer] = useOutletContext();
 
-  // console.log(props);
   const ColorBoxes = colorsByBrightness.map(colorsObj => (
     <ColorBox
       key={colorsObj.id}
