@@ -1,7 +1,4 @@
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
-
-import chroma from 'chroma-js';
 
 import sizes from './sizes.style';
 
@@ -9,8 +6,6 @@ import { makeStyles } from '@mui/styles';
 
 import { getColorByLuminance } from '../../utils/getColorByLuminance';
 
-// draggableColorBoxList height 변경을 위한 makeStyle을 만들어라
-// height: innerWidht-css 13gxv32 값을 빼라
 const DraggableColorDiv = styled.div`
   width: 20%;
   height: 25%;

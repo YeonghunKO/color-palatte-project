@@ -10,8 +10,6 @@ import useStyles from '../assets/styles/CreateColorPicker.style';
 
 import { getColorByLuminance } from '../utils/getColorByLuminance';
 
-import chroma from 'chroma-js';
-
 function CreateColorPicker(props) {
   const { addColor, isPaletteFull, colors } = props;
   const [currentColor, setCurrentColor] = useState('#800080');
@@ -66,6 +64,7 @@ function CreateColorPicker(props) {
       <ValidatorForm
         onSubmit={handleSubmit}
         className={TextValidatorFormClassName}
+        instantValidate={false}
       >
         <TextValidator
           validators={['required', 'isNameUnique', 'isColorUnique']}
@@ -85,7 +84,7 @@ function CreateColorPicker(props) {
           variants="contained"
           style={{
             background: `${isPaletteFull ? 'grey' : currentColor}`,
-            color: getColorByLuminance(currentColor),
+            color: currentColor && getColorByLuminance(currentColor),
             width: '40%',
             padding: '.5rem',
           }}

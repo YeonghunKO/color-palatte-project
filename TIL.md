@@ -182,6 +182,41 @@ const onSelectFormat = e => {
 };
 ```
 
+아아아아!! 근데 setTimeOut안쓰고도 state가 유지되는 법을 알았다. 바로 NavBar에 key를 없애주면 된다.... 아니 정확히 말하면 key에 uuid값을 매번 새로 보내주고 있었다. 그러니깐 랜더링 될때 uuid값이 매번 변경되므로 다른 컴포넌트로 인식해서 NavBar도 완전 새로고침 되지 않을까하는 추측을 해본다.(key='NavBar'라고 하니깐 state값이 그대로 유지된다!)
+
+그럼 NavBar안에 있는 format state가 새로 랜더링 되어 원래대로 돌아가지 않고 그대로 유지 된다. CreateColorPicker에서 submit을 하고 나서도 colorName state가 유지되는것을 발견하였고 차이점이 뭔지 살펴보다가 알아냈다...
+
+**아래 글은 따로 아티클로 뽑아내기**
+
+이건 리액트가 실행되는 원리와 연관이 깊다. 리액트는 리랜더링이 일어날때 마다(setState, componentDidMount etc) diffing이라는 걸 한다.
+
+> Diffing: The process of **checking the difference** between the new VDOM tree and the old VDOM tree
+
+그렇다 예전 DOM TREE(이하 ODT)와 새로운 DOM TREE(이하 NDT)를 비교하는 것이다. 이때 DOM TREE안에 새로운 element가 있으면 tree를 다시 구성하는 것이다.
+
+그런데 ODT와 NDT사이에 겹치는 element가 있으면 재사용한다. 그럼, 겹치는 건 빼놓고 ODT에 없는것만 적절한 위치에 삽입하거나 갈아끼우면 된다. 이때 필요한것이 바로 KEY PROP이다!
+
+element type이 같다하더라도 key prop이 없으면 재사용하지 않고 다시 element를 생성하고 위치까지 바뀔 수 있다. 근데 key prop이 있으면 재사용할 수 있는 element가 명확해진다.
+
+[KEY PROP 공식문서](https://reactjs.org/docs/reconciliation.html#keys)
+
+위의 문서를 참고해보면 될것이다. 이때 중요한것은 KEY는 unique, predictable, stable 해야한다. 그렇지 않다면 쓸데없는 인스턴스가 생겨나고, 쓸데없이 element가새로 만들어지며 이전 local state는 다 날라갈 것이다. 그래서 color project할때 navbar안에 있는 open, format state가 리랜더링 할때마다 다 새로고침되었던 것!
+
+아래는 공식문서에서 그대로 가져온 말이다.
+
+> Keys should be stable, predictable, and unique. Unstable keys (like those produced by Math.random()) will cause many component instances and DOM nodes to be unnecessarily recreated, which can cause performance degradation and lost state in child components.
+
+이렇게 비교해서 새로 DOM TREE를 만드는 과정을 `reconciliation`이라고 한다. 영영사전의 뜻은 아래와 같다.
+
+> the act of causing two people or groups to become friendly again after an argument or disagreement
+> the process of finding a way to make two different ideas, facts, etc., exist or be true at the same time
+
+한 마디로 차이점, 모난 부분을 다듬어서 조화를 이루는 것이다.
+
+근데 diffing algorithms은 tree의 뿌리까지 파고 들어가는 작업이다. 즉, 재귀가 일어난다. 근데 자바스크립트는 single thread 언어라서 재귀가 일어나면 재귀가 끝날 때 까지 다음 작업을 하지 못한다. 모든 작업이 완료되면 모든 변경사항이 응집되어있는 vDOM을 브라우저에 업데이트한다.
+
+즉, 애니메이션, 레이아웃 변경 같은 효과가 일어날 시에 상당히 느려질 수 있다는 단점이 있다. 이를 방지하기 위해 리액트는 `fiber`라는 새로운 알고리즘을 도입하였다.
+
 # CSS
 
 1. ` display: inline-block;` 이라고 하면 wrap이랑 똑같은 효과가 나타난다. 왜냐면 span처럼 inline처리가 되기 때문이다.
@@ -247,22 +282,26 @@ const onSelectFormat = e => {
 
 # 해야할 일
 
+1. createPalette 에서 colors를 class에서 useReducer를 이용해서 리팩토링하기.
+2. colorpicker에서 submit할때 validation이 초기화 되도록 해라.
+3. reconciliation 알고리즘과 fiber알고리즘에 대해서 더 공부해라.
+
+- https://www.youtube.com/watch?v=mLMfx8BEt8g (recon)
 <!--
 
+4. PaletteList,colors(createNewPalette안에)는 여러곳에서 자주 쓰이므로 context로 만들어서 바로 보낼 수도록 해보기
 
-2.  PaletteList,colors(createNewPalette안에)는 여러곳에서 자주 쓰이므로 context로 만들어서 바로 보낼 수도록 해보기
+5. draggable 함수 최소한만 랜더링 되도록 최적화 하기
 
-3.  draggable 함수 최소한만 랜더링 되도록 최적화 하기
+6. createNewPalette컴포넌트안에 있는 기능들이 분리되어야 한다.(drawer랑 main으로)
 
-4.  createNewPalette컴포넌트안에 있는 기능들이 분리되어야 한다.(drawer랑 main으로)
+   - 왜냐면 current color가 바뀌는 순간마다 draggablecolorbox 가 새로 랜더링 되기 때문
+   - 이는 createNewPalette컴포넌트 안에 drawer랑 Main이 같이 있기 때문이고 state들도 같이 존재하기 때문이다.
+   - colors를 reducer와 context로 따로 구현해서 리팩토링하고 분리시켜서 최대한 독립적으로 랜더링 되도록 해보자
 
-    - 왜냐면 current color가 바뀌는 순간마다 draggablecolorbox 가 새로 랜더링 되기 때문
-    - 이는 createNewPalette컴포넌트 안에 drawer랑 Main이 같이 있기 때문이고 state들도 같이 존재하기 때문이다.
-    - colors를 reducer와 context로 따로 구현해서 리팩토링하고 분리시켜서 최대한 독립적으로 랜더링 되도록 해보자
+     - 그런데 drawer하고 main모두 createNewPalette에서 open state에 의존하고 있다. 결국 open을 클릭할떄 setOpen이 실행되면서 box안에 있는 drawer하고 main이 리랜더링된다.
 
-      - 그런데 drawer하고 main모두 createNewPalette에서 open state에 의존하고 있다. 결국 open을 클릭할떄 setOpen이 실행되면서 box안에 있는 drawer하고 main이 리랜더링된다.
+     - 투두앱처럼 todos / dispatch 로 완전히 구분할 수 가 없는것인가. 투두앱같은경우 부모 컴포넌트에 어떤 state도 없었기 때문에 각각 따로 랜더링이 가능했었다. 요번 경우는 부모 state를 공유하고 있으니... 이를 어쩔꼬.
 
-      - 투두앱처럼 todos / dispatch 로 완전히 구분할 수 가 없는것인가. 투두앱같은경우 부모 컴포넌트에 어떤 state도 없었기 때문에 각각 따로 랜더링이 가능했었다. 요번 경우는 부모 state를 공유하고 있으니... 이를 어쩔꼬.
-
-      - 아니다. state만 분리시키면 된다. 즉 customHook을 만들면 될지도 모르겠다. 그리고 state를 각각 다르게 manipulate하는 메소드가 많으니깐(handleForm,handleDrawerOpen,handleDrawerClose,removeColorBox...) Reducer를 사용해서 customHook을 만들어보자.
-      - 음... 일단 퍼포먼스 신경쓰기 말고 구현이 되도록 신경쓰자. -->
+     - 아니다. state만 분리시키면 된다. 즉 customHook을 만들면 될지도 모르겠다. 그리고 state를 각각 다르게 manipulate하는 메소드가 많으니깐(handleForm,handleDrawerOpen,handleDrawerClose,removeColorBox...) Reducer를 사용해서 customHook을 만들어보자.
+     - 음... 일단 퍼포먼스 신경쓰기 말고 구현이 되도록 신경쓰자. -->
