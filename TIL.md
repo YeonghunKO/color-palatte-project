@@ -78,6 +78,13 @@ return (
 
 {velog폴더에 miniColorPalette 사진 첨부하기}
 
+2. 공식문서나 소스코드를 확인!
+
+- colorpicker 안에서 validateform submit을 했을때 이전 값이 바로 평가되면서 에러메시지가 뜨는 것을 확인하였다
+- add color버튼을 누를때만 validate 체크를 했으면 했다.
+- 공식문서를 찾아본 결과 마땅한 방법을 발견할 수 없었다. 그래서 ctrl 을 눌러 소스코드를 확인해본 결과 `instantValidate` 라는 prop이 있다는 것을 발견했고 false값을 준 결과 해결하였다!
+- 이처럼 새로운 기능을 추가하려하거나 버그가 발견되었을때는 혼자서 헤매지 말고 공식문서나 소스코드를 확인해보자!
+
 3. 조금 생소한 문법을 발견했다.
    그럼 일단 코드부터 보자
 
@@ -269,12 +276,13 @@ element type이 같다하더라도 key prop이 없으면 재사용하지 않고 
 
 6. seedColor를 보면 colt가 JSON 데이터를 설계한 흔적을 엿볼 수 있다. Palette,PaletteList,ColorBox와 같은 컴포넌트를 만들때 어떠한 데이터가 필요하고 그 데이터가 어떻게 정리되어야할지 분명 고민했을것이고 그러한 고민의 결과가 바로 seedColor이다.
 
-나도 앱을 만들때 아래와 같은 흐름으로 사고해보자
+나도 앱을 만들때 아래와 같은 흐름으로 사고해보자(top-down방식)
 
 - 앱에 필요한 기능을 적어보기
   - 그 기능들이 어떠한 페이지에 들어갈지 페이지를 생각해보기
     - 페이지에 들어갈 컴포넌트를 생각해보기
       - 컴포넌트에 어떠한 데이터가 필요할지 생각해보기
+        - 최대한 컴포넌트간 의존성을 최소화하기.(state 분리) 쓸데없는 랜더링을 방지하기 위함이다.
       - 또한 각각의 컴포넌트에 들어갈 기능을 쉽게 구현가능한 라이브러리가 있는지 찾아보기
       - 어떤 페이지, 또는 어떤 컴포넌트를 누가 설계하고 구현할지 역할 분담하기
       - 각각의 진행상황을 노션같은 툴에 정리하고 수시로 공유하기
@@ -282,11 +290,10 @@ element type이 같다하더라도 key prop이 없으면 재사용하지 않고 
 
 # 해야할 일
 
-1. createPalette 에서 colors를 class에서 useReducer를 이용해서 리팩토링하기.
-2. colorpicker에서 submit할때 validation이 초기화 되도록 해라.
-3. reconciliation 알고리즘과 fiber알고리즘에 대해서 더 공부해라.
+2. reconciliation 알고리즘과 fiber알고리즘에 대해서 더 공부해라.
 
 - https://www.youtube.com/watch?v=mLMfx8BEt8g (recon)
+
 <!--
 
 4. PaletteList,colors(createNewPalette안에)는 여러곳에서 자주 쓰이므로 context로 만들어서 바로 보낼 수도록 해보기

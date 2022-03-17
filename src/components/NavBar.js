@@ -1,4 +1,4 @@
-import { useState, memo } from 'react';
+import { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ import 'rc-slider/assets/index.css';
 import { FormControl, Select, MenuItem, Snackbar, Alert } from '@mui/material';
 
 function NavBar(props) {
-  const { changeLevel, changeFormat, isSingleColor, format, level } = props;
+  const { changeLevel, changeFormat, isSingleColor, level } = props;
   const [open, setOpen] = useState(false);
   const [formatState, setFormat] = useState('hex');
 
@@ -26,7 +26,6 @@ function NavBar(props) {
     }
     setOpen(false);
   };
-  console.log('nav bar rendering', format);
   return (
     <header className="Navbar">
       <div className="logo">

@@ -46,6 +46,8 @@ class CreateNewPalette extends Component {
     this.allColors = this.props.paletteList
       .map(palette => palette.colors)
       .flat();
+
+    this.randomColor = null;
   }
 
   handleDrawerOpen() {
@@ -91,14 +93,13 @@ class CreateNewPalette extends Component {
   }
 
   addRandomColor() {
-    let randomColor;
     do {
-      randomColor =
+      this.randomColor =
         this.allColors[Math.floor(Math.random() * this.allColors.length)];
     } while (
-      this.state.colors.some(color => color.color === randomColor.color)
+      this.state.colors.some(color => color.color === this.randomColor.color)
     );
-    this.setState(prevSt => ({ colors: [...prevSt.colors, randomColor] }));
+    this.setState(prevSt => ({ colors: [...prevSt.colors, this.randomColor] }));
   }
 
   clearColors() {

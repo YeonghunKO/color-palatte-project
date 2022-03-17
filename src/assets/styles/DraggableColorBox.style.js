@@ -61,6 +61,9 @@ const DragTextBox = styled.span`
 const useStyles = makeStyles({
   boxContainer: {
     height: '93vh',
+    [sizes.down('xl')]: {
+      height: '88vh',
+    },
     [sizes.down('xs')]: {
       height: '92vh',
     },
