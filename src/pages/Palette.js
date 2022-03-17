@@ -9,8 +9,6 @@ import { generatePalette } from '../utils/getScaleForColor';
 import '../assets/css/Palette.css';
 import { Outlet } from 'react-router';
 
-import uuid from 'react-uuid';
-
 function findPalette(palette, currentPaletteId) {
   return palette.find(paletteObj => paletteObj.id === currentPaletteId);
 }
@@ -54,7 +52,7 @@ class Palette extends Component {
         }
       }
       const footer = (
-        <footer key={uuid()} className="Single-color-footer">
+        <footer className="Single-color-footer">
           {colorIdParam} {emoji}
         </footer>
       );
@@ -63,14 +61,12 @@ class Palette extends Component {
         <>
           <NavBar
             changeFormat={this.changeFormat}
-            format={format}
             level={level}
             changeLevel={this.changeLevel}
             isSingleColor={true}
-            key={uuid()}
           />
 
-          <Outlet key={uuid()} context={[colorsByBrightness, format, footer]} />
+          <Outlet context={[colorsByBrightness, format, footer]} />
         </>
       );
     } else {
@@ -86,10 +82,8 @@ class Palette extends Component {
         <>
           <NavBar
             changeFormat={this.changeFormat}
-            format={format}
             level={level}
             changeLevel={this.changeLevel}
-            key={uuid()}
           />
 
           <div className="Palette-colors">

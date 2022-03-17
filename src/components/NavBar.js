@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -12,14 +12,12 @@ import { FormControl, Select, MenuItem, Snackbar, Alert } from '@mui/material';
 function NavBar(props) {
   const { changeLevel, changeFormat, isSingleColor, format, level } = props;
   const [open, setOpen] = useState(false);
-  const [formatState, setFormat] = useState(format);
+  const [formatState, setFormat] = useState('hex');
 
   const onSelectFormat = e => {
     setOpen(true);
     setFormat(e.target.value);
-    setTimeout(() => {
-      changeFormat(e.target.value);
-    }, 800);
+    changeFormat(e.target.value);
   };
 
   const onClose = (evt, reason) => {
@@ -28,7 +26,7 @@ function NavBar(props) {
     }
     setOpen(false);
   };
-
+  console.log('nav bar rendering', format);
   return (
     <header className="Navbar">
       <div className="logo">

@@ -156,6 +156,7 @@ class CreateNewPalette extends Component {
               addColor={this.addColor}
               isPaletteFull={isPaletteFull}
               colors={colors}
+              // key={uuid()}
             />
           </DrawerInnerDiv>
         </Drawer>
