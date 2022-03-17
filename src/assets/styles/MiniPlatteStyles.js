@@ -18,11 +18,6 @@ export default {
       wmozTransition: 'all .15s linear',
       webkitTransition: 'all .15s linear',
     },
-    '&:hover svg': {
-      opacity: '1',
-      transition: 'all .3s ease-in-out',
-      color: 'white',
-    },
   },
   colorsClass: {
     backgroundColor: 'grey',
@@ -35,7 +30,7 @@ export default {
       height: '8rem',
     },
     [sizes.down('sm')]: {
-      height: '5rem',
+      height: '8rem',
     },
     [sizes.up('lg')]: {
       height: '9rem',
@@ -51,7 +46,7 @@ export default {
     fontSize: '.8rem',
     position: 'relative',
     [sizes.down('sm')]: {
-      fontSize: '.3rem',
+      fontSize: '1rem',
     },
   },
   emojiClass: {
@@ -65,15 +60,15 @@ export default {
     marginBottom: '-3.5px',
   },
   deleteIcon: {
-    color: 'black',
+    color: 'white',
     position: 'absolute',
     backgroundColor: 'red',
     padding: '2px',
     borderRadius: '2px',
     top: '-1px',
-    right: '0',
+    right: '-1.5px',
     zIndex: '10',
-    opacity: '0',
+
     '& *': {
       PointerEvent: 'none',
     },

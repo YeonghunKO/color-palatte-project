@@ -42,7 +42,7 @@ export default {
       height: '120%',
     },
     [sizes.down('xs')]: {
-      width: '55%',
+      width: '75%',
     },
   },
   nav: {
@@ -53,7 +53,7 @@ export default {
     color: 'white',
     '& h1': {
       [sizes.down('xs')]: {
-        fontSize: '13px',
+        fontSize: '1.3rem',
       },
     },
     '& a': {
@@ -63,7 +63,7 @@ export default {
       textDecoration: 'none',
       fontSize: '1.1rem',
       [sizes.down('xs')]: {
-        fontSize: '10px',
+        fontSize: '.9rem',
       },
     },
     '& a:hover': {
