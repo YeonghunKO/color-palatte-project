@@ -32,15 +32,18 @@ function NavBar(props) {
         <Link to="/">reactcolorpicker</Link>
       </div>
       {!isSingleColor && (
-        <div className="slider">
-          <Slider
-            defaultValue={level}
-            min={100}
-            step={100}
-            max={900}
-            onAfterChange={changeLevel}
-          />
-        </div>
+        <>
+          <div className="slider">
+            <Slider
+              defaultValue={level}
+              min={100}
+              step={100}
+              max={900}
+              onAfterChange={changeLevel}
+            />
+          </div>
+          <span className="level">level: {level}</span>
+        </>
       )}
       <FormControl variant="standard" sx={{ ml: 'auto', minWidth: 120 }}>
         <Select

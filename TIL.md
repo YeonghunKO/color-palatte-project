@@ -290,9 +290,16 @@ element type이 같다하더라도 key prop이 없으면 재사용하지 않고 
 
 # 해야할 일
 
-2. reconciliation 알고리즘과 fiber알고리즘에 대해서 더 공부해라.
+1. smartColorGenerate 구현.
+2. lock기능 구현.
+3. palette편집 기능 구현.
 
-- https://www.youtube.com/watch?v=mLMfx8BEt8g (recon)
+4. Palette안에 level text추가
+
+5. reconciliation 알고리즘과 fiber알고리즘에 대해서 더 공부해라.
+
+- https://immigration9.github.io/react/2021/05/29/react-fiber-architecture.html (fiber)
+- https://www.youtube.com/watch?v=0ympFIwQFJw(fiber)
 
 <!--
 

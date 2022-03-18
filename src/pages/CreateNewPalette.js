@@ -28,11 +28,13 @@ import CreateColorNav from '../components/CreateColorNav';
 import { arrayMoveImmutable } from 'array-move';
 import CreateColorPicker from '../components/CreateColorPicker';
 
+import smartColorGenerator from '../utils/smartColorGenrater';
+
 class CreateNewPalette extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      colors: [{ name: 'wowsers', color: 'blue' }],
+      colors: [{ name: 'Malibu', color: 'rgb(110,178,224)' }],
       open: false,
     };
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this);

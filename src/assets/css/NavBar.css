@@ -17,6 +17,7 @@
 }
 
 .logo a {
+  font-family: fantasy;
   text-decoration: none;
   color: black;
 }
@@ -48,6 +49,10 @@
   margin-left: -7px;
 }
 
+.level {
+  font-weight: bold;
+}
+
 .MuiSelect-select {
   display: flex !important;
   justify-content: center;
@@ -57,11 +62,20 @@
   .Navbar .logo {
     padding: 0 6px;
     font-size: 12px;
+    margin-right: 0;
   }
   .Navbar .MuiFormControl-root {
     min-width: 90px;
   }
   .Navbar .MuiInput-root {
     font-size: 12px;
+  }
+
+  .slider {
+    width: 6.8rem;
+  }
+
+  .Navbar .level {
+    font-size: 0.2rem;
   }
 }
