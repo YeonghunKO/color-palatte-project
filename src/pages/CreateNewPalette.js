@@ -28,7 +28,7 @@ import CreateColorNav from '../components/CreateColorNav';
 import { arrayMoveImmutable } from 'array-move';
 import CreateColorPicker from '../components/CreateColorPicker';
 
-import { smartColorGenerator, pickRandom } from '../utils/smartColorGenrater';
+import { smartColorGenerator, pickRandom } from '../utils/smartColorGenerater';
 
 class CreateNewPalette extends Component {
   constructor(props) {
@@ -58,7 +58,6 @@ class CreateNewPalette extends Component {
     this.autoGenerator = this.autoGenerator.bind(this);
     this.updateOneByOne = this.updateOneByOne.bind(this);
     this.getRadomSmartColor = this.getRadomSmartColor.bind(this);
-    this.throttleForAutoGenerator = this.throttleForAutoGenerator.bind(this);
   }
 
   handleDrawerOpen() {
@@ -159,24 +158,6 @@ class CreateNewPalette extends Component {
       this.setState({ isAutoGenerting: false });
     }, 1100);
   }
-
-  throttleForAutoGenerator = () => {
-    // this.setState(prevSt => ({isAutoGenertor:true}),this.autoGenerate)
-    // this.setState(prevSt => ({isAutoGenertor:false}))
-
-    this.setState(
-      prevSt => ({
-        isAutoGenerting: !prevSt.isAutoGenerting,
-      }),
-      this.autoGenerator
-    );
-    this.setState(prevSt => ({
-      isAutoGenerting: !prevSt.isAutoGenerting,
-    }));
-    // setTimeout(() => {
-
-    // }, 1000);
-  };
 
   clearColors() {
     this.setState({ colors: [this.state.colors.map(color => color.locked)] });

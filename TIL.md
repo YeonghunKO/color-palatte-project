@@ -290,18 +290,14 @@ element type이 같다하더라도 key prop이 없으면 재사용하지 않고 
 
 # 해야할 일
 
-1. smartColorGenerate 구현.
-
-   - throttle로 연속클릭 방지(isAutoGenerating state를 이용하기)
-
+1. draggableBOx 안에 props이 undefined이다.
 2. lock기능 구현.
 3. palette편집 기능 구현.
 4. newPalette안에서 draggableBOX 편집기능
-5. draggableBOX 15자 이상입력하면 에러뜨게하기
 
    - 색깔 바꿀 때 마다 그 상자의 색깔만 바뀌기
 
-6. fiber알고리즘에 대해서 더 공부해라.
+5. fiber알고리즘에 대해서 더 공부해라.
 
 - https://immigration9.github.io/react/2021/05/29/react-fiber-architecture.html (fiber)
 - https://www.youtube.com/watch?v=0ympFIwQFJw(fiber)

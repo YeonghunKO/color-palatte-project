@@ -6,7 +6,7 @@ import { memo } from 'react';
 import { useStyles } from '../assets/styles/DraggableColorBox.style';
 
 const DraggableColorList = SortableContainer(({ colors, remove }) => {
-  const { boxContainer } = useStyles('');
+  const { boxContainer } = useStyles();
 
   return (
     <div className={boxContainer}>
