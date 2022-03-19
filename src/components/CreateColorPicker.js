@@ -52,6 +52,10 @@ function CreateColorPicker(props) {
         return currentColor !== color;
       });
     });
+
+    ValidatorForm.addValidationRule('isStrLengthEnough', value => {
+      return value.length < 14;
+    });
   }, [newColorName, currentColor, colors]);
   return (
     <>
@@ -67,11 +71,17 @@ function CreateColorPicker(props) {
         instantValidate={false}
       >
         <TextValidator
-          validators={['required', 'isNameUnique', 'isColorUnique']}
+          validators={[
+            'required',
+            'isNameUnique',
+            'isColorUnique',
+            'isStrLengthEnough',
+          ]}
           errorMessages={[
             'Enter Color Name',
             'Name has already been taken',
             'Color has already been taken',
+            'Name should be less than 13 chars',
           ]}
           value={newColorName}
           onChange={handleForm}
