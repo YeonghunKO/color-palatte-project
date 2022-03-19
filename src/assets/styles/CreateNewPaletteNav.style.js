@@ -29,6 +29,9 @@ const AppBar = styled(MuiAppBar, {
 
 const useStyles = makeStyles(() => {
   return createStyles({
+    toolBar: {
+      justifyContent: 'flex-end',
+    },
     extendButton: {
       marginRight: 'auto !important',
     },

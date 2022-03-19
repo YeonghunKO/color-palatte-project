@@ -30,7 +30,7 @@ function CreateColorNav(props) {
 
   const [paletteNameSave, setPaletteNameSave] = useState(false);
 
-  const { goBackButton, saveButton, autoGenButton, extendButton } =
+  const { goBackButton, saveButton, autoGenButton, extendButton, toolBar } =
     useStyles(props);
 
   const handlePaletteNameFormOpen = () => {
@@ -44,7 +44,7 @@ function CreateColorNav(props) {
     <>
       <CssBaseline />
       <AppBar color="default" position="fixed" open={open}>
-        <Toolbar>
+        <Toolbar className={toolBar}>
           <IconButton
             className={extendButton}
             color="inherit"
@@ -55,31 +55,33 @@ function CreateColorNav(props) {
           >
             <AddToPhotos />
           </IconButton>
+          <div>
+            <Button
+              className={goBackButton}
+              color="secondary"
+              onClick={() => navigation('/')}
+              variant="contained"
+            >
+              Go Back
+            </Button>
+            <Button
+              className={autoGenButton}
+              color="warning"
+              onClick={autoGenerator}
+              variant="contained"
+              disabled={isAutoGenerting}
+            >
+              Auto Generator
+            </Button>
+            <Button
+              className={saveButton}
+              variant="contained"
+              onClick={handlePaletteNameFormOpen}
+            >
+              Save
+            </Button>
+          </div>
 
-          <Button
-            className={goBackButton}
-            color="secondary"
-            onClick={() => navigation('/')}
-            variant="contained"
-          >
-            Go Back
-          </Button>
-          <Button
-            className={autoGenButton}
-            color="info"
-            onClick={autoGenerator}
-            variant="contained"
-            disabled={isAutoGenerting}
-          >
-            Auto Generator
-          </Button>
-          <Button
-            className={saveButton}
-            variant="contained"
-            onClick={handlePaletteNameFormOpen}
-          >
-            Save
-          </Button>
           {paletteNameSave && (
             <NewPaletteMetaForm
               paletteList={paletteList}
