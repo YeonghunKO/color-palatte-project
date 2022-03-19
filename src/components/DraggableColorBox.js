@@ -20,7 +20,7 @@ const DraggableColorBox = SortableElement(props => {
   return (
     <DraggableColorDiv color={color}>
       <BoxContent>
-        <span>{name}</span>
+        <span>{name.length > 13 ? name.slice(0, 13) + '...' : name}</span>
         <DeleteIcon onClick={handleClick} />
       </BoxContent>
       <DragTextBox color={color}>{'Drag! 🤏'}</DragTextBox>

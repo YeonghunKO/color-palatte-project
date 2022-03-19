@@ -50,7 +50,7 @@ const BoxContent = styled.div`
 
 const DragTextBox = styled.span`
   position: absolute;
-  right: 1rem;
+  right: 0.2rem;
   top: 5px;
   color: ${props => getColorByLuminance(props.color)};
   ${sizes.down('xs')} {

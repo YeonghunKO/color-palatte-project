@@ -29,20 +29,20 @@ const AppBar = styled(MuiAppBar, {
 
 const useStyles = makeStyles(() => {
   return createStyles({
-    title: {
+    extendButton: {
       marginRight: 'auto !important',
-      fontWeight: 'bold',
-      fontStyle: 'italic',
-
-      [sizes.down('xs')]: {
-        fontSize: '10px',
-      },
     },
-
     goBackButton: {
       margin: '1rem 1rem !important',
       [sizes.down('xs')]: {
         padding: '4px 1px !important',
+        fontSize: '.2rem !important',
+      },
+    },
+    autoGenButton: {
+      margin: '1rem 1rem 1rem 0 !important',
+      [sizes.down('xs')]: {
+        padding: '4px 12px !important',
         fontSize: '.2rem !important',
       },
     },
