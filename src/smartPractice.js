@@ -1,14 +1,11 @@
 import chroma from 'chroma-js';
 import namer from 'color-namer';
 
-// Helper functions
 const getHSLvalue = (col, type) => chroma(col).get('hsl.' + type);
-const setColor = (col, type, val) => chroma(col).set('hsl.' + type, val);
-
 const pickRandom = arr => arr[randomIdx(arr.length)];
 const randomIdx = num => Math.floor(Math.random() * num);
 const randomDir = num => (Math.random() > 0.5 ? num : -num);
-// colorComponent has internal function called `rgb` to return rgb number in array
+const setColor = (col, type, val) => chroma(col).set('hsl.' + type, val);
 const colorStr = colorComponent => `rgb(${colorComponent.rgb().join(',')})`;
 
 function smartColorGenerator(prevColor) {
@@ -17,35 +14,31 @@ function smartColorGenerator(prevColor) {
 
   if (prevColor) {
     const rules = [
-      //change Hue
+      //change hue
       ({ color }) => {
         const prevHue = getHSLvalue(color, 'h');
-        // inner possible rules;
-        //1) Change color slightly
-        //2) Change color a third of the color wheel
-        //3) Change color half the color wheel
         const innerRules = [10, 255 / 3, 255 / 2];
         let hue = prevHue + randomDir(pickRandom(innerRules));
         hue = hue % 255;
         const newColor = setColor(color, 'h', hue);
         return colorStr(newColor);
       },
-      // change Saturation
+      // change saturation
       ({ color }) => {
         const prevSat = getHSLvalue(color, 's');
         let sat;
         do {
-          sat = prevSat + randomDir(Math.random() * 0.3);
+          sat = prevSat + randomDir(0.3);
         } while (sat < 0.1 || sat > 0.9);
         const newColor = setColor(color, 's', sat);
         return colorStr(newColor);
       },
-      // change Lightness
+      // change lightness
       ({ color }) => {
         const prevLuma = getHSLvalue(color, 'l');
         let luma;
         do {
-          luma = prevLuma + randomDir(Math.random() * 0.2);
+          luma = prevLuma + randomDir(0.15);
         } while (luma < 0.2 || luma > 0.95);
         const newColor = setColor(color, 'l', luma);
         return colorStr(newColor);
@@ -58,16 +51,9 @@ function smartColorGenerator(prevColor) {
   }
 
   const nameOptions = namer(newColor);
-  const chosenNameOptions = Object.keys(nameOptions).map(
-    k => nameOptions[k][0]
-  );
-  // nameOptions has various categories sorted by distance each
-  // extract top-most distance from each category
-  // sort them to weed out names below optimal one
-  // console.log(chosenNameOptions);
-  newName = pickRandom(chosenNameOptions).name;
+  newName = Object.keys(nameOptions)
+    .map(k => nameOptions[k][0])
+    .sort((a, b) => a.distance - b.distance)[0].name;
 
   return { name: newName, color: newColor };
 }
-
-export { smartColorGenerator, pickRandom };

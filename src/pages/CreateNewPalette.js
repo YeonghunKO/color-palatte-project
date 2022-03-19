@@ -28,14 +28,18 @@ import CreateColorNav from '../components/CreateColorNav';
 import { arrayMoveImmutable } from 'array-move';
 import CreateColorPicker from '../components/CreateColorPicker';
 
-import smartColorGenerator from '../utils/smartColorGenrater';
+import { smartColorGenerator, pickRandom } from '../utils/smartColorGenrater';
 
 class CreateNewPalette extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      colors: [{ name: 'Malibu', color: 'rgb(110,178,224)' }],
+      colors: [
+        { name: 'Spindle', color: 'rgb(173,211,237)', locked: false },
+        { name: 'Malibu', color: 'rgb(110,178,224)', locked: false },
+      ],
       open: false,
+      isAutoGenerting: false,
     };
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
     this.handleDrawerClose = this.handleDrawerClose.bind(this);
@@ -50,6 +54,11 @@ class CreateNewPalette extends Component {
       .flat();
 
     this.randomColor = null;
+
+    this.autoGenerator = this.autoGenerator.bind(this);
+    this.updateOneByOne = this.updateOneByOne.bind(this);
+    this.getRadomSmartColor = this.getRadomSmartColor.bind(this);
+    this.throttleForAutoGenerator = this.throttleForAutoGenerator.bind(this);
   }
 
   handleDrawerOpen() {
@@ -96,23 +105,88 @@ class CreateNewPalette extends Component {
 
   addRandomColor() {
     do {
-      this.randomColor =
-        this.allColors[Math.floor(Math.random() * this.allColors.length)];
+      this.randomColor = pickRandom(this.allColors);
     } while (
       this.state.colors.some(color => color.color === this.randomColor.color)
     );
     this.setState(prevSt => ({ colors: [...prevSt.colors, this.randomColor] }));
   }
 
+  getRadomSmartColor(basedOn, compareList = this.state.colors) {
+    let newColor;
+    const notUniqueColorObj = newColor =>
+      compareList.some(
+        color => color.name === newColor.name || color.color === newColor.color
+      );
+    do {
+      newColor = smartColorGenerator(basedOn);
+    } while (notUniqueColorObj(newColor));
+    return { ...newColor, locked: false };
+  }
+
+  updateOneByOne(newColors, idx) {
+    this.setState(
+      { colors: [...newColors.slice(0, idx), newColors[idx]] },
+      () => {
+        if (idx < 19) {
+          setTimeout(() => {
+            this.updateOneByOne(newColors, idx + 1);
+          }, 10);
+        }
+      }
+    );
+  }
+
+  autoGenerator() {
+    // reason to use locked colors for baseColors is to take locked colors into account to autogenerate
+    this.setState({ isAutoGenerting: true });
+    const baseColors = this.state.colors.filter(c => c.locked);
+    const newColors = [];
+    for (let i = 0; i < 20; i++) {
+      const originalColor = this.state.colors[i];
+      if (originalColor && originalColor.locked) {
+        newColors[i] = originalColor;
+      } else {
+        const basedOn = pickRandom(baseColors) || pickRandom(this.state.colors);
+        const randomColorObj = this.getRadomSmartColor(basedOn, baseColors);
+        baseColors.push(randomColorObj);
+        newColors[i] = randomColorObj;
+      }
+    }
+
+    this.updateOneByOne(newColors, 0);
+    setTimeout(() => {
+      this.setState({ isAutoGenerting: false });
+    }, 1100);
+  }
+
+  throttleForAutoGenerator = () => {
+    // this.setState(prevSt => ({isAutoGenertor:true}),this.autoGenerate)
+    // this.setState(prevSt => ({isAutoGenertor:false}))
+
+    this.setState(
+      prevSt => ({
+        isAutoGenerting: !prevSt.isAutoGenerting,
+      }),
+      this.autoGenerator
+    );
+    this.setState(prevSt => ({
+      isAutoGenerting: !prevSt.isAutoGenerting,
+    }));
+    // setTimeout(() => {
+
+    // }, 1000);
+  };
+
   clearColors() {
-    this.setState({ colors: [] });
+    this.setState({ colors: [this.state.colors.map(color => color.locked)] });
   }
 
   render() {
     const { maxCardNum, paletteList, classes } = this.props;
     const { drawer } = classes;
 
-    const { open, colors } = this.state;
+    const { open, colors, isAutoGenerting } = this.state;
 
     const isPaletteFull = this.state.colors.length >= maxCardNum;
 
@@ -123,6 +197,8 @@ class CreateNewPalette extends Component {
           handleDrawerOpen={this.handleDrawerOpen}
           savePalette={this.savePalette}
           paletteList={paletteList}
+          autoGenerator={this.autoGenerator}
+          isAutoGenerting={isAutoGenerting}
         />
         <Drawer
           className={drawer}
@@ -159,7 +235,6 @@ class CreateNewPalette extends Component {
               addColor={this.addColor}
               isPaletteFull={isPaletteFull}
               colors={colors}
-              // key={uuid()}
             />
           </DrawerInnerDiv>
         </Drawer>

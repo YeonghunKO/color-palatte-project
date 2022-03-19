@@ -291,31 +291,49 @@ element type이 같다하더라도 key prop이 없으면 재사용하지 않고 
 # 해야할 일
 
 1. smartColorGenerate 구현.
+
+   - throttle로 연속클릭 방지(isAutoGenerating state를 이용하기)
+
 2. lock기능 구현.
 3. palette편집 기능 구현.
+4. newPalette안에서 draggableBOX 편집기능
+5. draggableBOX 15자 이상입력하면 에러뜨게하기
 
-4. Palette안에 level text추가
+   - 색깔 바꿀 때 마다 그 상자의 색깔만 바뀌기
 
-5. reconciliation 알고리즘과 fiber알고리즘에 대해서 더 공부해라.
+6. fiber알고리즘에 대해서 더 공부해라.
 
 - https://immigration9.github.io/react/2021/05/29/react-fiber-architecture.html (fiber)
 - https://www.youtube.com/watch?v=0ympFIwQFJw(fiber)
 
-<!--
+`<Processing phase>`
 
-4. PaletteList,colors(createNewPalette안에)는 여러곳에서 자주 쓰이므로 context로 만들어서 바로 보낼 수도록 해보기
+1. render phase
 
-5. draggable 함수 최소한만 랜더링 되도록 최적화 하기
+- 비동기적
+- task가 우선, 중지, 삭제 될 수 있음
+- internal function이 있음 beginWork, completeWork 같은
 
-6. createNewPalette컴포넌트안에 있는 기능들이 분리되어야 한다.(drawer랑 main으로)
+2. commit phase
 
-   - 왜냐면 current color가 바뀌는 순간마다 draggablecolorbox 가 새로 랜더링 되기 때문
-   - 이는 createNewPalette컴포넌트 안에 drawer랑 Main이 같이 있기 때문이고 state들도 같이 존재하기 때문이다.
-   - colors를 reducer와 context로 따로 구현해서 리팩토링하고 분리시켜서 최대한 독립적으로 랜더링 되도록 해보자
+- commitWork가 실행
+- 동기적, 중간에 중지 못함
+- 최종적으로 화면에 표시됨
 
-     - 그런데 drawer하고 main모두 createNewPalette에서 open state에 의존하고 있다. 결국 open을 클릭할떄 setOpen이 실행되면서 box안에 있는 drawer하고 main이 리랜더링된다.
+> Fiber는 일의 단위이다
 
-     - 투두앱처럼 todos / dispatch 로 완전히 구분할 수 가 없는것인가. 투두앱같은경우 부모 컴포넌트에 어떤 state도 없었기 때문에 각각 따로 랜더링이 가능했었다. 요번 경우는 부모 state를 공유하고 있으니... 이를 어쩔꼬.
+> Fiber prop
 
-     - 아니다. state만 분리시키면 된다. 즉 customHook을 만들면 될지도 모르겠다. 그리고 state를 각각 다르게 manipulate하는 메소드가 많으니깐(handleForm,handleDrawerOpen,handleDrawerClose,removeColorBox...) Reducer를 사용해서 customHook을 만들어보자.
-     - 음... 일단 퍼포먼스 신경쓰기 말고 구현이 되도록 신경쓰자. -->
+- 'sth'과 1대1로 관계형성(EX> DOM, 컴포넌트 인스턴스 등등)
+- 'sth'의 타입은 태그 prop에 저장
+
+> Fibers는 리액트 엘리먼트와 비슷
+
+- 맞다. 근데 차이점은 Fibers같은 경우 리액트 엘리먼트와는 다르게 최대한 재사용된다.
+- DOMtree 형성함.
+- 첫번째 자식과 연결되어있음
+
+> 리액트 에서 말하는 `Work`
+
+- 애니메이션 같이 즉각 실행가능한건 high priority 로 분류 (requestAnimationFrame 함수 실행)
+- API request 같이 시간이 걸리는건 low priority 로 분류 (requestIdleCallback 함수 실행)

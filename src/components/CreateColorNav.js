@@ -17,13 +17,21 @@ import { useStyles } from '../assets/styles/CreateNewPaletteNav.style';
 import NewPaletteMetaForm from '../components/NewPaletteMetaForm';
 
 function CreateColorNav(props) {
-  const { open, handleDrawerOpen, savePalette, paletteList } = props;
+  const {
+    open,
+    handleDrawerOpen,
+    savePalette,
+    paletteList,
+    autoGenerator,
+    isAutoGenerting,
+  } = props;
 
   const navigation = useNavigate();
 
   const [paletteNameSave, setPaletteNameSave] = useState(false);
 
-  const { title, goBackButton, saveButton } = useStyles(props);
+  const { goBackButton, saveButton, autoGenButton, extendButton } =
+    useStyles(props);
 
   const handlePaletteNameFormOpen = () => {
     setPaletteNameSave(true);
@@ -38,6 +46,7 @@ function CreateColorNav(props) {
       <AppBar color="default" position="fixed" open={open}>
         <Toolbar>
           <IconButton
+            className={extendButton}
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
@@ -46,9 +55,6 @@ function CreateColorNav(props) {
           >
             <AddToPhotos />
           </IconButton>
-          <Typography className={title} variant="h7" noWrap component="div">
-            Let's Custom Your Own Palette ~
-          </Typography>
 
           <Button
             className={goBackButton}
@@ -57,6 +63,15 @@ function CreateColorNav(props) {
             variant="contained"
           >
             Go Back
+          </Button>
+          <Button
+            className={autoGenButton}
+            color="info"
+            onClick={autoGenerator}
+            variant="contained"
+            disabled={isAutoGenerting}
+          >
+            Auto Generator
           </Button>
           <Button
             className={saveButton}
