@@ -36,7 +36,7 @@ class CreateNewPalette extends Component {
     this.state = {
       colors: [
         { name: 'Spindle', color: 'rgb(173,211,237)', locked: false },
-        { name: 'Malibu', color: 'rgb(110,178,224)', locked: false },
+        { name: 'Malibu', color: 'rgb(110,178,224)', locked: true },
       ],
       open: false,
       isAutoGenerting: false,

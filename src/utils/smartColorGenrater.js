@@ -63,8 +63,6 @@ function smartColorGenerator(prevColor) {
   );
   // nameOptions has various categories sorted by distance each
   // extract top-most distance from each category
-  // sort them to weed out names below optimal one
-  // console.log(chosenNameOptions);
   newName = pickRandom(chosenNameOptions).name;
 
   return { name: newName, color: newColor };

@@ -30,6 +30,7 @@ const BoxContent = styled.div`
   width: 100%;
   position: absolute;
   padding: 10px;
+  padding-bottom: 4px;
   left: 0;
   bottom: 0;
   display: flex;
@@ -52,7 +53,6 @@ const DragTextBox = styled.span`
   position: absolute;
   right: 0.2rem;
   top: 5px;
-  color: ${props => getColorByLuminance(props.color)};
   ${sizes.down('xs')} {
     font-size: 10px;
   }
@@ -66,6 +66,24 @@ const useStyles = makeStyles({
     },
     [sizes.down('xs')]: {
       height: '92vh',
+    },
+  },
+  lockIcon: {
+    width: '25%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    position: 'absolute',
+    left: '6px',
+    top: '6px',
+
+    '& svg': {
+      [sizes.down('xs')]: {
+        fontSize: '1.3rem',
+      },
+    },
+
+    '& .locked-icon': {
+      color: props => props.locked && 'red',
     },
   },
 });
