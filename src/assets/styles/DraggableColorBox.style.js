@@ -82,14 +82,8 @@ const useStyles = makeStyles({
       },
     },
 
-    color: props => {
-      console.log(props);
-    },
     '& .locked-icon': {
-      color: props => {
-        console.log(props);
-        return props.locked && 'red';
-      },
+      color: props => props.locked && 'red',
     },
   },
 });
