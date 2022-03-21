@@ -11,7 +11,7 @@ function useStateCallback(initState) {
 
   useEffect(() => {
     if (cbRef.current) {
-      cbRef.current();
+      cbRef.current(state);
       cbRef.current = null;
     }
   }, [state]);

@@ -224,6 +224,32 @@ element type이 같다하더라도 key prop이 없으면 재사용하지 않고 
 
 즉, 애니메이션, 레이아웃 변경 같은 효과가 일어날 시에 상당히 느려질 수 있다는 단점이 있다. 이를 방지하기 위해 리액트는 `fiber`라는 새로운 알고리즘을 도입하였다.
 
+9. draggablBox안에 있는 edit 버튼 구현
+
+- useState에 isEditting인경우 초기값을 바꾸려고 했으나 안되었다. 그 이유는 state같은 경우 setState를 하기 전까지 초기 값을 그대로 유지하기 때문
+
+```javascript
+// CreateColorPicker.js
+const {
+  addColor,
+  isPaletteFull,
+  colors,
+  isColorBoxEditing,
+  editingBoxInfo,
+  editColorBoxEnd,
+} = props;
+
+const [currentColor, setCurrentColor] = useState(
+  isColorBoxEditing ? editingBoxInfo.name : 'purple'
+);
+```
+
+- 따라서 useEffect를 이용하려고 했다. dependency로는 editingBoxInfo값을 이용하려고 했으나 obj이기 때문에 매번 colorPicker가 변경되었다.
+
+- class 컴포넌트인 createNewPalette안에 있는 editingBoxInfo obj를 memoization하려고 찾아보았다. 그러나 마땅한 방법이 없었다
+
+- 그래서 editingBoxInfo값을 JSON.stringify 해서 넘겨주거나 editingBoxInfo안에 있는 name, color를 dependency로 사용하기로 했다!
+
 # CSS
 
 1. ` display: inline-block;` 이라고 하면 wrap이랑 똑같은 효과가 나타난다. 왜냐면 span처럼 inline처리가 되기 때문이다.
@@ -292,7 +318,7 @@ element type이 같다하더라도 key prop이 없으면 재사용하지 않고 
 
 3. newPalette안에서 draggableBOX 편집기능
 
-   - 색깔 바꿀 때 마다 그 상자의 색깔만 바뀌기
+   - 편집완료하고 나면 snackBox띄우기
 
 4. palette편집 기능 구현.
 

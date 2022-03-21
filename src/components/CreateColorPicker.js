@@ -1,4 +1,4 @@
-import { memo, useState, useEffect } from 'react';
+import { memo, useState, useEffect, useMemo } from 'react';
 
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
@@ -10,19 +10,39 @@ import useStyles from '../assets/styles/CreateColorPicker.style';
 
 import { getColorByLuminance } from '../utils/getColorByLuminance';
 
-function CreateColorPicker(props) {
-  const { addColor, isPaletteFull, colors } = props;
-  const [currentColor, setCurrentColor] = useState('#800080');
+import useStateCallBack from '../utils/useStateCallBack';
 
-  const [newColorName, setNewColorName] = useState('');
+function CreateColorPicker(props) {
+  const {
+    addColor,
+    isPaletteFull,
+    colors,
+    isColorBoxEditing,
+    editingBoxInfo,
+    editColorBoxEnd,
+    onUpdateEditingBoxColor,
+  } = props;
+
+  const [currentColor, setCurrentColor] = useStateCallBack('purple');
+
+  const [newColorName, setNewColorName] = useState('purple');
   const {
     chromePickerClassName,
     TextValidatorFormClassName,
     TextValidatorClassName,
   } = useStyles(props);
 
+  const prevColorsForEditing = useMemo(
+    () => colors,
+    [editingBoxInfo.name, editingBoxInfo.color]
+  );
+
   const updateCurrentColor = newColor => {
-    setCurrentColor(newColor.hex);
+    setCurrentColor(newColor.hex, newColor => {
+      if (isColorBoxEditing) {
+        onUpdateEditingBoxColor(newColor);
+      }
+    });
   };
 
   const handleForm = evt => {
@@ -33,22 +53,30 @@ function CreateColorPicker(props) {
     const newColorObj = {
       name: newColorName,
       color: currentColor,
+      locked: false,
     };
-    addColor(newColorObj);
+    if (isColorBoxEditing) {
+      editColorBoxEnd(newColorObj);
+    } else {
+      addColor(newColorObj);
+    }
+
     setNewColorName('');
   };
 
-  useEffect(() => {
+  const validator = compareColors => {
     ValidatorForm.addValidationRule('isNameUnique', value => {
+      console.log(value);
+      console.log(compareColors);
       // 각각 대조해보고 다르면 true가 나옴.
       // 한개라도 같은게 있으면 false가 나오면서 isColorUnique가 발동됨
-      return colors.every(
+      return compareColors.every(
         ({ name }) => name.toLowerCase() !== value.toLowerCase()
       );
     });
 
     ValidatorForm.addValidationRule('isColorUnique', value => {
-      return colors.every(({ color }) => {
+      return compareColors.every(({ color }) => {
         return currentColor !== color;
       });
     });
@@ -56,7 +84,23 @@ function CreateColorPicker(props) {
     ValidatorForm.addValidationRule('isStrLengthEnough', value => {
       return value.length < 14;
     });
+  };
+  useEffect(() => {
+    if (isColorBoxEditing) {
+      validator(prevColorsForEditing);
+    } else {
+      validator(colors);
+    }
   }, [newColorName, currentColor, colors]);
+
+  useEffect(() => {
+    if (editingBoxInfo.name || editingBoxInfo.color) {
+      const { name, color } = editingBoxInfo;
+      setCurrentColor(color);
+      setNewColorName(name);
+    }
+  }, [editingBoxInfo.name, editingBoxInfo.color]);
+
   return (
     <>
       <ChromePicker
@@ -83,7 +127,7 @@ function CreateColorPicker(props) {
             'Color has already been taken',
             'Name should be less than 13 chars',
           ]}
-          value={newColorName}
+          value={newColorName.toUpperCase()}
           onChange={handleForm}
           className={TextValidatorClassName}
           variant="filled"
@@ -93,14 +137,24 @@ function CreateColorPicker(props) {
           type="submit"
           variants="contained"
           style={{
-            background: `${isPaletteFull ? 'grey' : currentColor}`,
+            background: `${
+              !isColorBoxEditing && isPaletteFull ? 'grey' : currentColor
+            }`,
             color: currentColor && getColorByLuminance(currentColor),
             width: '40%',
             padding: '.5rem',
           }}
-          disabled={isPaletteFull}
+          disabled={!isColorBoxEditing && isPaletteFull}
         >
-          {isPaletteFull ? 'Palette Full' : 'Add Color'}
+          {(function () {
+            if (isColorBoxEditing) {
+              return 'Edit!';
+            } else if (isPaletteFull) {
+              return 'Palette Full';
+            } else {
+              return 'Add Color';
+            }
+          })()}
         </Button>
       </ValidatorForm>
     </>

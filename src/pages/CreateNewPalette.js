@@ -40,6 +40,8 @@ class CreateNewPalette extends Component {
       ],
       open: false,
       isAutoGenerting: false,
+      isColorBoxEditing: false,
+      editingBoxInfo: { name: '', color: '' },
     };
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
     this.handleDrawerClose = this.handleDrawerClose.bind(this);
@@ -59,6 +61,9 @@ class CreateNewPalette extends Component {
     this.updateOneByOne = this.updateOneByOne.bind(this);
     this.getRadomSmartColor = this.getRadomSmartColor.bind(this);
     this.toggleBoxLock = this.toggleBoxLock.bind(this);
+    this.editColorBoxStart = this.editColorBoxStart.bind(this);
+    this.editColorBoxEnd = this.editColorBoxEnd.bind(this);
+    this.onUpdateEditingBoxColor = this.onUpdateEditingBoxColor.bind(this);
   }
 
   handleDrawerOpen() {
@@ -109,7 +114,9 @@ class CreateNewPalette extends Component {
     } while (
       this.state.colors.some(color => color.color === this.randomColor.color)
     );
-    this.setState(prevSt => ({ colors: [...prevSt.colors, this.randomColor] }));
+    this.setState(prevSt => ({
+      colors: [...prevSt.colors, { ...this.randomColor, locked: false }],
+    }));
   }
 
   getRadomSmartColor(basedOn, compareList = this.state.colors) {
@@ -176,11 +183,42 @@ class CreateNewPalette extends Component {
     }));
   }
 
+  editColorBoxStart(editingBoxInfo) {
+    this.handleDrawerOpen();
+    this.setState({
+      isColorBoxEditing: true,
+      editingBoxInfo,
+    });
+  }
+
+  onUpdateEditingBoxColor(newColor) {
+    const updatingColors = this.state.colors.map(color =>
+      color.name === this.state.editingBoxInfo.name
+        ? { ...color, color: newColor }
+        : color
+    );
+    this.setState({ colors: updatingColors });
+  }
+
+  editColorBoxEnd({ name, color }) {
+    // console.log(name);
+    this.setState(prevSt => ({
+      isColorBoxEditing: false,
+      editingBoxInfo: { name: '', color: '' },
+      colors: prevSt.colors.map(prevColor =>
+        prevColor.name === this.state.editingBoxInfo.name
+          ? { ...prevColor, name, color }
+          : prevColor
+      ),
+    }));
+  }
+
   render() {
     const { maxCardNum, paletteList, classes } = this.props;
     const { drawer } = classes;
 
-    const { open, colors, isAutoGenerting } = this.state;
+    const { open, colors, isAutoGenerting, isColorBoxEditing, editingBoxInfo } =
+      this.state;
 
     const isPaletteFull = this.state.colors.length >= maxCardNum;
 
@@ -229,6 +267,10 @@ class CreateNewPalette extends Component {
               addColor={this.addColor}
               isPaletteFull={isPaletteFull}
               colors={colors}
+              isColorBoxEditing={isColorBoxEditing}
+              editingBoxInfo={editingBoxInfo}
+              editColorBoxEnd={this.editColorBoxEnd}
+              onUpdateEditingBoxColor={this.onUpdateEditingBoxColor}
             />
           </DrawerInnerDiv>
         </Drawer>
@@ -241,6 +283,7 @@ class CreateNewPalette extends Component {
             colors={colors}
             remove={this.removeColorBox}
             toggleBoxLock={this.toggleBoxLock}
+            editColorBoxStart={this.editColorBoxStart}
           />
         </Main>
       </Box>

@@ -79,14 +79,11 @@ const useStyles = makeStyles({
       [sizes.down('xs')]: {
         fontSize: '1.3rem',
       },
+      transition: 'all 0.3s ease-in-out',
     },
 
     '& .locked-icon': {
       color: props => props.locked && 'red',
-    },
-
-    '& svg': {
-      transition: 'all 0.3s ease-in-out',
     },
   },
 });
