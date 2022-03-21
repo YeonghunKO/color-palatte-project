@@ -290,12 +290,11 @@ element type이 같다하더라도 key prop이 없으면 재사용하지 않고 
 
 # 해야할 일
 
-1. draggableBOx 안에 props이 undefined이다.
-2. lock기능 구현.
-3. palette편집 기능 구현.
-4. newPalette안에서 draggableBOX 편집기능
+3. newPalette안에서 draggableBOX 편집기능
 
    - 색깔 바꿀 때 마다 그 상자의 색깔만 바뀌기
+
+4. palette편집 기능 구현.
 
 5. fiber알고리즘에 대해서 더 공부해라.
 

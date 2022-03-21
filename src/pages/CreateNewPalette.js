@@ -58,6 +58,7 @@ class CreateNewPalette extends Component {
     this.autoGenerator = this.autoGenerator.bind(this);
     this.updateOneByOne = this.updateOneByOne.bind(this);
     this.getRadomSmartColor = this.getRadomSmartColor.bind(this);
+    this.toggleBoxLock = this.toggleBoxLock.bind(this);
   }
 
   handleDrawerOpen() {
@@ -159,8 +160,20 @@ class CreateNewPalette extends Component {
     }, 1100);
   }
 
+  toggleBoxLock(toggleBoxName) {
+    const lockedColors = this.state.colors.map(colorObj =>
+      colorObj.name === toggleBoxName
+        ? { ...colorObj, locked: !colorObj.locked }
+        : colorObj
+    );
+
+    this.setState({ colors: lockedColors });
+  }
+
   clearColors() {
-    this.setState({ colors: [this.state.colors.map(color => color.locked)] });
+    this.setState(prevSt => ({
+      colors: prevSt.colors.filter(color => color.locked),
+    }));
   }
 
   render() {
@@ -227,6 +240,7 @@ class CreateNewPalette extends Component {
             axis="xy"
             colors={colors}
             remove={this.removeColorBox}
+            toggleBoxLock={this.toggleBoxLock}
           />
         </Main>
       </Box>
