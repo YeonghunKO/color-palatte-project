@@ -24,6 +24,9 @@ const DraggableColorDiv = styled.div`
     width: 50%;
     height: 10%;
   }
+  &:hover svg {
+    transform: scale(1.3);
+  }
 `;
 
 const BoxContent = styled.div`
@@ -42,10 +45,6 @@ const BoxContent = styled.div`
 
   svg {
     transition: all 0.3s ease-in-out;
-  }
-  svg:hover {
-    color: red;
-    transform: scale(1.5);
   }
 `;
 
@@ -69,7 +68,7 @@ const useStyles = makeStyles({
     },
   },
   lockIcon: {
-    width: '25%',
+    gap: '4px',
     display: 'flex',
     justifyContent: 'space-between',
     position: 'absolute',
@@ -84,6 +83,10 @@ const useStyles = makeStyles({
 
     '& .locked-icon': {
       color: props => props.locked && 'red',
+    },
+
+    '& svg': {
+      transition: 'all 0.3s ease-in-out',
     },
   },
 });

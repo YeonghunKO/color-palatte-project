@@ -5,21 +5,24 @@ import { memo } from 'react';
 
 import { useStyles } from '../assets/styles/DraggableColorBox.style';
 
-const DraggableColorList = SortableContainer(({ colors, remove }) => {
-  const { boxContainer } = useStyles();
+const DraggableColorList = SortableContainer(
+  ({ colors, remove, toggleBoxLock }) => {
+    const { boxContainer } = useStyles();
 
-  return (
-    <div className={boxContainer}>
-      {colors.map((color, index) => (
-        <DraggableColorBox
-          {...color}
-          index={index}
-          key={color.color}
-          remove={remove}
-        />
-      ))}
-    </div>
-  );
-});
+    return (
+      <div className={boxContainer}>
+        {colors.map((color, index) => (
+          <DraggableColorBox
+            {...color}
+            index={index}
+            key={color.color}
+            remove={remove}
+            toggleBoxLock={toggleBoxLock}
+          />
+        ))}
+      </div>
+    );
+  }
+);
 
 export default memo(DraggableColorList);
