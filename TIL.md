@@ -318,6 +318,7 @@ const [currentColor, setCurrentColor] = useState(
 
 3. newPalette안에서 draggableBOX 편집기능
 
+   - cancel edit 버튼 추가
    - 편집완료하고 나면 snackBox띄우기
 
 4. palette편집 기능 구현.

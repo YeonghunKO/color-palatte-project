@@ -16,7 +16,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import EditIcon from '@mui/icons-material/Edit';
 
 const DraggableColorBox = SortableElement(props => {
-  const { color, name, remove, locked, toggleBoxLock, editColorBoxStart } =
+  const { idx, color, name, remove, locked, toggleBoxLock, editColorBoxStart } =
     props;
 
   const handleClick = () => {
@@ -30,7 +30,8 @@ const DraggableColorBox = SortableElement(props => {
   };
 
   const editBox = () => {
-    editColorBoxStart({ name, color });
+    console.log(idx);
+    editColorBoxStart({ name, color, index: idx });
   };
   // console.log('drggable', name);
   return (

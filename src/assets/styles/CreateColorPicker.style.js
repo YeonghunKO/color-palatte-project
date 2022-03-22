@@ -16,6 +16,12 @@ const useStyles = makeStyles(() => {
       margin: '1rem 0 !important',
       width: '15rem',
     },
+    pickerButtonContainer: {
+      display: 'flex',
+      width: '100%',
+      justifyContent: 'center',
+      gap: '1rem',
+    },
   });
 });
 

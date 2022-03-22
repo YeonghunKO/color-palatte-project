@@ -41,7 +41,7 @@ class CreateNewPalette extends Component {
       open: false,
       isAutoGenerting: false,
       isColorBoxEditing: false,
-      editingBoxInfo: { name: '', color: '' },
+      editingBoxInfo: { name: '', color: '', index: null },
     };
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
     this.handleDrawerClose = this.handleDrawerClose.bind(this);
@@ -64,6 +64,7 @@ class CreateNewPalette extends Component {
     this.editColorBoxStart = this.editColorBoxStart.bind(this);
     this.editColorBoxEnd = this.editColorBoxEnd.bind(this);
     this.onUpdateEditingBoxColor = this.onUpdateEditingBoxColor.bind(this);
+    this.editColorBoxCancel = this.editColorBoxCancel.bind(this);
   }
 
   handleDrawerOpen() {
@@ -204,10 +205,26 @@ class CreateNewPalette extends Component {
     // console.log(name);
     this.setState(prevSt => ({
       isColorBoxEditing: false,
-      editingBoxInfo: { name: '', color: '' },
+      editingBoxInfo: { name: '', color: '', index: null },
       colors: prevSt.colors.map(prevColor =>
         prevColor.name === this.state.editingBoxInfo.name
           ? { ...prevColor, name, color }
+          : prevColor
+      ),
+    }));
+  }
+
+  editColorBoxCancel() {
+    this.setState(prevSt => ({
+      isColorBoxEditing: false,
+      editingBoxInfo: { name: '', color: '', index: null },
+      colors: prevSt.colors.map((prevColor, index) =>
+        index === this.state.editingBoxInfo.index
+          ? {
+              ...prevColor,
+              color: this.state.editingBoxInfo.color,
+              name: this.state.editingBoxInfo.name,
+            }
           : prevColor
       ),
     }));
@@ -271,6 +288,7 @@ class CreateNewPalette extends Component {
               editingBoxInfo={editingBoxInfo}
               editColorBoxEnd={this.editColorBoxEnd}
               onUpdateEditingBoxColor={this.onUpdateEditingBoxColor}
+              editColorBoxCancel={this.editColorBoxCancel}
             />
           </DrawerInnerDiv>
         </Drawer>

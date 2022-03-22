@@ -21,6 +21,7 @@ function CreateColorPicker(props) {
     editingBoxInfo,
     editColorBoxEnd,
     onUpdateEditingBoxColor,
+    editColorBoxCancel,
   } = props;
 
   const [currentColor, setCurrentColor] = useStateCallBack('purple');
@@ -30,6 +31,7 @@ function CreateColorPicker(props) {
     chromePickerClassName,
     TextValidatorFormClassName,
     TextValidatorClassName,
+    pickerButtonContainer,
   } = useStyles(props);
 
   const prevColorsForEditing = useMemo(
@@ -133,29 +135,40 @@ function CreateColorPicker(props) {
           variant="filled"
           placeholder="Color Name"
         />
-        <Button
-          type="submit"
-          variants="contained"
-          style={{
-            background: `${
-              !isColorBoxEditing && isPaletteFull ? 'grey' : currentColor
-            }`,
-            color: currentColor && getColorByLuminance(currentColor),
-            width: '40%',
-            padding: '.5rem',
-          }}
-          disabled={!isColorBoxEditing && isPaletteFull}
-        >
-          {(function () {
-            if (isColorBoxEditing) {
-              return 'Edit!';
-            } else if (isPaletteFull) {
-              return 'Palette Full';
-            } else {
-              return 'Add Color';
-            }
-          })()}
-        </Button>
+        <div className={pickerButtonContainer}>
+          {isColorBoxEditing && (
+            <Button
+              color="warning"
+              variant="contained"
+              onClick={editColorBoxCancel}
+            >
+              Cancel Edit
+            </Button>
+          )}
+          <Button
+            type="submit"
+            variants="contained"
+            style={{
+              background: `${
+                !isColorBoxEditing && isPaletteFull ? 'grey' : currentColor
+              }`,
+              color: currentColor && getColorByLuminance(currentColor),
+              width: '40%',
+              padding: '.5rem',
+            }}
+            disabled={!isColorBoxEditing && isPaletteFull}
+          >
+            {(function () {
+              if (isColorBoxEditing) {
+                return 'Edit!';
+              } else if (isPaletteFull) {
+                return 'Palette Full';
+              } else {
+                return 'Add Color';
+              }
+            })()}
+          </Button>
+        </div>
       </ValidatorForm>
     </>
   );
