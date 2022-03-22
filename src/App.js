@@ -1,3 +1,4 @@
+import { useState, useCallback } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import { useLocation } from 'react-router-dom';
@@ -18,14 +19,22 @@ function App() {
   const location = useLocation();
   const [palette, setPalette] = useLocalStorageState(seedPalatte);
 
-  const addPalette = newPalette => {
-    setPalette([...palette, newPalette]);
-  };
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingPaletteId, setEditingPaletteId] = useState('');
 
-  const removePalette = paletteId => {
+  const addPalette = useCallback(newPalette => {
+    setPalette([...palette, newPalette]);
+  }, []);
+
+  const removePalette = useCallback(paletteId => {
     const deletedPalette = palette.filter(palette => palette.id !== paletteId);
     setPalette(deletedPalette);
-  };
+  }, []);
+
+  const editingPaletteStart = useCallback(paletteId => {
+    setIsEditing(true);
+    setEditingPaletteId(paletteId);
+  }, []);
 
   return (
     <TransitionGroup style={{ position: 'relative' }}>
@@ -39,6 +48,7 @@ function App() {
                 <PaletteList
                   removePalette={removePalette}
                   paletteList={palette}
+                  editingPaletteStart={editingPaletteStart}
                 />
               </Page>
             }
@@ -50,6 +60,7 @@ function App() {
                 <CreateNewPalette
                   addPalette={addPalette}
                   paletteList={palette}
+                  editingPaletteId={editingPaletteId}
                 />
               </Page>
             }

@@ -9,9 +9,7 @@ import { generatePalette } from '../utils/getScaleForColor';
 import '../assets/css/Palette.css';
 import { Outlet } from 'react-router';
 
-function findPalette(palette, currentPaletteId) {
-  return palette.find(paletteObj => paletteObj.id === currentPaletteId);
-}
+import findPalette from '../utils/findPalette';
 
 class Palette extends Component {
   constructor(props) {
