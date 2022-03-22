@@ -2,7 +2,7 @@ import { memo, useState, useEffect, useMemo } from 'react';
 
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
-import { Button } from '@mui/material';
+import { Button, Snackbar, Alert } from '@mui/material';
 
 import { ChromePicker } from 'react-color';
 
@@ -27,6 +27,9 @@ function CreateColorPicker(props) {
   const [currentColor, setCurrentColor] = useStateCallBack('purple');
 
   const [newColorName, setNewColorName] = useState('purple');
+
+  const [open, setOpen] = useState(false);
+
   const {
     chromePickerClassName,
     TextValidatorFormClassName,
@@ -38,6 +41,14 @@ function CreateColorPicker(props) {
     () => colors,
     [editingBoxInfo.name, editingBoxInfo.color]
   );
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const updateCurrentColor = newColor => {
     setCurrentColor(newColor.hex, newColor => {
@@ -59,6 +70,7 @@ function CreateColorPicker(props) {
     };
     if (isColorBoxEditing) {
       editColorBoxEnd(newColorObj);
+      setOpen(true);
     } else {
       addColor(newColorObj);
     }
@@ -138,7 +150,7 @@ function CreateColorPicker(props) {
         <div className={pickerButtonContainer}>
           {isColorBoxEditing && (
             <Button
-              color="warning"
+              color="error"
               variant="contained"
               onClick={editColorBoxCancel}
             >
@@ -147,7 +159,7 @@ function CreateColorPicker(props) {
           )}
           <Button
             type="submit"
-            variants="contained"
+            variant="contained"
             style={{
               background: `${
                 !isColorBoxEditing && isPaletteFull ? 'grey' : currentColor
@@ -170,6 +182,11 @@ function CreateColorPicker(props) {
           </Button>
         </div>
       </ValidatorForm>
+      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          Edit Completed!
+        </Alert>
+      </Snackbar>
     </>
   );
 }
