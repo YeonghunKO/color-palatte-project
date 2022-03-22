@@ -78,6 +78,12 @@ function CreateColorPicker(props) {
     setNewColorName('');
   };
 
+  const onEditCancel = () => {
+    setCurrentColor('purple');
+    setNewColorName('');
+    editColorBoxCancel();
+  };
+
   const validator = compareColors => {
     ValidatorForm.addValidationRule('isNameUnique', value => {
       // 각각 대조해보고 다르면 true가 나옴.
@@ -147,11 +153,7 @@ function CreateColorPicker(props) {
         />
         <div className={pickerButtonContainer}>
           {isColorBoxEditing && (
-            <Button
-              color="error"
-              variant="contained"
-              onClick={editColorBoxCancel}
-            >
+            <Button color="error" variant="contained" onClick={onEditCancel}>
               Cancel Edit
             </Button>
           )}
