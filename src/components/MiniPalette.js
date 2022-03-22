@@ -2,11 +2,19 @@ import { memo } from 'react';
 import { withStyles } from '@mui/styles';
 import styles from '../assets/styles/MiniPlatteStyles';
 import Delete from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 function MiniPalette(props) {
   const { classes, colors, emoji, paletteName, id, openDeleteDialog } = props;
-  const { root, colorsClass, title, emojiClass, miniColor, deleteIcon } =
-    classes;
+  const {
+    root,
+    colorsClass,
+    title,
+    emojiClass,
+    miniColor,
+    deleteIcon,
+    editIcon,
+  } = classes;
   const miniColorBoxes = colors.map(color => (
     <div
       key={color.name}
@@ -19,9 +27,14 @@ function MiniPalette(props) {
     evt.preventDefault();
     openDeleteDialog(id, paletteName);
   };
+
+  const editBox = evt => {
+    evt.preventDefault();
+  };
   return (
     <div className={root}>
       <Delete className={deleteIcon} onClick={handleDelete} />
+      <EditIcon className={editIcon} onClick={editBox} />
       <div className={colorsClass}>{miniColorBoxes}</div>
       <h5 className={title}>
         {paletteName} <span className={emojiClass}>{emoji}</span>

@@ -73,4 +73,19 @@ export default {
       PointerEvent: 'none',
     },
   },
+
+  editIcon: {
+    color: 'white',
+    position: 'absolute',
+    backgroundColor: '#6bff3a',
+    padding: '2px',
+    borderRadius: '2px',
+    top: '-1px',
+    left: '-1.5px',
+    zIndex: '10',
+
+    '& *': {
+      PointerEvent: 'none',
+    },
+  },
 };

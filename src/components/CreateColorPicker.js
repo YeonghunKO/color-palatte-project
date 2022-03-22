@@ -80,8 +80,6 @@ function CreateColorPicker(props) {
 
   const validator = compareColors => {
     ValidatorForm.addValidationRule('isNameUnique', value => {
-      console.log(value);
-      console.log(compareColors);
       // 각각 대조해보고 다르면 true가 나옴.
       // 한개라도 같은게 있으면 false가 나오면서 isColorUnique가 발동됨
       return compareColors.every(

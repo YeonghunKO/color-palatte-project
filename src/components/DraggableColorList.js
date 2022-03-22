@@ -6,7 +6,7 @@ import { memo } from 'react';
 import { useStyles } from '../assets/styles/DraggableColorBox.style';
 
 const DraggableColorList = SortableContainer(
-  ({ colors, remove, toggleBoxLock, editColorBoxStart }) => {
+  ({ colors, remove, toggleBoxLock, editColorBoxStart, editingBoxInfoIdx }) => {
     const { boxContainer } = useStyles();
 
     return (
@@ -20,6 +20,7 @@ const DraggableColorList = SortableContainer(
             remove={remove}
             toggleBoxLock={toggleBoxLock}
             editColorBoxStart={editColorBoxStart}
+            isEditing={index === editingBoxInfoIdx ? true : false}
           />
         ))}
       </div>

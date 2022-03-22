@@ -25,7 +25,7 @@ const DraggableColorDiv = styled.div`
     height: 10%;
   }
   &:hover svg {
-    transform: scale(1.3);
+    transform: scale(1.15);
   }
 `;
 
@@ -76,6 +76,10 @@ const useStyles = makeStyles({
     top: '6px',
 
     '& svg': {
+      background: 'white',
+      padding: '2px',
+      borderRadius: '7px',
+      color: 'black',
       [sizes.down('xs')]: {
         fontSize: '1.3rem',
       },

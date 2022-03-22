@@ -316,10 +316,6 @@ const [currentColor, setCurrentColor] = useState(
 
 # 해야할 일
 
-3. newPalette안에서 draggableBOX 편집기능
-
-   - 편집완료하고 나면 snackBox띄우기
-
 4. palette편집 기능 구현.
 
 5. fiber알고리즘에 대해서 더 공부해라.
