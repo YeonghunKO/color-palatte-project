@@ -48,8 +48,10 @@ class PaletteList extends Component {
   }
 
   render() {
+    console.log('palette list');
+
     const { isDialogOpen, deletePaletteName, deletePaletteId } = this.state;
-    const { paletteList, classes } = this.props;
+    const { paletteList, classes, editingPaletteStart } = this.props;
     const { root, container, nav, palettesClass } = classes;
     const palettes = paletteList.map(palette => (
       <CSSTransition key={palette.id} timeout={500} classNames="PaletteItem">
@@ -63,6 +65,7 @@ class PaletteList extends Component {
             key={palette.id}
             {...palette}
             openDeleteDialog={this.handleDialogOpen}
+            editingPaletteStart={editingPaletteStart}
           />
         </Link>
       </CSSTransition>

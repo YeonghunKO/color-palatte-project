@@ -5,7 +5,15 @@ import Delete from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
 function MiniPalette(props) {
-  const { classes, colors, emoji, paletteName, id, openDeleteDialog } = props;
+  const {
+    classes,
+    colors,
+    emoji,
+    paletteName,
+    id,
+    openDeleteDialog,
+    editingPaletteStart,
+  } = props;
   const {
     root,
     colorsClass,
@@ -30,7 +38,10 @@ function MiniPalette(props) {
 
   const editBox = evt => {
     evt.preventDefault();
+    editingPaletteStart(id);
   };
+
+  console.log('minipalette', paletteName);
   return (
     <div className={root}>
       <Delete className={deleteIcon} onClick={handleDelete} />

@@ -23,6 +23,7 @@ class ColorBox extends PureComponent {
   render() {
     const { name, background, moreUrl, isSingleColor, classes } = this.props;
     const { copyText, colorName, copyButton, moreButton, colorBox } = classes;
+    console.log('colorBox', name);
     const { copied } = this.state;
     return (
       <CopyToClipboard text={background} onCopy={this.changeCopyState}>
@@ -43,7 +44,7 @@ class ColorBox extends PureComponent {
 
           <div className="copy-container">
             <div className={`box-content ${colorName}`}>
-              <span>{name}</span>
+              <span>{name.length > 19 ? name.slice(0, 19) + '...' : name}</span>
             </div>
             <button className={`copy-button ${copyButton}`}>COPY</button>
           </div>
