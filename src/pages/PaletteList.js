@@ -55,12 +55,7 @@ class PaletteList extends Component {
     const { root, container, nav, palettesClass } = classes;
     const palettes = paletteList.map(palette => (
       <CSSTransition key={palette.id} timeout={500} classNames="PaletteItem">
-        <Link
-          to={{
-            pathname: `palette/${palette.id}`,
-            // state: { prevPath: location.pathname },
-          }}
-        >
+        <Link to={`palette/${palette.id}`}>
           <MiniPalette
             key={palette.id}
             {...palette}
