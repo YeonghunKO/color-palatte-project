@@ -29,6 +29,7 @@ function App() {
     const deletedPalette = paletteList.filter(
       palette => palette.id !== paletteId
     );
+
     setPalette(deletedPalette);
   };
 
