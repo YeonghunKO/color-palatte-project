@@ -340,7 +340,9 @@ paletteList가 useState안에 있어서 그런가? useState는 ref까지 자동�
 
 # 해야할 일
 
-4. palette편집 기능 구현.
+4. https://www.clock.co.uk/insight/deleting-a-git-commit 보고 git checkpick으로 commit remove해보기
+
+- `WORKING ON: Start working on edit button on miniPalette` 요 커밋 master에서 옮기기
 
 5. fiber알고리즘에 대해서 더 공부해라.
 
