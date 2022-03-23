@@ -352,9 +352,13 @@ paletteList가 useState안에 있어서 그런가? useState는 ref까지 자동�
 
 # 해야할 일
 
+0. edit 중에 박스를 드래그 하면 오류 생김.
+
+1. edit 버튼 다시 누르면 취소되게 하기.
+
 1. emoji 속도 빠르게 하기(스페인 개발자 코드 참고)
 
-2. fiber알고리즘에 대해서 더 공부해라.
+1. fiber알고리즘에 대해서 더 공부해라.
 
 - https://immigration9.github.io/react/2021/05/29/react-fiber-architecture.html (fiber)
 - https://www.youtube.com/watch?v=0ympFIwQFJw(fiber)

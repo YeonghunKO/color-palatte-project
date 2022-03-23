@@ -93,11 +93,17 @@ function CreateColorPicker(props) {
       );
     });
 
-    ValidatorForm.addValidationRule('isColorUnique', value => {
-      return compareColors.every(({ color }) => {
-        return currentColor !== color;
+    if (isColorBoxEditing) {
+      ValidatorForm.addValidationRule('isColorUnique', value => {
+        return true;
       });
-    });
+    } else {
+      ValidatorForm.addValidationRule('isColorUnique', value => {
+        return compareColors.every(({ color }) => {
+          return currentColor !== color;
+        });
+      });
+    }
 
     ValidatorForm.addValidationRule('isStrLengthEnough', value => {
       return value.length < 14;
