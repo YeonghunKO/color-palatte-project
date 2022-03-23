@@ -136,8 +136,17 @@ AppBar의 모습이다.
 
 두 함수를 철저하게 분리시키는 방법은 dependency를 분리하는 방법인데 어쩔 수 없이 colors를 참조할 수 밖에 없으니... 그래서 결국 class 컴포넌트로 다 바꾸고 두 함수는 메소드와 시켜서 constructor에 bind시켜주었더니 removeColor의 reference를 그대로 유지할 수 있게 되었다. 고로, draggableColorBox를 삭제할 때 위치가 바뀌지 않은 colorbox는 리랜더링 되지 않는 것을 확인 할 수 있었다.
 
-6. 자식과 부모의 setState가 차례대로 실행될 경우 자식의 setState가 실행되지 않았다.
-   NavBar에서 Hook을 사용하여 snackBar와 Slider(color format을 선택할 수 있는 dropdown)를 구현하려고 했다.
+# <<<<<<< HEAD
+
+7. state가 어떤 부분에 국한되어있는지 살피자
+
+- 왜냐면 state를 고립시켜야할때도 있고, 확장시켜야 할 때도 있다.
+- 예를들어, Palette.js에서 level이나 format같은 state는 부모 컴포넌트 , 즉 Palette.js에서 관리하는게 맞다. 왜냐면 level이나 format은 그 밑에 컴포넌트까지 공유하는 state이기 때문. 그러나 Colorbox안에 있는 copied state는 Colorbox안에서 관리한다. ColorBox안에서만 통용되기 때문. 아니면 state의 사용 범위가 꽤나 넓을 것 같다고 판단되면 context를 쓰는 것도 괜찮은 방법이다.
+
+- state를 변형시키는 방법이 굉장히 다양하다고 한다면(todo App같은 경우) useReduce를 활용해도 괜찮다.
+
+> > > > > > > 8ff1c64037fbddf256dbe801f838f399af58c532 6. 자식과 부모의 setState가 차례대로 실행될 경우 자식의 setState가 실행되지 않았다.
+> > > > > > > NavBar에서 Hook을 사용하여 snackBar와 Slider(color format을 선택할 수 있는 dropdown)를 구현하려고 했다.
 
 Slider에서 format을 선택하면 `onSelectFormat`가 실행된다. setFormat,setOpen이 실행되면서 slider의 value가 바뀌고 snackBar가 open된다. 그리고 부모 컴포넌트, 즉 Palette.js에서 format이 바뀌고 리랜더링 된다. 즉 3번 리랜더링 된다는 의미이다.
 
@@ -163,14 +172,19 @@ const { changeLevel, changeFormat, isSingleColor } = props;
 
 [여기 참고](https://velog.io/@yhko1992/setState-%EC%95%88%EC%A0%84%ED%95%98%EA%B2%8C)
 
-7. state가 어떤 부분에 국한되어있는지 살피자
+<<<<<<< HEAD 7. state가 어떤 부분에 국한되어있는지 살피자
 
 - 왜냐면 state를 고립시켜야할때도 있고, 확장시켜야 할 때도 있다.
 - 예를들어, Palette.js에서 level이나 format같은 state는 부모 컴포넌트 , 즉 Palette.js에서 관리하는게 맞다. 왜냐면 level이나 format은 그 밑에 컴포넌트까지 공유하는 state이기 때문. 그러나 Colorbox안에 있는 copied state는 Colorbox안에서 관리한다. ColorBox안에서만 통용되기 때문. 아니면 state의 사용 범위가 꽤나 넓을 것 같다고 판단되면 context를 쓰는 것도 괜찮은 방법이다.
 
 - state를 변형시키는 방법이 굉장히 다양하다고 한다면(todo App같은 경우) useReduce를 활용해도 괜찮다.
 
-8. Palette에서 format바뀔때 setOpen이 안먹힘.
+8. # Palette에서 format바뀔때 setOpen이 안먹힘.
+
+   이에 대한 자세한 내용은 8번에서 추후 설명하겠다.
+
+9. Palette에서 format바뀔때 setOpen이 안먹힘.(6번의 보충 설명)
+   > > > > > > > 8ff1c64037fbddf256dbe801f838f399af58c532
 
 - changeFormat때문에 그렇다.
 - setOpen이 먹히기 전에 changeFormat가 랜더링해버려서그러나?
@@ -250,6 +264,28 @@ const [currentColor, setCurrentColor] = useState(
 
 - 그래서 editingBoxInfo값을 JSON.stringify 해서 넘겨주거나 editingBoxInfo안에 있는 name, color를 dependency로 사용하기로 했다!
 
+10. map안에서 obj는 memo를 이용해서 reference를 유지시켜주지 않아도 되나?
+
+```javascript
+const palettes = paletteList.map(palette => (
+  <CSSTransition key={palette.id} timeout={500} classNames="PaletteItem">
+    <Link to={`palette/${palette.id}`}>
+      <MiniPalette
+        key={palette.id}
+        {...palette} // colors:[..blahblah]
+        openDeleteDialog={this.handleDialogOpen}
+      />
+    </Link>
+  </CSSTransition>
+));
+```
+
+miniPalette은 memo로 저장되어있다.
+
+그래서 `MiniPalette`으로 넘어가는 props의 reference는 똑같이 유지가 되어야 한다. 그러나 map안에서 cb function의 parameter는 reference가 똑같이 유지되는건가? palette안에 colors라는 key가 있는데 value는 array이다. 그럼 Minipalette으로 넘어갈때마다 다른 ref로 된 array가 넘어가서 새로 랜더링 될 수 있는데 리랜더링 되지 않는다.
+
+paletteList가 useState안에 있어서 그런가? useState는 ref까지 자동으로 고정시켜주나? 알아봐야겠다.
+
 # CSS
 
 1. ` display: inline-block;` 이라고 하면 wrap이랑 똑같은 효과가 나타난다. 왜냐면 span처럼 inline처리가 되기 때문이다.
@@ -316,7 +352,11 @@ const [currentColor, setCurrentColor] = useState(
 
 # 해야할 일
 
-4. palette편집 기능 구현.
+<<<<<<< HEAD 4. palette편집 기능 구현.
+======= 4. https://www.clock.co.uk/insight/deleting-a-git-commit 보고 git checkpick으로 commit remove해보기
+
+- `WORKING ON: Start working on edit button on miniPalette` 요 커밋 master에서 옮기기
+  > > > > > > > 8ff1c64037fbddf256dbe801f838f399af58c532
 
 5. fiber알고리즘에 대해서 더 공부해라.
 
