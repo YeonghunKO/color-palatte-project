@@ -321,7 +321,7 @@ class CreateNewPalette extends Component {
             remove={this.removeColorBox}
             toggleBoxLock={this.toggleBoxLock}
             editColorBoxStart={this.editColorBoxStart}
-            editingBoxInfoIdx={editingBoxInfo.index}
+            editingBoxInfoName={editingBoxInfo.name}
           />
         </Main>
       </Box>
