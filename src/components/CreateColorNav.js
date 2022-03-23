@@ -47,7 +47,6 @@ function CreateColorNav(props) {
     navigation('/');
     editingPaletteEnd();
   };
-  console.log('create color nav');
   return (
     <>
       <CssBaseline />

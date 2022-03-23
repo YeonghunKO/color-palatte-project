@@ -48,8 +48,6 @@ class PaletteList extends Component {
   }
 
   render() {
-    console.log('palette list');
-
     const { isDialogOpen, deletePaletteName, deletePaletteId } = this.state;
     const { paletteList, classes, editingPaletteStart } = this.props;
     const { root, container, nav, palettesClass } = classes;

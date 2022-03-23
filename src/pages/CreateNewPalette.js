@@ -59,8 +59,6 @@ class CreateNewPalette extends Component {
       .map(palette => palette.colors)
       .flat();
 
-    this.randomColor = null;
-
     this.autoGenerator = this.autoGenerator.bind(this);
     this.updateOneByOne = this.updateOneByOne.bind(this);
     this.getRadomSmartColor = this.getRadomSmartColor.bind(this);
@@ -122,13 +120,15 @@ class CreateNewPalette extends Component {
   }
 
   addRandomColor() {
+    const notUniqueColor = (randomColorObj, colorObjList) => {
+      return colorObjList.some(col => col.color === randomColorObj.color);
+    };
+    let randomColor;
     do {
-      this.randomColor = pickRandom(this.allColors);
-    } while (
-      this.state.colors.some(color => color.color === this.randomColor.color)
-    );
+      randomColor = pickRandom(this.allColors);
+    } while (notUniqueColor(randomColor, this.state.colors));
     this.setState(prevSt => ({
-      colors: [...prevSt.colors, { ...this.randomColor, locked: false }],
+      colors: [...prevSt.colors, { ...randomColor, locked: false }],
     }));
   }
 
@@ -214,7 +214,6 @@ class CreateNewPalette extends Component {
   }
 
   editColorBoxEnd({ name, color }) {
-    // console.log(name);
     this.setState(prevSt => ({
       isColorBoxEditing: false,
       editingBoxInfo: { name: '', color: '', index: null },

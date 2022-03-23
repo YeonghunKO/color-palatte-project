@@ -44,7 +44,6 @@ function MiniPalette(props) {
     editingPaletteStart(id);
   };
 
-  console.log('minipalette', paletteName);
   return (
     <div className={root}>
       <Delete className={deleteIcon} onClick={handleDelete} />
