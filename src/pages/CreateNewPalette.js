@@ -30,14 +30,18 @@ import CreateColorPicker from '../components/CreateColorPicker';
 
 import { smartColorGenerator, pickRandom } from '../utils/smartColorGenerater';
 
+import findPalette from '../utils/findPalette';
+
 class CreateNewPalette extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      colors: [
-        { name: 'Spindle', color: 'rgb(173,211,237)', locked: false },
-        { name: 'Malibu', color: 'rgb(110,178,224)', locked: true },
-      ],
+      colors: props.editingPaletteId
+        ? findPalette(props.paletteList, props.editingPaletteId).colors
+        : [
+            { name: 'Spindle', color: 'rgb(173,211,237)', locked: false },
+            { name: 'Malibu', color: 'rgb(110,178,224)', locked: true },
+          ],
       open: false,
       isAutoGenerting: false,
       isColorBoxEditing: false,
@@ -95,7 +99,15 @@ class CreateNewPalette extends Component {
       colors: this.state.colors,
       emoji,
     };
-    this.props.addPalette(newPaletteObj);
+    if (this.props.editingPaletteId) {
+      this.props.editingPaletteEnd({
+        ...newPaletteObj,
+        id: this.props.editingPaletteId,
+      });
+    } else {
+      this.props.addPalette(newPaletteObj);
+    }
+
     this.props.navigation('/');
   }
 
@@ -231,7 +243,13 @@ class CreateNewPalette extends Component {
   }
 
   render() {
-    const { maxCardNum, paletteList, classes } = this.props;
+    const {
+      maxCardNum,
+      paletteList,
+      classes,
+      editingPaletteId,
+      editingPaletteEnd,
+    } = this.props;
     const { drawer } = classes;
 
     const { open, colors, isAutoGenerting, isColorBoxEditing, editingBoxInfo } =
@@ -248,6 +266,8 @@ class CreateNewPalette extends Component {
           paletteList={paletteList}
           autoGenerator={this.autoGenerator}
           isAutoGenerting={isAutoGenerting}
+          editingPaletteId={editingPaletteId}
+          editingPaletteEnd={editingPaletteEnd}
         />
         <Drawer
           className={drawer}

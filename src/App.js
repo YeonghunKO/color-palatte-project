@@ -1,6 +1,6 @@
-import { Routes, Route } from 'react-router-dom';
+import { useState, useCallback } from 'react';
 
-import { useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
 import Palette from './pages/Palette';
 import seedPalatte from './DATA/seedPalatte';
@@ -16,16 +16,39 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 function App() {
   const location = useLocation();
-  const [palette, setPalette] = useLocalStorageState(seedPalatte);
+  const navigation = useNavigate();
+  const [paletteList, setPalette] = useLocalStorageState(seedPalatte);
+
+  const [editingPaletteId, setEditingPaletteId] = useState(null);
 
   const addPalette = newPalette => {
-    setPalette([...palette, newPalette]);
+    setPalette([...paletteList, newPalette]);
   };
 
   const removePalette = paletteId => {
-    const deletedPalette = palette.filter(palette => palette.id !== paletteId);
+    const deletedPalette = paletteList.filter(
+      palette => palette.id !== paletteId
+    );
     setPalette(deletedPalette);
   };
+
+  const editingPaletteStart = useCallback(paletteId => {
+    setEditingPaletteId(paletteId);
+    navigation('/palette/new');
+  }, []);
+
+  const editingPaletteEnd = useCallback(editedPalettObj => {
+    if (editedPalettObj) {
+      const editedPaletteList = paletteList.map(palette =>
+        palette.id === editedPalettObj.id ? editedPalettObj : palette
+      );
+
+      setPalette(editedPaletteList);
+    }
+
+    setEditingPaletteId(null);
+  }, []);
+  // paletteList 추가 일단 안해보고 결과 보기
 
   return (
     <TransitionGroup style={{ position: 'relative' }}>
@@ -38,7 +61,8 @@ function App() {
               <Page>
                 <PaletteList
                   removePalette={removePalette}
-                  paletteList={palette}
+                  paletteList={paletteList}
+                  editingPaletteStart={editingPaletteStart}
                 />
               </Page>
             }
@@ -49,7 +73,9 @@ function App() {
               <Page>
                 <CreateNewPalette
                   addPalette={addPalette}
-                  paletteList={palette}
+                  paletteList={paletteList}
+                  editingPaletteId={editingPaletteId}
+                  editingPaletteEnd={editingPaletteEnd}
                 />
               </Page>
             }
@@ -58,7 +84,7 @@ function App() {
             path="/palette/:id"
             element={
               <Page>
-                <Palette paletteList={palette} />
+                <Palette paletteList={paletteList} />
               </Page>
             }
           >
@@ -69,7 +95,7 @@ function App() {
             element={
               <PaletteList
                 removePalette={removePalette}
-                paletteList={palette}
+                paletteList={paletteList}
               />
             }
           />

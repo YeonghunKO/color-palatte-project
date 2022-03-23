@@ -24,6 +24,8 @@ function CreateColorNav(props) {
     paletteList,
     autoGenerator,
     isAutoGenerting,
+    editingPaletteId,
+    editingPaletteEnd,
   } = props;
 
   const navigation = useNavigate();
@@ -40,6 +42,12 @@ function CreateColorNav(props) {
   const handlePaletteNameFormClose = () => {
     setPaletteNameSave(false);
   };
+
+  const handleGoBack = () => {
+    navigation('/');
+    editingPaletteEnd();
+  };
+  console.log('create color nav');
   return (
     <>
       <CssBaseline />
@@ -59,7 +67,7 @@ function CreateColorNav(props) {
             <Button
               className={goBackButton}
               color="secondary"
-              onClick={() => navigation('/')}
+              onClick={handleGoBack}
               variant="contained"
             >
               Go Back
@@ -78,7 +86,7 @@ function CreateColorNav(props) {
               variant="contained"
               onClick={handlePaletteNameFormOpen}
             >
-              Save
+              {editingPaletteId ? 'Edit' : 'Save'}
             </Button>
           </div>
 
