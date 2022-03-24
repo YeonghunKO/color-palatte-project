@@ -1,7 +1,5 @@
 import { memo } from 'react';
 
-import { useNavigate } from 'react-router';
-
 import { withStyles } from '@mui/styles';
 import styles from '../assets/styles/MiniPlatteStyles';
 import Delete from '@mui/icons-material/Delete';
