@@ -229,8 +229,8 @@ class CreateNewPalette extends Component {
     this.setState(prevSt => ({
       isColorBoxEditing: false,
       editingBoxInfo: { name: '', color: '', index: null },
-      colors: prevSt.colors.map((prevColor, index) =>
-        index === this.state.editingBoxInfo.index
+      colors: prevSt.colors.map(prevColor =>
+        prevColor.name === this.state.editingBoxInfo.name
           ? {
               ...prevColor,
               color: this.state.editingBoxInfo.color,
