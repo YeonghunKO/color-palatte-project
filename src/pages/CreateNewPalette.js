@@ -39,13 +39,13 @@ class CreateNewPalette extends Component {
       colors: props.editingPaletteId
         ? findPalette(props.paletteList, props.editingPaletteId).colors
         : [
-            { name: 'Spindle', color: 'rgb(173,211,237)', locked: false },
-            { name: 'Malibu', color: 'rgb(110,178,224)', locked: true },
+            { name: 'SPINDLE', color: 'rgb(173,211,237)', locked: false },
+            { name: 'MALIBU', color: 'rgb(110,178,224)', locked: true },
           ],
       open: false,
       isAutoGenerting: false,
       isColorBoxEditing: false,
-      editingBoxInfo: { name: '', color: '', index: null },
+      editingBoxInfo: { name: '', color: '' },
     };
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
     this.handleDrawerClose = this.handleDrawerClose.bind(this);
@@ -128,7 +128,14 @@ class CreateNewPalette extends Component {
       randomColor = pickRandom(this.allColors);
     } while (notUniqueColor(randomColor, this.state.colors));
     this.setState(prevSt => ({
-      colors: [...prevSt.colors, { ...randomColor, locked: false }],
+      colors: [
+        ...prevSt.colors,
+        {
+          ...randomColor,
+          name: randomColor.name.toUpperCase(),
+          locked: false,
+        },
+      ],
     }));
   }
 

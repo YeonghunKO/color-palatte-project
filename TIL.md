@@ -352,7 +352,7 @@ paletteList가 useState안에 있어서 그런가? useState는 ref까지 자동�
 
 # 해야할 일
 
-1. emoji 속도 빠르게 하기(스페인 개발자 코드 참고)
+1. createnew palette color name tolowercase
 
 1. fiber알고리즘에 대해서 더 공부해라.
 

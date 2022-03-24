@@ -38,17 +38,27 @@ function App() {
     navigation('/palette/new');
   }, []);
 
-  const editingPaletteEnd = useCallback(editedPalettObj => {
-    if (editedPalettObj) {
-      const editedPaletteList = paletteList.map(palette =>
-        palette.id === editedPalettObj.id ? editedPalettObj : palette
-      );
+  const editingPaletteEnd = useCallback(
+    editedPalettObj => {
+      if (editedPalettObj) {
+        const editedPaletteList = paletteList.map(palette =>
+          palette.id === editedPalettObj.id
+            ? {
+                ...editedPalettObj,
+                id: editedPalettObj.paletteName
+                  .toLowerCase()
+                  .replace(/ /g, '-'),
+              }
+            : palette
+        );
 
-      setPalette(editedPaletteList);
-    }
-
-    setEditingPaletteId(null);
-  }, []);
+        console.log(paletteList);
+        setPalette(editedPaletteList);
+      }
+      setEditingPaletteId(null);
+    },
+    [paletteList]
+  );
   // paletteList 추가 일단 안해보고 결과 보기
 
   return (

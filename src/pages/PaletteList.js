@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import { withStyles } from '@mui/styles';
 
 import MiniPalette from '../components/MiniPalette';
-import styles from '../assets/styles/PaletteListStyles';
+import BackgroundChangeDialog from '../components/BackgroundChangeDialog';
+
+import styles, { PaletteWrapper } from '../assets/styles/PaletteListStyles';
 
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
@@ -27,6 +29,7 @@ class PaletteList extends Component {
       isDialogOpen: false,
       deletePaletteId: '',
       deletePaletteName: '',
+      imges: [],
     };
 
     this.handleDialogClose = this.handleDialogClose.bind(this);
@@ -50,7 +53,7 @@ class PaletteList extends Component {
   render() {
     const { isDialogOpen, deletePaletteName, deletePaletteId } = this.state;
     const { paletteList, classes, editingPaletteStart } = this.props;
-    const { root, container, nav, palettesClass } = classes;
+    const { container, nav, palettesClass } = classes;
     const palettes = paletteList.map(palette => (
       <CSSTransition key={palette.id} timeout={500} classNames="PaletteItem">
         <Link to={`palette/${palette.id}`}>
@@ -65,7 +68,7 @@ class PaletteList extends Component {
     ));
 
     return (
-      <div className={root}>
+      <PaletteWrapper background={'몰라'}>
         <div className={container}>
           <nav className={nav}>
             <h1>React Colors</h1>
@@ -99,7 +102,8 @@ class PaletteList extends Component {
             </ListItem>
           </List>
         </Dialog>
-      </div>
+        <BackgroundChangeDialog />
+      </PaletteWrapper>
     );
   }
 }

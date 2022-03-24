@@ -17,7 +17,6 @@ import EditIcon from '@mui/icons-material/Edit';
 
 const DraggableColorBox = SortableElement(props => {
   const {
-    idx,
     color,
     name,
     remove,
@@ -38,7 +37,7 @@ const DraggableColorBox = SortableElement(props => {
   };
 
   const editBox = () => {
-    editColorBoxStart({ name, color, index: idx });
+    editColorBoxStart({ name, color });
   };
   return (
     <DraggableColorDiv color={color}>

@@ -22,7 +22,6 @@ const DraggableColorList = SortableContainer(
             {...color}
             index={index}
             key={color.color}
-            idx={index}
             remove={remove}
             toggleBoxLock={toggleBoxLock}
             editColorBoxStart={editColorBoxStart}
