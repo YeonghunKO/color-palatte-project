@@ -52,8 +52,13 @@ export default {
     alignItems: 'center',
     color: 'white',
     '& h1': {
+      background: 'rgb(244,115,255)',
+      background:
+        '-webkit-linear-gradient(227deg, rgba(244,115,255,1) 0%, rgba(229,124,255,1) 22%, rgba(184,167,255,1) 48%, rgba(175,168,255,1) 68%, rgba(138,148,255,1) 100%)',
+      '-webkit-background-clip': 'text',
+      '-webkit-text-fill-color': 'transparent',
       [sizes.down('xs')]: {
-        fontSize: '1.3rem',
+        fontSize: '1.4rem',
       },
     },
     '& a': {
