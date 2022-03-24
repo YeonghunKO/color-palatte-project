@@ -22,6 +22,8 @@ import Dialog from '@mui/material/Dialog';
 import { blue } from '@mui/material/colors';
 import { red } from '@mui/material/colors';
 
+import backgroundImgs from '../DATA/backgroundImgs';
+
 class PaletteList extends Component {
   constructor(props) {
     super(props);
@@ -29,12 +31,13 @@ class PaletteList extends Component {
       isDialogOpen: false,
       deletePaletteId: '',
       deletePaletteName: '',
-      imges: [],
+      backgroundSrc: backgroundImgs[0].img,
     };
 
     this.handleDialogClose = this.handleDialogClose.bind(this);
     this.handleDialogOpen = this.handleDialogOpen.bind(this);
     this.handleDialogDelete = this.handleDialogDelete.bind(this);
+    this.setBackground = this.setBackground.bind(this);
   }
 
   handleDialogClose() {
@@ -50,8 +53,16 @@ class PaletteList extends Component {
     this.setState({ isDialogOpen: false });
   }
 
+  setBackground(title) {
+    const backgroundSrc = backgroundImgs.find(
+      backgroundData => backgroundData.title === title
+    ).img;
+    this.setState({ backgroundSrc });
+  }
+
   render() {
-    const { isDialogOpen, deletePaletteName, deletePaletteId } = this.state;
+    const { isDialogOpen, deletePaletteName, deletePaletteId, backgroundSrc } =
+      this.state;
     const { paletteList, classes, editingPaletteStart } = this.props;
     const { container, nav, palettesClass } = classes;
     const palettes = paletteList.map(palette => (
@@ -68,7 +79,7 @@ class PaletteList extends Component {
     ));
 
     return (
-      <PaletteWrapper background={'몰라'}>
+      <PaletteWrapper background={backgroundSrc}>
         <div className={container}>
           <nav className={nav}>
             <h1>React Colors</h1>
@@ -102,7 +113,7 @@ class PaletteList extends Component {
             </ListItem>
           </List>
         </Dialog>
-        <BackgroundChangeDialog />
+        <BackgroundChangeDialog setBackground={this.setBackground} />
       </PaletteWrapper>
     );
   }

@@ -352,9 +352,11 @@ paletteList가 useState안에 있어서 그런가? useState는 ref까지 자동�
 
 # 해야할 일
 
-1. createnew palette color name tolowercase
+1. create palette 글자에 배경 추가
+2. background 선택하자마자 localStoarge에 저장
+3. 모바일 모드에서 background 크기 조정
 
-1. fiber알고리즘에 대해서 더 공부해라.
+4. fiber알고리즘에 대해서 더 공부해라.
 
 - https://immigration9.github.io/react/2021/05/29/react-fiber-architecture.html (fiber)
 - https://www.youtube.com/watch?v=0ympFIwQFJw(fiber)

@@ -1,11 +1,12 @@
 import sizes from './sizes.style';
-import doodlesImg from './img/confetti-doodles.svg';
+import doodlesImg from '../img/confetti-doodles.svg';
 import styled from '@emotion/styled';
 
 // import flatMountainImg from './img/flat-mountains.svg';
 
 const PaletteWrapper = styled.div`
-  background-image: url(${doodlesImg});
+  background-image: ${props => `url(${props.background})`};
+  background-size: cover;
   height: 100vh;
   display: flex;
   align-items: flex-start;
