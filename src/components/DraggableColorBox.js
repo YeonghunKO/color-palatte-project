@@ -40,6 +40,7 @@ const DraggableColorBox = SortableElement(props => {
   const editBox = () => {
     editColorBoxStart({ name, color, index: idx });
   };
+  console.log('draggable box', name);
   return (
     <DraggableColorDiv color={color}>
       <BoxContent>
