@@ -34,23 +34,23 @@ function BackgroundChangeDialog(props) {
       <Dialog onClose={handleDialogClose} open={open}>
         <DialogTitle>{'Choose the background'}</DialogTitle>
         <ImageList sx={{ width: 400, height: 350, padding: '.3rem' }} cols={2}>
-          {backgroundImgs.map(item => (
-            <ImageListItem key={item.img}>
+          {backgroundImgs.map(backgroundObj => (
+            <ImageListItem key={backgroundObj.img}>
               <img
                 onClick={() => {
-                  props.setBackground(item.title);
+                  props.setBackground(backgroundObj);
                 }}
-                src={`${item.img}`}
-                srcSet={`${item.img}`}
-                alt={item.title}
+                src={`${backgroundObj.img}`}
+                srcSet={`${backgroundObj.img}`}
+                alt={backgroundObj.title}
                 loading="lazy"
               />
-              <ImageListItemBar title={item.title} />
+              <ImageListItemBar title={backgroundObj.title} />
             </ImageListItem>
           ))}
         </ImageList>
         <div className={doneButton}>
-          <Button size="small" onClick={handleDialogClose} variant="contained">
+          <Button onClick={handleDialogClose} variant="contained">
             Done
           </Button>
         </div>

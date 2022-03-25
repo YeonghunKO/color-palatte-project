@@ -1,12 +1,14 @@
 import sizes from './sizes.style';
-import doodlesImg from '../img/confetti-doodles.svg';
 import styled from '@emotion/styled';
 
-// import flatMountainImg from './img/flat-mountains.svg';
-
 const PaletteWrapper = styled.div`
-  background-image: ${props => `url(${props.background})`};
-  background-size: cover;
+  background-image: ${props => `url(${props.backgroundObj.img})`};
+  background-size: ${props =>
+    ['Liquid Cheese', 'Mountains', 'Sun Tornado'].includes(
+      props.backgroundObj.title
+    )
+      ? 'cover'
+      : 'auto'};
   height: 100vh;
   display: flex;
   align-items: flex-start;
@@ -25,6 +27,7 @@ const PaletteWrapper = styled.div`
     display: none;
   }
 `;
+
 export default {
   '@global': {
     '.PaletteItem-exit': {
@@ -54,6 +57,7 @@ export default {
     alignItems: 'center',
     color: 'white',
     '& h1': {
+      fontSize: '1.5rem',
       background: 'rgb(244,115,255)',
       background:
         '-webkit-linear-gradient(227deg, rgba(244,115,255,1) 0%, rgba(229,124,255,1) 22%, rgba(184,167,255,1) 48%, rgba(175,168,255,1) 68%, rgba(138,148,255,1) 100%)',
@@ -64,11 +68,15 @@ export default {
       },
     },
     '& a': {
+      background: '#b3a8ff',
+      height: '42%',
+      padding: '0 .3rem',
+      borderRadius: '10px',
       color: 'white',
       display: 'flex',
       alignItems: 'center',
       textDecoration: 'none',
-      fontSize: '1.1rem',
+      fontSize: '.9rem',
       [sizes.down('xs')]: {
         fontSize: '.9rem',
       },

@@ -355,8 +355,13 @@ paletteList가 useState안에 있어서 그런가? useState는 ref까지 자동�
 1. create palette 글자에 배경 추가
 2. background 선택하자마자 localStoarge에 저장
 3. 모바일 모드에서 background 크기 조정
+4. backgroundChange 컴포넌트 리랜더링 되는지 로그로 확인
 
-4. fiber알고리즘에 대해서 더 공부해라.
+## 지금 하고 있는 일
+
+- position cover auto 고치고 있음. 연산자에 관해 검색중(paletteListStyles)
+
+- fiber알고리즘에 대해서 더 공부해라.
 
 - https://immigration9.github.io/react/2021/05/29/react-fiber-architecture.html (fiber)
 - https://www.youtube.com/watch?v=0ympFIwQFJw(fiber)

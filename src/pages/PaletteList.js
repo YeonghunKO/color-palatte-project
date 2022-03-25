@@ -31,13 +31,17 @@ class PaletteList extends Component {
       isDialogOpen: false,
       deletePaletteId: '',
       deletePaletteName: '',
-      backgroundSrc: backgroundImgs[0].img,
+      backgroundObj: backgroundImgs[0],
     };
 
     this.handleDialogClose = this.handleDialogClose.bind(this);
     this.handleDialogOpen = this.handleDialogOpen.bind(this);
     this.handleDialogDelete = this.handleDialogDelete.bind(this);
     this.setBackground = this.setBackground.bind(this);
+  }
+
+  componentDidMount() {
+    // local get data설정
   }
 
   handleDialogClose() {
@@ -53,15 +57,12 @@ class PaletteList extends Component {
     this.setState({ isDialogOpen: false });
   }
 
-  setBackground(title) {
-    const backgroundSrc = backgroundImgs.find(
-      backgroundData => backgroundData.title === title
-    ).img;
-    this.setState({ backgroundSrc });
+  setBackground(backgroundObj) {
+    this.setState({ backgroundObj });
   }
 
   render() {
-    const { isDialogOpen, deletePaletteName, deletePaletteId, backgroundSrc } =
+    const { isDialogOpen, deletePaletteName, deletePaletteId, backgroundObj } =
       this.state;
     const { paletteList, classes, editingPaletteStart } = this.props;
     const { container, nav, palettesClass } = classes;
@@ -79,7 +80,7 @@ class PaletteList extends Component {
     ));
 
     return (
-      <PaletteWrapper background={backgroundSrc}>
+      <PaletteWrapper backgroundObj={backgroundObj}>
         <div className={container}>
           <nav className={nav}>
             <h1>React Colors</h1>
