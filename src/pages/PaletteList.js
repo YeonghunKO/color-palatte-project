@@ -40,11 +40,6 @@ class PaletteList extends Component {
     this.setBackground = this.setBackground.bind(this);
   }
 
-  componentDidMount() {
-    const backgroundObj = getItem('background');
-    this.setState({ backgroundObj });
-  }
-
   handleDialogClose() {
     this.setState({ isDialogOpen: false });
   }
