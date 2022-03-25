@@ -22,7 +22,7 @@ import Dialog from '@mui/material/Dialog';
 import { blue } from '@mui/material/colors';
 import { red } from '@mui/material/colors';
 
-import backgroundImgs from '../DATA/backgroundImgs';
+import { getItem, setItem } from '../utils/storage';
 
 class PaletteList extends Component {
   constructor(props) {
@@ -31,8 +31,7 @@ class PaletteList extends Component {
       isDialogOpen: false,
       deletePaletteId: '',
       deletePaletteName: '',
-      backgroundObj:
-        JSON.parse(localStorage.getItem('background')) || backgroundImgs[0],
+      backgroundObj: getItem('background'),
     };
 
     this.handleDialogClose = this.handleDialogClose.bind(this);
@@ -42,8 +41,7 @@ class PaletteList extends Component {
   }
 
   componentDidMount() {
-    const backgroundObj =
-      JSON.parse(localStorage.getItem('background')) || backgroundImgs[0];
+    const backgroundObj = getItem('background');
     this.setState({ backgroundObj });
   }
 
@@ -62,7 +60,7 @@ class PaletteList extends Component {
 
   setBackground(backgroundObj) {
     this.setState({ backgroundObj });
-    localStorage.setItem('background', JSON.stringify(backgroundObj));
+    setItem('background', backgroundObj);
   }
 
   render() {
