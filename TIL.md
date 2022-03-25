@@ -352,14 +352,9 @@ paletteList가 useState안에 있어서 그런가? useState는 ref까지 자동�
 
 # 해야할 일
 
-1. create palette 글자에 배경 추가
-2. background 선택하자마자 localStoarge에 저장
-3. 모바일 모드에서 background 크기 조정
-4. backgroundChange 컴포넌트 리랜더링 되는지 로그로 확인
+1. get/setitem utils로 따로 빼기
 
 ## 지금 하고 있는 일
-
-- position cover auto 고치고 있음. 연산자에 관해 검색중(paletteListStyles)
 
 - fiber알고리즘에 대해서 더 공부해라.
 

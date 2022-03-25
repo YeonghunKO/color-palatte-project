@@ -58,9 +58,8 @@ export default {
     color: 'white',
     '& h1': {
       fontSize: '1.5rem',
-      background: 'rgb(244,115,255)',
       background:
-        '-webkit-linear-gradient(227deg, rgba(244,115,255,1) 0%, rgba(229,124,255,1) 22%, rgba(184,167,255,1) 48%, rgba(175,168,255,1) 68%, rgba(138,148,255,1) 100%)',
+        'linear-gradient(90deg, red, orange, yellow, green, #5151e6, #3131dd, #bb4abb);',
       '-webkit-background-clip': 'text',
       '-webkit-text-fill-color': 'transparent',
       [sizes.down('xs')]: {
@@ -68,11 +67,12 @@ export default {
       },
     },
     '& a': {
-      background: '#b3a8ff',
+      fontFamily: 'fantasy',
+      background: 'white',
       height: '42%',
       padding: '0 .3rem',
       borderRadius: '10px',
-      color: 'white',
+      color: 'black',
       display: 'flex',
       alignItems: 'center',
       textDecoration: 'none',
@@ -87,7 +87,9 @@ export default {
     },
   },
   palettesClass: {
-    // height: '100vh',
+    '& a': {
+      textDecoration: 'none',
+    },
     boxSizing: 'border-box',
     width: '100%',
     display: 'grid',

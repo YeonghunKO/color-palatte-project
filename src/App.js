@@ -52,7 +52,6 @@ function App() {
             : palette
         );
 
-        console.log(paletteList);
         setPalette(editedPaletteList);
       }
       setEditingPaletteId(null);

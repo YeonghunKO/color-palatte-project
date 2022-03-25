@@ -41,7 +41,6 @@ function MiniPalette(props) {
     evt.preventDefault();
     editingPaletteStart(id);
   };
-  console.log('mini palette', paletteName);
   return (
     <div className={root}>
       <Delete className={deleteIcon} onClick={handleDelete} />
