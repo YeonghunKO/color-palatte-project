@@ -13,7 +13,7 @@ import backgroundImgs from '../DATA/backgroundImgs';
 
 function BackgroundChangeDialog(props) {
   const [open, setOpen] = useState(false);
-  const { changeButton, doneButton } = useStyles();
+  const { changeButton, doneButton, backgroundImg } = useStyles();
 
   const handleDialogOpen = () => {
     setOpen(true);
@@ -32,8 +32,14 @@ function BackgroundChangeDialog(props) {
         Change Background
       </Button>
       <Dialog onClose={handleDialogClose} open={open}>
-        <DialogTitle>{'Choose the background'}</DialogTitle>
-        <ImageList sx={{ width: 400, height: 350, padding: '.3rem' }} cols={2}>
+        <DialogTitle style={{ textAlign: 'center' }}>
+          Choose the background
+        </DialogTitle>
+        <ImageList
+          sx={{ width: '100%', height: '100%', padding: '.3rem' }}
+          cols={2}
+          rowHeight={300}
+        >
           {backgroundImgs.map(backgroundObj => (
             <ImageListItem key={backgroundObj.img}>
               <img
@@ -44,6 +50,7 @@ function BackgroundChangeDialog(props) {
                 srcSet={`${backgroundObj.img}`}
                 alt={backgroundObj.title}
                 loading="lazy"
+                className={backgroundImg}
               />
               <ImageListItemBar title={backgroundObj.title} />
             </ImageListItem>

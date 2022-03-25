@@ -23,6 +23,13 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     marginBottom: '1rem',
   },
+  backgroundImg: {
+    cursor: 'pointer',
+    transition: 'all .1s linear',
+    '&:hover': {
+      opacity: 0.8,
+    },
+  },
 });
 
 export default useStyles;

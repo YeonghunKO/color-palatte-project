@@ -31,7 +31,8 @@ class PaletteList extends Component {
       isDialogOpen: false,
       deletePaletteId: '',
       deletePaletteName: '',
-      backgroundObj: backgroundImgs[0],
+      backgroundObj:
+        JSON.parse(localStorage.getItem('background')) || backgroundImgs[0],
     };
 
     this.handleDialogClose = this.handleDialogClose.bind(this);
@@ -41,7 +42,9 @@ class PaletteList extends Component {
   }
 
   componentDidMount() {
-    // local get data설정
+    const backgroundObj =
+      JSON.parse(localStorage.getItem('background')) || backgroundImgs[0];
+    this.setState({ backgroundObj });
   }
 
   handleDialogClose() {
@@ -59,6 +62,7 @@ class PaletteList extends Component {
 
   setBackground(backgroundObj) {
     this.setState({ backgroundObj });
+    localStorage.setItem('background', JSON.stringify(backgroundObj));
   }
 
   render() {
