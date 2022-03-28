@@ -18,7 +18,10 @@ React color를 통해 나만의 palette을 만들어보자
 
 ## ✏️ 이 프로젝트를 시작하게 된 동기
 
-리액트라는 기술을 완전히 내것으로 만들고 싶었다. 그래서 Udemy에서 Colt Steele의 color palette 프로젝트를 참고하였다.[colt의 color palette 프로젝트 깃헙](https://github.com/Colt/react-colors)
+리액트라는 기술을 완전히 내것으로 만들고 싶었다. 그래서 Udemy에서 Colt Steele의 color palette 프로젝트를 참고하였다.
+참고로, new color palette의 autuGenerator기능은 juanIrache 라는 학생의 프로젝트를 참고하였다.
+[colt의 color palette 프로젝트 깃헙](https://github.com/Colt/react-colors)
+[juanIrache의 autoGenerator](https://github.com/JuanIrache/modern-react-bootcamp-exercises/blob/master/s24-colors-app/src/util/smartColorGenerator.js)
 
 ## 📃 프로젝트 진행 과정
 
