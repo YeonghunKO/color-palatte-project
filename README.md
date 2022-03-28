@@ -1,70 +1,143 @@
-# Getting Started with Create React App
+# 🏳‍🌈React Color
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+	<img width="250px" alt="surf_logo" src="https://raw.githubusercontent.com/YeonghunKO/for-video-container/master/%5B%ED%81%AC%EA%B8%B0%EB%B3%80%ED%99%98%5Drainbow.jpg">
+</p>
 
-## Available Scripts
+<br>
 
-In the project directory, you can run:
+<p align="center">
+이제 일일이 색깔을 찾으러 구글링 할 필요 없다.
+	</p>
+<p align="center">
+React color를 통해 나만의 palette을 만들어보자
+	</p>
+<p align="center">
+이제 손쉽고 빠르게 내가 원하는 색깔을 바로 복사해서 사용해보자.💨💨😎
+	</p>
 
-### `npm start`
+### ✏️ 이 프로젝트를 시작하게 된 동기
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+리액트라는 기술을 완전히 내것으로 만들고 싶었다. 그래서 Udemy에서 Colt Steele의 color palette 프로젝트를 참고하였다.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 📃 프로젝트 진행 과정
 
-### `npm test`
+- 강의를 보고 그대로 따라하기 보다는 일단 결과물을 보고 내 스스로 코드를 직접 짜보기.
+- 하루정도 고민해도 모를경우 강의를 보지말고 깃헙에 올려진 코드를 보고 로직을 파악하기.
+- 파악한 로직을 토대로 코드를 다시 짜보기.
+- 새롭게 배운 로직, 기술을 문서로 정리하기.
+- 내가 짰던 코드에서 부족했던 점 문서로 정리하기.
+- 그리고 새롭게 추가하고 싶은 기능을 생각하고 추가하기.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<br>
 
-### `npm run build`
+## 🤖기술 스택
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 📚&nbsp;&nbsp;Frameworkes & Libraries
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- react
+- emotion
+- mui
+- chroma(color picker)
+- emoji-mart
+- rc-slider
+- react-router
+- netlify
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🗣 배포
 
-### `npm run eject`
+<a href="https://react-colorpalette-colorpicker.netlify.app/">프로젝트 보러가기 👈🏻</a>
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 👁‍🗨 데모
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+| **Palette**  |   **Palette** - More Color    |
+| :----------: | :---------------------------: |
+| ![Palette]() | ![**Palette** - More Color]() |
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+|   New Palette - Edit box    | **New Palette - Add and clear box**  |  **New Palette - autogenerator and lock**  |  **New Palette - save**  |
+| :-------------------------: | :----------------------------------: | :----------------------------------------: | :----------------------: |
+| ![New Palette - Edit box]() | ![New Palette - Add and clear box]() | ![New Palette -  autogenerator and lock]() | ![New Palette -  save]() |
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+|     **Edit and Delete Platte**     |            **Change background**             |
+| :--------------------------------: | :------------------------------------------: |
+| ![**Edit and Delete Platte**  ]()) |            ![Change background]()            |
+|        마이 페이지에서 이동        | 연도별 필터링, 해당 달의 작성 일수 확인 가능 |
 
-## Learn More
+## 📂 디렉토리 구조
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+src
+├─ DATA
+│  ├─ backgroundImgs.js
+│  └─ seedPalatte.js
+├─ assets
+│  ├─ css
+│  │  ├─ ColorBox.css
+│  │  ├─ NavBar.css
+│  │  ├─ Page.css
+│  │  ├─ Palette.css
+│  │  ├─ README.md
+│  │  ├─ SingleColorBox.css
+│  │  └─ index.css
+│  ├─ img
+│  │  ├─ confetti-doodles.svg
+│  │  ├─ endless-constellation.svg
+│  │  ├─ flat-mountains.svg
+│  │  ├─ liquid-cheese.svg
+│  │  ├─ sun-tornado.svg
+│  │  └─ vanishing-stripes.svg
+│  └─ styles
+│     ├─ BackgroundChangeDialog.style.js
+│     ├─ ColorBoxStyles.js
+│     ├─ CreateColorPicker.style.js
+│     ├─ CreateMetaNav.style.js
+│     ├─ CreateNewPalette.style.js
+│     ├─ CreateNewPaletteEmotion.style.js
+│     ├─ CreateNewPaletteNav.style.js
+│     ├─ DraggableColorBox.style.js
+│     ├─ MiniPlatteStyles.js
+│     ├─ PaletteListStyles.js
+│     └─ sizes.style.js
+├─ components
+│  ├─ BackgroundChangeDialog.js
+│  ├─ ColorBox.js
+│  ├─ CreateColorNav.js
+│  ├─ CreateColorPicker.js
+│  ├─ DraggableColorBox.js
+│  ├─ DraggableColorList.js
+│  ├─ MiniPalette.js
+│  ├─ NavBar.js
+│  ├─ NewPaletteMetaForm.js
+│  └─ Page.js
+├─ pages
+│  ├─ CreateNewPalette.js
+│  ├─ Palette.js
+│  ├─ PaletteList.js
+│  └─ SingleColorPalette.js
+├─ utils
+│  ├─ findPalette.js
+│  ├─ getColorByLuminance.js
+│  ├─ getScaleForColor.js
+│  ├─ newColorContext.js
+│  ├─ paletteContext.js
+│  ├─ smartColorGenerater.js
+│  ├─ storage.js
+│  ├─ useLocalStorageState.js
+│  ├─ useStateCallBack.js
+│  ├─ withNagivate.js
+│  └─ withParams.js
+├─ App.js
+├─ App.test.js
+├─ index.js
+├─ reportWebVitals.js
+└─ setupTests.js
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
 
-### Code Splitting
+### 🔻컴포넌트 위계
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<a href="https://www.figma.com/file/PAiWdvNxBEFWIe1SjxG8rS/react-color-UML?node-id=0%3A1">컴포넌트 위계 보러가기 👈🏻</a>
 
-### Analyzing the Bundle Size
+### 📖TIL와 회고 보러가기!
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<a href="https://www.figma.com/file/PAiWdvNxBEFWIe1SjxG8rS/react-color-UML?node-id=0%3A1">컴포넌트 위계 보러가기 👈🏻</a>

@@ -9,8 +9,8 @@ const getItem = key => {
       return backgroundImgs[0];
     }
   } catch (error) {
-    return backgroundImgs[0];
     console.log(error);
+    return backgroundImgs[0];
   }
 };
 

@@ -6,7 +6,6 @@ import Toolbar from '@mui/material/Toolbar';
 // import MenuIcon from '@mui/icons-material/Menu';
 import { AddToPhotos } from '@mui/icons-material';
 
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import { Button } from '@mui/material';
 
