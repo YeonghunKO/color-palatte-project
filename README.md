@@ -66,9 +66,13 @@ React color를 통해 나만의 palette을 만들어보자
 | ![palette](https://user-images.githubusercontent.com/65995664/160326707-923b69f7-390b-4d0a-acde-7ba6072d8e1f.gif) | ![singleColor](https://user-images.githubusercontent.com/65995664/160326734-02619b56-56f0-4779-8252-a0f15b9c688c.gif) |
 
 
-|   New Palette - Edit box    | **New Palette - Add and clear box**  |  **New Palette - autogenerator and lock**  |  **New Palette - save**  |
-| :-------------------------: | :----------------------------------: | :----------------------------------------: | :----------------------: |
-| ![draggable box](https://user-images.githubusercontent.com/65995664/160334506-850ba945-a1f6-4339-8c1b-8984a95fe0aa.gif) | ![draggableBox add and clear](https://user-images.githubusercontent.com/65995664/160334538-c49a342a-f525-477e-a088-d52e03feea7b.gif) | ![auto generator](https://user-images.githubusercontent.com/65995664/160334822-5f0979e3-53fb-445e-b802-43deb22c9908.gif) | ![save palette](https://user-images.githubusercontent.com/65995664/160335066-cdf98a6b-78ab-4528-ac5a-065fe59257b0.gif) |
+|   New Palette - Edit box    | **New Palette - Add and clear box**  | 
+| :-------------------------: | :----------------------------------: |
+| ![draggable box](https://user-images.githubusercontent.com/65995664/160334506-850ba945-a1f6-4339-8c1b-8984a95fe0aa.gif) | ![draggableBox add and clear](https://user-images.githubusercontent.com/65995664/160334538-c49a342a-f525-477e-a088-d52e03feea7b.gif) | 
+
+| **New Palette - autogenerator and lock**  |  **New Palette - save**  |
+| :----------------------------------------: | :----------------------: |
+| ![auto generator](https://user-images.githubusercontent.com/65995664/160334822-5f0979e3-53fb-445e-b802-43deb22c9908.gif) | ![save palette](https://user-images.githubusercontent.com/65995664/160335066-cdf98a6b-78ab-4528-ac5a-065fe59257b0.gif) |
 
 
 |     **Edit and Delete Platte**     |            **Change background**             |
