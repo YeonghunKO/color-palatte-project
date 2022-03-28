@@ -16,11 +16,11 @@ React color를 통해 나만의 palette을 만들어보자
 이제 손쉽고 빠르게 내가 원하는 색깔을 바로 복사해서 사용해보자.💨💨😎
 	</p>
 
-### ✏️ 이 프로젝트를 시작하게 된 동기
+## ✏️ 이 프로젝트를 시작하게 된 동기
 
 리액트라는 기술을 완전히 내것으로 만들고 싶었다. 그래서 Udemy에서 Colt Steele의 color palette 프로젝트를 참고하였다.[colt의 color palette 프로젝트 깃헙](https://github.com/Colt/react-colors)
 
-### 📃 프로젝트 진행 과정
+## 📃 프로젝트 진행 과정
 
 - 강의를 보고 그대로 따라하기 보다는 일단 결과물을 보고 내 스스로 코드를 직접 짜보기.
 - 하루정도 고민해도 모를경우 강의를 보지말고 깃헙에 올려진 코드를 보고 로직을 파악하기.
@@ -29,7 +29,15 @@ React color를 통해 나만의 palette을 만들어보자
 - 내가 짰던 코드에서 부족했던 점 문서로 정리하기.
 - 그리고 새롭게 추가하고 싶은 기능을 생각하고 추가하기.
 
-<br>
+## 🏸기능
+- color 코드 복사
+- color 밝기 조정 가능
+- color 코드 format 변경가능
+- 기존 palette 삭제,편집 가능
+- 새로운 palette 생성 가능
+- 배경화면 변경 가능
+- 화면 크기에 따라 앱 크기 변경(responsive)
+
 
 ## 🤖기술 스택
 
@@ -136,10 +144,10 @@ src
 
 ```
 
-### 🔻컴포넌트 위계
+## 🔻컴포넌트 위계
 
 <a href="https://www.figma.com/file/PAiWdvNxBEFWIe1SjxG8rS/react-color-UML?node-id=0%3A1">컴포넌트 위계 보러가기 👈🏻</a>
 
-### 📖TIL와 회고 보러가기!
+## 📖TIL와 회고 보러가기!
 
 <a href="https://velog.io/@yhko1992/Color-palette-TIL">Color palette TIL  👈🏻</a>
