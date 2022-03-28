@@ -18,7 +18,7 @@ React color를 통해 나만의 palette을 만들어보자
 
 ### ✏️ 이 프로젝트를 시작하게 된 동기
 
-리액트라는 기술을 완전히 내것으로 만들고 싶었다. 그래서 Udemy에서 Colt Steele의 color palette 프로젝트를 참고하였다.
+리액트라는 기술을 완전히 내것으로 만들고 싶었다. 그래서 Udemy에서 Colt Steele의 color palette 프로젝트를 참고하였다.[colt의 color palette 프로젝트 깃헙](https://github.com/Colt/react-colors)
 
 ### 📃 프로젝트 진행 과정
 
