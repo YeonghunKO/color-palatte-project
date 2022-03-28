@@ -52,7 +52,8 @@ React color를 통해 나만의 palette을 만들어보자
 
 | **Palette**  |   **Palette** - More Color    |
 | :----------: | :---------------------------: |
-| ![Palette]() | ![**Palette** - More Color]() |
+| ![palette](https://user-images.githubusercontent.com/65995664/160326707-923b69f7-390b-4d0a-acde-7ba6072d8e1f.gif) | ![singleColor](https://user-images.githubusercontent.com/65995664/160326734-02619b56-56f0-4779-8252-a0f15b9c688c.gif)
+ |
 
 |   New Palette - Edit box    | **New Palette - Add and clear box**  |  **New Palette - autogenerator and lock**  |  **New Palette - save**  |
 | :-------------------------: | :----------------------------------: | :----------------------------------------: | :----------------------: |
