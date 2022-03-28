@@ -52,17 +52,18 @@ React color를 통해 나만의 palette을 만들어보자
 
 | **Palette**  |   **Palette** - More Color    |
 | :----------: | :---------------------------: |
-| ![palette](https://user-images.githubusercontent.com/65995664/160326707-923b69f7-390b-4d0a-acde-7ba6072d8e1f.gif) | ![singleColor](https://user-images.githubusercontent.com/65995664/160326734-02619b56-56f0-4779-8252-a0f15b9c688c.gif)
- |
+| ![palette](https://user-images.githubusercontent.com/65995664/160326707-923b69f7-390b-4d0a-acde-7ba6072d8e1f.gif) | ![singleColor](https://user-images.githubusercontent.com/65995664/160326734-02619b56-56f0-4779-8252-a0f15b9c688c.gif) |
+
 
 |   New Palette - Edit box    | **New Palette - Add and clear box**  |  **New Palette - autogenerator and lock**  |  **New Palette - save**  |
 | :-------------------------: | :----------------------------------: | :----------------------------------------: | :----------------------: |
-| ![New Palette - Edit box]() | ![New Palette - Add and clear box]() | ![New Palette -  autogenerator and lock]() | ![New Palette -  save]() |
+| ![draggable box](https://user-images.githubusercontent.com/65995664/160334506-850ba945-a1f6-4339-8c1b-8984a95fe0aa.gif) | ![draggableBox add and clear](https://user-images.githubusercontent.com/65995664/160334538-c49a342a-f525-477e-a088-d52e03feea7b.gif) | ![auto generator](https://user-images.githubusercontent.com/65995664/160334822-5f0979e3-53fb-445e-b802-43deb22c9908.gif) | ![save palette](https://user-images.githubusercontent.com/65995664/160335066-cdf98a6b-78ab-4528-ac5a-065fe59257b0.gif) |
+
 
 |     **Edit and Delete Platte**     |            **Change background**             |
 | :--------------------------------: | :------------------------------------------: |
-| ![**Edit and Delete Platte**  ]()) |            ![Change background]()            |
-|        마이 페이지에서 이동        | 연도별 필터링, 해당 달의 작성 일수 확인 가능 |
+| ![palette edit and delete](https://user-images.githubusercontent.com/65995664/160335429-8f07dd59-0f2c-489e-ad64-ae1a4ab312d5.gif)|![background](https://user-images.githubusercontent.com/65995664/160335624-1eb4dc79-a53c-41fc-94c4-feb232a1b2d4.gif)|
+
 
 ## 📂 디렉토리 구조
 
@@ -141,4 +142,4 @@ src
 
 ### 📖TIL와 회고 보러가기!
 
-<a href="https://www.figma.com/file/PAiWdvNxBEFWIe1SjxG8rS/react-color-UML?node-id=0%3A1">컴포넌트 위계 보러가기 👈🏻</a>
+<a href="https://velog.io/@yhko1992/Color-palette-TIL">Color palette TIL  👈🏻</a>
