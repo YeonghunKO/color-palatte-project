@@ -26,6 +26,9 @@ React color를 통해 나만의 palette을 만들어보자
 
 [juanIrache의 autoGenerator](https://github.com/JuanIrache/modern-react-bootcamp-exercises/blob/master/s24-colors-app/src/util/smartColorGenerator.js)
 
+## ⏳ 진행 기간
+2022년 2월 19 ~ 2022년 3월 25일
+
 ## 📃 프로젝트 진행 과정
 
 - 강의를 보고 그대로 따라하기 보다는 일단 결과물을 보고 내 스스로 코드를 직접 짜보기.
